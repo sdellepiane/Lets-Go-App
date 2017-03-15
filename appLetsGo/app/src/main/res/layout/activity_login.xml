@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.letsgo.appletsgo.app.ui.activity.SplashActivity">
+    <ImageView
+        android:background="@drawable/bg_splash_letsgo"
+        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:src="@drawable/lets_go"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/customTextView"
+        android:id="@+id/imageView2" />
+
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:textSize="24dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="102dp"
+        android:text="Bienvenido"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/customTextView" />
+
+
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:tag="1"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Todos los eventos en un solo lugar.\n Donde y cuando quieras"
+        android:gravity="center"
+        android:layout_marginTop="48dp"
+        android:layout_below="@id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tviEslogan" />
+
+    <ImageView
+        android:src="@drawable/btn_facebook"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_marginRight="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/tviEslogan"
+        android:layout_marginTop="24dp"
+        android:id="@+id/iviLoginFacebook" />
+
+</RelativeLayout>

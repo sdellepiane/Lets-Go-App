@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_MeEvents"
+            android:icon="@drawable/ic_event_24dp"
+            android:title="Eventos" />
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_person_pin"
+            android:title="Mi Perfil" />
+       <!-- <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Enviar comentarios" />-->
+        <item
+            android:id="@+id/nav_email"
+            android:icon="@drawable/ic_send"
+            android:title="Escribenos" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_exit"
+            android:title="@string/log_out" />
+
+        <!--<item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Invitar amigos" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Publicar evento" />-->
+    </group>
+
+</menu>

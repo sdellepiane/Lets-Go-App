@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visibility="visible"
+    android:id="@+id/llaSubTeatro"
+    android:orientation="vertical"
+    android:background="@drawable/bg_sub_categoria_filtro"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="2dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_marginRight="8dp"
+            android:layout_width="50dp"
+            android:layout_height="30dp">
+
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:id="@+id/tviTodosFiesta"
+                android:text="Todos"
+                android:textSize="12sp"
+                android:background="@drawable/type_public_off"
+                android:textColor="@color/color_text_on"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp">
+
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:id="@+id/tviDiscotecas"
+                android:text="Discotecas"
+                android:textSize="12sp"
+                android:background="@drawable/type_sub_category_off"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp">
+
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:id="@+id/tviAlternativas"
+                android:text="Alternativas"
+                android:textSize="12sp"
+                android:background="@drawable/type_sub_category_off"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp">
+
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:id="@+id/tviPatronales"
+                android:text="Patronales"
+                android:textSize="12sp"
+                android:background="@drawable/type_sub_category_off"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

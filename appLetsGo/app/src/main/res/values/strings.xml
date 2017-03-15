@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Lets go</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="facebook_app_id">269729573440757</string>
+
+    <!--TODO
+    \u00e1 -> á
+    \u00e9 -> é
+    \u00ed -> í
+    \u00f3 -> ó
+    \u00fa -> ú
+    \u00c1 -> Á
+    \u00c9 -> É
+    \u00cd -> Í
+    \u00d3 -> Ó
+    \u00da -> Ú
+    \u00f1 -> ñ
+    \u00d1 -> Ñ
+    -->
+
+    <string name="log_out">Cerrar Sesi\u00f3n</string>
+    <string name="escribenos">Escr\u00edbenos</string>
+    <string name="envianos_un_whastapp">Env\u00edanos un whastapp</string>
+    <string name="sesion_iniciada_con">Sesi\u00f3n iniciada con</string>
+    <string name="correo_electronico">Correo electr\u00f3nico</string>
+    <string name="tipo_de_publico">Tipo de p\u00fablico</string>
+    <string name="Categorias">Categor\u00edas</string>
+    <string name="clasica">Cl\u00e1sica</string>
+    <string name="fotografia">Fotograf\u00eda</string>
+    <string name="folclorica">Folcl\u00f3rica</string>
+    <string name="contemporanea">Contempor\u00e1nea</string>
+    <string name="titeres">T\u00edteres</string>
+    <string name="arabe">\u00c1rabe</string>
+    <string name="maraton">Marat\u00f3n</string>
+    <string name="presentacion_libro">Presentaci\u00f3n libro</string>
+    <string name="narracion">Narraci\u00f3n</string>
+
+    <string name="jesus_maria">Jes\u00fas Mar\u00eda</string>
+    <string name="romantica">Rom\u00e1ntica</string>
+    <string name="aerobicos">Aer\u00f3bicos</string>
+    <string name="recital_poesia">Recital poes\u00eda</string>
+
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.letsgo.appletsgo.app.ui.component.CustomTextView
+            android:id="@+id/tviNamePrice"
+            android:textColor="@color/secondary_text"
+            android:text="Niños"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <com.letsgo.appletsgo.app.ui.component.CustomTextView
+            android:tag="2"
+            android:id="@+id/tviPrice"
+            android:text="S/ 20.00"
+            android:textColor="@color/primary_text"
+            android:gravity="right"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

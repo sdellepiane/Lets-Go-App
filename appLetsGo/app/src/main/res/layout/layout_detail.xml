@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:tag="1"
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:text="Festival de Artes Escenicas de lima"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:tag="1"
+        android:id="@+id/tviCategory"
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:layout_marginTop="2dp"
+        android:text="Cine | Teatro | Comedia | Humor"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:id="@+id/tviDescripcion"
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:maxLines="5"
+        android:text="En la fase de maquetación de un documento o una página web o para probar un tipo de letra es necesario visualizar el aspecto del diseño. En este momento se necesita un contenido sobre el que aplicar el formato para obtener esta muestra."
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:text="Leer mas"
+        android:id="@+id/tviVerMas"
+        android:textColor="@color/colorAccent"
+        android:padding="4dp"
+        android:layout_gravity="right"
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:background="@color/gris_claro"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:id="@+id/tviNamePlace"
+                android:text="Teatro Plaza"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:tag=""
+                android:id="@+id/tviAddressPlace"
+                android:text="AV. Malecon de la reserva local 211, Larcomar, Miraflores"
+                android:textColor="@color/secondary_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp">
+            <ImageView
+                android:src="@drawable/ic_mapa"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:visibility="gone"
+                android:text="Ver mapa"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:background="@color/gris_claro"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <HorizontalScrollView
+        android:scrollbars="none"
+        android:layout_marginLeft="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+         <!--   <include layout="@layout/layout_horario_activiy"/>-->
+            <com.letsgo.appletsgo.app.ui.component.HorarioComponent
+                android:orientation="horizontal"
+                android:id="@+id/llaHorarioCompoent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.letsgo.appletsgo.app.ui.component.HorarioComponent>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:background="@color/gris_claro"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- TODO LUGARES DE VENTA
+        <com.letsgo.appletsgo.app.ui.component.CustomTextView
+            android:tag="2"
+            android:text="Venta de entrada"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.letsgo.appletsgo.app.ui.component.CustomTextView
+            android:text="Venta de Teleticket"
+            android:textColor="@color/primary_text"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+-->
+
+        <com.letsgo.appletsgo.app.ui.component.CustomTextView
+            android:id="@+id/tviPriceTitle"
+            android:tag="2"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:text="Precios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.letsgo.appletsgo.app.ui.component.PreciosComponent
+            android:id="@+id/llaPrecioComponent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.letsgo.appletsgo.app.ui.component.PreciosComponent>
+
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:textColor="@color/secondary_text"
+                android:text="Adultos"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:text="S/ 30.00"
+                android:textColor="@color/primary_text"
+                android:gravity="right"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/margin_border_detalle"
+        android:layout_marginRight="@dimen/margin_border_detalle"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.letsgo.appletsgo.app.ui.component.CustomButtonFont
+            android:tag="3"
+            android:id="@+id/btnEntradas"
+            android:text="Entradas"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_comprar_shape"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

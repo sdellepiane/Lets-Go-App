@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ <!--   <color name="colorPrimary">#481CB2</color>
+    <color name="colorPrimaryDark">#8933E1</color>-->
+    <color name="colorPrimary">#3215a3</color>
+    <color name="colorPrimaryDark">#6c29cc</color>
+    <color name="colorAccent">#FF5330A6</color>
+
+    <color name="color_text_on">#3918a8</color>
+    <color name="color_text">#3416a5</color>
+    <color name="colorintermedio">#FF5330A6</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="black_notification">#98000000</color>
+    <color name="black_50">#41000000</color>
+    <color name="black_transparent">#43000000</color>
+    <color name="black_00_transparent">#67000000</color>
+    <color name="black_cc_transparent">#cc323233</color>
+    <color name="liner_color">#e0e0e0</color>
+
+    <color name="gris_oscuro">#343434</color>
+    <color name="gris_claro">#7e7e7e</color>
+    <color name="filtro_fondo">#f6f8f9</color>
+
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#787878</color>
+
+    <color name="bg_whatsapp">#70c955</color>
+    <color name="bg_facebook">#2e478b</color>
+    <color name="bg_facebook_two">#3b5998</color>
+
+   <color name="texto_filtro_first">#333333</color>
+   <color name="btn_comenzar">#fbbe00</color>
+
+
+   <color name="color_star">#9036e6</color>
+   <color name="color_end">#3215a3</color>
+   <color name="color_btn_comprar">#6d2acd</color>
+
+
+
+
+</resources>

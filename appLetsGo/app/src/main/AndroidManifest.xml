@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.letsgo.appletsgo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Base.Theme.letsgo">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name=".app.ui.activity.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.letsgo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider269729573440757"
+            android:exported="true" />
+
+        <activity
+            android:name=".app.ui.activity.DetailEventActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.letsgo">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.ui.activity.DetailEventActivity" />
+        </activity>
+        <activity
+            android:name=".app.ui.activity.DetailEvent2Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.letsgo" />
+        <activity
+            android:name=".app.ui.activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.letsgo" />
+        <activity
+            android:name=".app.ui.activity.ContactActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.letsgo" />
+        <activity
+            android:name=".app.ui.activity.MyPerfilActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.letsgo" />
+        <activity
+            android:name=".app.ui.activity.FilterFirstActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.letsgo" />
+        <activity
+            android:name=".app.ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.letsgo"></activity>
+        <activity android:name=".app.ui.activity.FilterOptionActivity"></activity>
+    </application>
+
+</manifest>

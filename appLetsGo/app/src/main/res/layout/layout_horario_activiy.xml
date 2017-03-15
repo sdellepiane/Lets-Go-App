@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:gravity="center_horizontal"
+    android:layout_margin="4dp"
+    android:background="@drawable/borde_horario"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="1dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.letsgo.appletsgo.app.ui.component.CustomTextView
+            android:id="@+id/tviDia"
+            android:text="Hoy"
+            android:gravity="center"
+            android:padding="2dp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/bg_horario"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviDiaNum"
+                    android:tag="2"
+                    android:text="22"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp"
+                    android:layout_marginRight="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviMes"
+                    android:text="ene"
+                    android:textColor="@color/secondary_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:tag="1"
+                android:id="@+id/tviHora"
+                android:gravity="center"
+                android:text="11:00 pm"
+                android:textSize="12sp"
+                android:textColor="@color/secondary_text"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

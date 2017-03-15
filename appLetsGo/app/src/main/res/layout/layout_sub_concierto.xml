@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:visibility="visible"
+        android:id="@+id/llaSubConciertos"
+        android:orientation="vertical"
+        android:background="@drawable/bg_sub_categoria_filtro"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="50dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviTodos"
+                    android:text="Todos"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_public_off"
+                    android:textColor="@color/color_text_on"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="52dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviElectro"
+                    android:text="Electro"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="74dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviReggaeton"
+                    android:text="Reggaeton"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="42dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviRockr"
+                    android:text="Rock"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="52dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviFolclor"
+                    android:text="Folclor"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="54dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviClasica"
+                    android:text="@string/clasica"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="48dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviLatina"
+                    android:text="Latina"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="56dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviCumbia"
+                    android:text="Cumbia"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="50dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviCriolla"
+                    android:text="Criolla"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="54dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviTributo"
+                    android:text="Tributos"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="72dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviRomantica"
+                    android:text="@string/romantica"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="56dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviReggae"
+                    android:text="Reggae"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_marginRight="8dp"
+                android:layout_width="38dp"
+                android:layout_height="30dp">
+
+                <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                    android:id="@+id/tviPop"
+                    android:text="Pop"
+                    android:textSize="12sp"
+                    android:background="@drawable/type_sub_category_off"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+</LinearLayout>

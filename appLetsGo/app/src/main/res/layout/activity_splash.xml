@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.letsgo.appletsgo.app.ui.activity.SplashActivity">
+    <ImageView
+        android:background="@drawable/bg_splash_letsgo"
+        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:src="@drawable/lets_go"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView2" />
+
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:textSize="24dp"
+        android:textColor="@color/white"
+        android:text="¿A donde quieres ir hoy?"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="90dp"
+        android:id="@+id/customTextView" />
+
+
+
+</RelativeLayout>
