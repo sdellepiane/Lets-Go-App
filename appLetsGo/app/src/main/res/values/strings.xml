@@ -44,5 +44,8 @@
     <string name="romantica">Rom\u00e1ntica</string>
     <string name="aerobicos">Aer\u00f3bicos</string>
     <string name="recital_poesia">Recital poes\u00eda</string>
+    <string name="today">Hoy</string>
+    <string name="this_week">Esta semana</string>
+    <string name="select_date">Selecciona fecha</string>
 
 </resources>

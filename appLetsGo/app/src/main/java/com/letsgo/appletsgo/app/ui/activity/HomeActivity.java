@@ -1,5 +1,9 @@
 package com.letsgo.appletsgo.app.ui.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -11,12 +15,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionMenu;
 import com.letsgo.appletsgo.R;
 import com.letsgo.appletsgo.app.ui.adapter.EventAdapter;
 import com.letsgo.appletsgo.app.ui.component.DistritoComponent;
@@ -50,6 +56,8 @@ import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ActividadesView{
     private static String TAG = "HomeActivity" ;
+
+    @BindView(R.id.famCalendar) FloatingActionMenu famCalendar;
     @BindView(R.id.rviEvents) RecyclerView rviEvents;
     @BindView(R.id.drawer_layout)   DrawerLayout drawer;
     @BindView(R.id.nav_view) NavigationView navigationView;
@@ -126,9 +134,37 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
 
         validateFiltroDistrito();
         initPresenter();
+        createCustomAnimation();
+    }
 
+    private void createCustomAnimation() {
+        AnimatorSet set = new AnimatorSet();
 
+        ObjectAnimator scaleOutX = ObjectAnimator.ofFloat(famCalendar.getMenuIconView(), "scaleX", 1.0f, 0.2f);
+        ObjectAnimator scaleOutY = ObjectAnimator.ofFloat(famCalendar.getMenuIconView(), "scaleY", 1.0f, 0.2f);
 
+        ObjectAnimator scaleInX = ObjectAnimator.ofFloat(famCalendar.getMenuIconView(), "scaleX", 0.2f, 1.0f);
+        ObjectAnimator scaleInY = ObjectAnimator.ofFloat(famCalendar.getMenuIconView(), "scaleY", 0.2f, 1.0f);
+
+        scaleOutX.setDuration(50);
+        scaleOutY.setDuration(50);
+
+        scaleInX.setDuration(150);
+        scaleInY.setDuration(150);
+
+        scaleInX.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                famCalendar.getMenuIconView().setImageResource(famCalendar.isOpened()
+                        ? R.drawable.ic_close : R.drawable.school_calendar);
+            }
+        });
+
+        set.play(scaleOutX).with(scaleOutY);
+        set.play(scaleInX).with(scaleInY).after(scaleOutX);
+        set.setInterpolator(new OvershootInterpolator(2));
+
+        famCalendar.setIconToggleAnimatorSet(set);
     }
 
     public void llenarDisteito(){
