@@ -51,7 +51,7 @@ public class ActividadesDataRepository implements ActividadesServiceRepository {
 
             @Override
             public void onFailure(Throwable throwable) {
-
+                requestCallBackActividades.onRequestFailure(null, TypeService.LISTA_ACTIVIDAD);
             }
         });
     }

@@ -213,6 +213,11 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
     }
 
     @Override
+    public void showEmptyActivitys() {
+
+    }
+
+    @Override
     public void showMessageError(String message) {
 
     }

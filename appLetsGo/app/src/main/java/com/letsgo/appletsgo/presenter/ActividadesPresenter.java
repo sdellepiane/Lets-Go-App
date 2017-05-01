@@ -87,7 +87,8 @@ public class ActividadesPresenter implements Presenter<ActividadesView>, Request
 
     @Override
     public void onRequestFailure(Throwable throwable, int type) {
-
+        actividadesView.hideLoading();
+        actividadesView.showEmptyActivitys();
     }
 
     @Override

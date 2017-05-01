@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.letsgo.appletsgo.data.entity.response.ActividadesResponse;
+import com.letsgo.appletsgo.data.entity.response.CategoriesResponse;
 import com.letsgo.appletsgo.data.entity.response.DetalleActividadResponse;
 import com.letsgo.appletsgo.data.entity.response.DistritosResponse;
 
@@ -63,9 +64,11 @@ public class ApiClient {
         @POST("cms/api/activities_detail")
         Call<DetalleActividadResponse> getDetailActividad(@Body Object raw);
 
-
         @POST("cms/api/ubigeos_actives")
         Call<DistritosResponse> getDistritos();
+
+        @GET("cms/api/activities_subtypes_by_types")
+        Call<CategoriesResponse> getCategories();
 
 //        @POST("api?action=get_items_temps_15_apps")
 //        Call<ProductResponse> getDetailProduct(@Body Object raw);

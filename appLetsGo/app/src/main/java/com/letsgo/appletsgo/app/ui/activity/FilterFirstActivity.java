@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,59 +16,50 @@ import android.widget.TextView;
 
 import com.letsgo.appletsgo.R;
 import com.letsgo.appletsgo.app.ui.component.BuildConcierto;
+import com.letsgo.appletsgo.app.ui.component.CustomTextView;
 import com.letsgo.appletsgo.app.ui.core.BaseAppCompat;
 import com.letsgo.appletsgo.app.utils.LogUtils;
 import com.letsgo.appletsgo.data.store.SessionUser;
+import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.Subcategories;
+import com.letsgo.appletsgo.domain.model.entity.TypeCategoriesList;
+import com.letsgo.appletsgo.presenter.CategoriesPresenter;
+import com.letsgo.appletsgo.view.CategoriesView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class FilterFirstActivity extends BaseAppCompat {
+public class FilterFirstActivity extends BaseAppCompat implements CategoriesView{
     private static final String TAG = "FilterFirstActivity";
-    @BindView(R.id.rlaSubView) RelativeLayout rlaSubView;
-    @BindView(R.id.rlaSubView2) RelativeLayout rlaSubView2;
-    @BindView(R.id.rlaSubView3) RelativeLayout rlaSubView3;
-    @BindView(R.id.btn_comenzar)
-    Button btn_comenzar;
 
- /*   @BindView(R.id.llaSubConciertos) LinearLayout llaSubConciertos;
-    @BindView(R.id.llaSubTeatro) LinearLayout llaSubTeatro;
-*/
+    @BindView(R.id.llaCategories) LinearLayout llaCategories;
+    @BindView(R.id.tviGeneral) TextView tviGeneral;
+    @BindView(R.id.tviAdultos) TextView tviAdultos;
+    @BindView(R.id.tviNinos) TextView tviNinos;
+    @BindView(R.id.tviTerceraEdad) TextView tviTerceraEdad;
     @BindView(R.id.tviName) TextView tviName;
-    @BindView(R.id.tviConciertos) TextView tviConciertos;
-    @BindView(R.id.tviTeatro) TextView tviTeatro;
-    @BindView(R.id.tviCineClub) TextView tviCineClub;
-    @BindView(R.id.tviDanza) TextView tviDanza;
-    @BindView(R.id.tviExposiciones) TextView tviExposiciones;
-    @BindView(R.id.tviFiestas) TextView tviFiestas;
-    @BindView(R.id.tviPaseos) TextView tviPaseos;
-    @BindView(R.id.tviDeportes) TextView tviDeportes;
-    @BindView(R.id.tviLiteratura) TextView tviLiteratura;
-    @BindView(R.id.tviCirco) TextView tviCirco;
-    @BindView(R.id.tviTalleres) TextView tviTalleres;
-    @BindView(R.id.tviConferencias) TextView tviConferencias;
-    @BindView(R.id.tviStandUp) TextView tviStandUp;
-    @BindView(R.id.tviCuentacuentos) TextView tviCuentacuentos;
+    @BindView(R.id.vieLoading) View vieLoading;
 
-    private boolean statusConcierto = false ;
-    private boolean statusTeatro = false ;
-    private boolean statusCineBclub = false ;
-    private boolean statusDanza = false ;
-    private boolean statusExposicion = false ;
-    private boolean statusFiesta = false ;
-    private boolean statusPaseos = false ;
-    private boolean statusDeportes = false ;
-    private boolean statusLiteratura = false ;
-    private boolean statusTalleres = false ;
-    private boolean statusCirco = false ;
-    private boolean statusConferencias= false ;
-    private boolean statusStandUp = false ;
-    private boolean statusCuentacuentos= false ;
+    private boolean statusGeneral = true;
+    private boolean statusAdultos = false;
+    private boolean statusNinos = false;
+    private boolean statusTerceraEdad = false;
+    private CategoriesPresenter categoriesPresenter;
+    private LinearLayout linearLayout;
+    private LinearLayout subLinearLayout;
+    private LinearLayout subcontentLinearLayout;
+    private boolean sublinearLayoutAdded = false;
+    private int positionCategory = 0;
+    private List<Categories> categoriesToSendList;
+    private List<Subcategories> subcategoriesToSendList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +67,12 @@ public class FilterFirstActivity extends BaseAppCompat {
         setContentView(R.layout.activity_filter_first);
         ButterKnife.bind(this);
 
-        initOnclickListenerViews(btn_comenzar, tviConciertos, tviTeatro, tviCineClub, tviDanza, tviExposiciones, tviFiestas, tviDeportes, tviLiteratura, tviTalleres,
-                tviPaseos, tviCirco, tviConferencias, tviStandUp, tviCuentacuentos);
-
-
-
         tviName.setText("Hola   " + SessionUser.getSessionUser(this).getFirst_name());
+
+        initPresenter();
+        categoriesPresenter.getCategories();
+        categoriesToSendList = new ArrayList<>();
+        subcategoriesToSendList = new ArrayList<>();
 
         //TODO 2017-03-29 19:30:00
         String input_date="01-08-2017";
@@ -121,247 +113,39 @@ public class FilterFirstActivity extends BaseAppCompat {
 
     }
 
+    private void initPresenter(){
+        categoriesPresenter = new CategoriesPresenter();
+        categoriesPresenter.attachedView(this);
+    }
+
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tviConciertos:
-                statusConcierto = showSubCategory(statusConcierto, tviConciertos, R.layout.layout_sub_concierto);
-                break;
-            case R.id.tviTeatro:
-                statusTeatro = showSubCategory(statusTeatro, tviTeatro, R.layout.layout_sub_teatro);
-                break;
-            case R.id.tviCineClub:
-                statusCineBclub = showSubCategory(statusCineBclub, tviCineClub, R.layout.layout_sub_cineclub);
-                break;
-            case R.id.tviDanza:
-                statusDanza = showSubCategory(statusDanza, tviDanza, R.layout.layout_sub_danza);
-                break;
-            case R.id.tviExposiciones:
-                statusExposicion = showSubCategory2(statusExposicion, tviExposiciones, R.layout.layout_sub_expo);
-                break;
-            case R.id.tviFiestas:
-                statusFiesta = showSubCategory2(statusFiesta, tviFiestas, R.layout.layout_sub_fiesta);
-                break;
-            case R.id.tviDeportes:
-                statusDeportes = showSubCategory3(statusDeportes, tviDeportes, R.layout.layout_sub_deportes);
-                break;
-            case R.id.tviLiteratura:
-                statusLiteratura = showSubCategory3(statusLiteratura, tviLiteratura, R.layout.layout_sub_literatura);
-                break;
-            case R.id.tviTalleres:
-                statusTalleres = showSubCategory3(statusTalleres, tviTalleres, R.layout.layout_sub_talleres);
-                break;
-
-            case R.id.tviPaseos:
-                statusPaseos = showSubCategoryChange(statusPaseos, tviPaseos);
-                break;
-            case R.id.tviCirco:
-                statusCirco = showSubCategoryChange(statusCirco, tviCirco);
-                break;
-            case R.id.tviConferencias:
-                statusConferencias = showSubCategoryChange(statusConferencias, tviConferencias);
-                break;
-            case R.id.tviStandUp:
-                statusStandUp = showSubCategoryChange(statusStandUp, tviStandUp);
-                break;
-            case R.id.tviCuentacuentos:
-                statusCuentacuentos = showSubCategoryChange(statusCuentacuentos, tviCuentacuentos);
-                break;
-
-            case R.id.btn_comenzar:
-                nextActivity(HomeActivity.class, false);
-                break;
-        }
+    public Context getContext() {
+        return this;
     }
 
-    public boolean showSubCategoryChange(boolean status, TextView tviCategory){
-        rlaSubView.removeAllViews();
-        rlaSubView2.removeAllViews();
-        rlaSubView3.removeAllViews();
-        boolean newStatus;
-        if (status == false) {
-            newStatus = true;
-            tviCategory.setTextColor(getResources().getColor(R.color.white));
-            tviCategory.setBackgroundResource(R.drawable.type_public_on);
-        }else{
-            rlaSubView.removeAllViews();
-            newStatus = false;
-
-            tviCategory.setTextColor(getResources().getColor(R.color.secondary_text));
-            tviCategory.setBackgroundResource(R.drawable.type_public_off);
-        }
-        return newStatus;
+    @Override
+    public void getCategories(TypeCategoriesList typeCategoriesList) {
+        setCategoriesToScreen(typeCategoriesList);
     }
 
-    public boolean showSubCategory(boolean status, TextView tviCategory, int layout){
-        BuildConcierto buildConcierto = new BuildConcierto();
-        rlaSubView.removeAllViews();
-        rlaSubView2.removeAllViews();
-        rlaSubView3.removeAllViews();
-        boolean newStatus;
-        if (status == false) {
-            newStatus = true;
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    (FrameLayout.LayoutParams.MATCH_PARENT), (FrameLayout.LayoutParams.WRAP_CONTENT));
-            View customView = null;
-            switch (layout) {
-                case R.layout.layout_sub_concierto:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-                case R.layout.layout_sub_teatro:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-                case R.layout.layout_sub_cineclub:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-                case R.layout.layout_sub_danza:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-            }
-            customView.setLayoutParams(lp);
-
-            rlaSubView.addView(customView);
-
-            tviCategory.setTextColor(getResources().getColor(R.color.white));
-            tviCategory.setBackgroundResource(R.drawable.type_public_on);
-
-        }else{
-            rlaSubView.removeAllViews();
-            newStatus = false;
-
-            tviCategory.setTextColor(getResources().getColor(R.color.secondary_text));
-            tviCategory.setBackgroundResource(R.drawable.type_public_off);
-        }
-        return newStatus;
+    @Override
+    public void showLoading() {
+        vieLoading.setVisibility(View.VISIBLE);
     }
 
-    public boolean showSubCategory2(boolean status, TextView tviCategory, int layout){
-        BuildConcierto buildConcierto = new BuildConcierto();
-        rlaSubView.removeAllViews();
-        rlaSubView2.removeAllViews();
-        rlaSubView3.removeAllViews();
-        boolean newStatus;
-        if (status == false) {
-            newStatus = true;
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    (FrameLayout.LayoutParams.MATCH_PARENT), (FrameLayout.LayoutParams.WRAP_CONTENT));
-            View customView = null;
-
-            switch (layout) {
-                case R.layout.layout_sub_expo:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-                case R.layout.layout_sub_fiesta:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-                case R.layout.layout_sub_deportes:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-                case R.layout.layout_sub_literatura:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-                case R.layout.layout_sub_talleres:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-            }
-            customView.setLayoutParams(lp);
-
-            rlaSubView2.addView(customView);
-
-            tviCategory.setTextColor(getResources().getColor(R.color.white));
-            tviCategory.setBackgroundResource(R.drawable.type_public_on);
-
-        }else{
-            rlaSubView2.removeAllViews();
-            newStatus = false;
-
-            tviCategory.setTextColor(getResources().getColor(R.color.secondary_text));
-            tviCategory.setBackgroundResource(R.drawable.type_public_off);
-        }
-        return newStatus;
+    @Override
+    public void hideLoading() {
+        vieLoading.setVisibility(View.GONE);
     }
 
-    public boolean showSubCategory3(boolean status, TextView tviCategory, int layout){
-        BuildConcierto buildConcierto = new BuildConcierto();
-        rlaSubView.removeAllViews();
-        rlaSubView2.removeAllViews();
-        rlaSubView3.removeAllViews();
-        boolean newStatus;
-        if (status == false) {
-            newStatus = true;
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    (FrameLayout.LayoutParams.MATCH_PARENT), (FrameLayout.LayoutParams.WRAP_CONTENT));
-            View customView = null;
-            switch (layout) {
-                case R.layout.layout_sub_deportes:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-                case R.layout.layout_sub_literatura:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-                case R.layout.layout_sub_talleres:
-                    customView = buildConcierto.buildConcierto(layout,this);
-                    break;
-            }
-            customView.setLayoutParams(lp);
-            rlaSubView3.addView(customView);
+    @Override
+    public void showEmptyCategories() {
 
-            tviCategory.setTextColor(getResources().getColor(R.color.white));
-            tviCategory.setBackgroundResource(R.drawable.type_public_on);
-
-        }else{
-            rlaSubView3.removeAllViews();
-            newStatus = false;
-
-            tviCategory.setTextColor(getResources().getColor(R.color.secondary_text));
-            tviCategory.setBackgroundResource(R.drawable.type_public_off);
-        }
-        return newStatus;
     }
 
-/*    private View BuildConcierto(int layout){
-        View item = LayoutInflater.from(this).inflate(layout,null);
-        final ViewHolder holder = new ViewHolder(item);
+    @Override
+    public void showMessageError(String message) {
 
-        if (holder.tviElectro != null) {
-            holder.tviElectro.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    LogUtils.v("CLICK", "Elentro");
-                }
-            });
-        }
-
-        if (holder.tviComedia != null) {
-            holder.tviComedia.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    LogUtils.v("CLICK", holder.tviComedia.getText().toString());
-                }
-            });
-        }
-        return item;
-    }
-
-    public class ViewHolder {
-        @Nullable @BindView(R.id.tviElectro) TextView tviElectro;
-        @Nullable @BindView(R.id.tviComedia) TextView tviComedia;
-        public ViewHolder(View container) {
-            ButterKnife.bind(this,container);
-        }
-    }*/
-
-
-    private View buildCTeatro(int layout){
-        View item = LayoutInflater.from(this).inflate(layout,null);
-        final ViewHolderTeatro holder = new ViewHolderTeatro(item);
-        holder.tviComedia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LogUtils.v("CLICK", holder.tviComedia.getText().toString());
-            }
-        });
-        return item;
     }
 
     public class ViewHolderTeatro {
@@ -370,6 +154,255 @@ public class FilterFirstActivity extends BaseAppCompat {
         public ViewHolderTeatro(View container) {
             ButterKnife.bind(this,container);
         }
+    }
+
+    private void setCategoriesToScreen(TypeCategoriesList typeCategoriesList){
+        final List<Categories> categoriesList = typeCategoriesList.getCategoriesList();
+        initLinearLayout();
+        for(int i = 0; i< categoriesList.size(); i++){
+            final Categories categories = categoriesList.get(i);
+            if(i > 0 && i % 3 == 0){
+                llaCategories.addView(linearLayout);
+                initLinearLayout();
+            }
+            final CustomTextView tviCategory = new CustomTextView(this);
+            tviCategory.setText(categories.getDescription());
+            tviCategory.setBackgroundResource(R.drawable.type_public_off);
+            tviCategory.setTextColor(getResources().getColor(R.color.secondary_text));
+            tviCategory.setGravity(Gravity.CENTER);
+            tviCategory.setPadding(40, 40, 40, 40);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 0, 20, 30);
+            tviCategory.setLayoutParams(layoutParams);
+            linearLayout.addView(tviCategory);
+            if(i == categoriesList.size() - 1){
+                if(llaCategories.getChildCount() != 3)
+                    llaCategories.addView(linearLayout);
+            }
+            final int finalI = i;
+            tviCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final List<Subcategories> subcategoriesList = categories.getSubcategoriesList();
+                    if(categories.isSelected()){
+                        categories.setSelected(false);
+                        showPublicTypeChange(false, tviCategory);
+                        sublinearLayoutAdded = false;
+                        if(subLinearLayout != null && subLinearLayout.getChildCount() > 0){
+                            llaCategories.removeViewAt(positionCategory + 1);
+                            subLinearLayout.removeAllViews();
+                            subcontentLinearLayout.removeAllViews();
+                        }
+                        for(Subcategories subcategories : subcategoriesList){
+                            subcategories.setSelected(false);
+                        }
+                        for(int i = 0; i<categoriesToSendList.size(); i++){
+                            Categories categorieToDelete = categoriesToSendList.get(i);
+                            if(categorieToDelete.getId_activities_types() == categories.getId_activities_types()){
+                                categoriesToSendList.remove(i);
+                                break;
+                            }
+                        }
+                    } else {
+                        subcategoriesToSendList = new ArrayList<Subcategories>();
+                        Categories categoriesToSend = new Categories();
+                        categoriesToSend.setId_activities_types(categories.getId_activities_types());
+                        categoriesToSend.setDescription(categories.getDescription());
+                        categoriesToSend.setSelected(true);
+                        categoriesToSendList.add(categoriesToSend);
+                        categories.setSelected(true);
+                        showPublicTypeChange(true, tviCategory);
+                        if (sublinearLayoutAdded) {
+                            subLinearLayout.removeAllViews();
+                            llaCategories.removeViewAt(positionCategory + 1);
+                        }
+                        if (subcategoriesList.size() > 0) {
+                            Subcategories subcategoriesToSend = new Subcategories();
+                            subcategoriesToSend.setId_activities_subtypes(subcategoriesList.get(0).getId_activities_subtypes());
+                            subcategoriesToSend.setSelected(true);
+                            subcategoriesToSend.setDescription(subcategoriesList.get(0).getDescription());
+                            subcategoriesToSendList.add(subcategoriesToSend);
+                            categoriesToSendList.get(categoriesToSendList.size() - 1).setSubcategoriesList(subcategoriesToSendList);
+                            initSublinearLayout();
+                            subLinearLayout.setBackgroundResource(R.drawable.bg_sub_categoria_filtro);
+                            initSubcontentLinearLayout();
+                            for (int j = 0; j < subcategoriesList.size(); j++) {
+                                final Subcategories subcategories = subcategoriesList.get(j);
+                                if (j > 0 && j % 4 == 0) {
+                                    subLinearLayout.addView(subcontentLinearLayout);
+                                    initSubcontentLinearLayout();
+                                }
+                                final CustomTextView tviSubcategory = new CustomTextView(FilterFirstActivity.this);
+                                tviSubcategory.setText(subcategories.getDescription());
+                                if(j == 0){
+                                    showSubcategoryChange(true, tviSubcategory);
+                                } else {
+                                    showSubcategoryChange(false, tviSubcategory);
+                                }
+                                tviSubcategory.setGravity(Gravity.CENTER);
+                                tviSubcategory.setPadding(40, 40, 40, 40);
+                                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                layoutParams.setMargins(10, 20, 10, 30);
+                                tviSubcategory.setLayoutParams(layoutParams);
+                                subcontentLinearLayout.addView(tviSubcategory);
+                                if (j == subcategoriesList.size() - 1) {
+                                    if (subcontentLinearLayout.getChildCount() != 4)
+                                        subLinearLayout.addView(subcontentLinearLayout);
+                                }
+                                tviSubcategory.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if(subcategories.isSelected()){
+                                            if(!subcategories.getDescription().toLowerCase().equals("todos")){
+                                                showSubcategoryChange(false, tviSubcategory);
+                                                subcategories.setSelected(false);
+                                            }
+                                        } else{
+                                            if(subcategories.getDescription().toLowerCase().equals("todos")){
+                                                for(Subcategories subcategoriesToUnselect : subcategoriesList){
+                                                    if(!subcategoriesToUnselect.getDescription().toLowerCase().equals("todos")){
+                                                        subcategoriesToUnselect.setSelected(false);
+                                                    }
+                                                }
+                                                for(int i = 0; i<subLinearLayout.getChildCount(); i++){
+                                                    LinearLayout llaSubContent = (LinearLayout) subLinearLayout.getChildAt(i);
+                                                    for(int j = 0; j<llaSubContent.getChildCount(); j++){
+                                                        TextView tviSubcontent = (TextView) llaSubContent.getChildAt(j);
+                                                        if(i == 0 && j > 0){
+                                                            showSubcategoryChange(false, tviSubcontent);
+                                                        } else{
+                                                            showSubcategoryChange(false, tviSubcontent);
+                                                        }
+                                                    }
+                                                }
+                                                Subcategories subcategoriesToSend = new Subcategories();
+                                                subcategoriesToSend.setId_activities_subtypes(subcategories.getId_activities_subtypes());
+                                                subcategoriesToSend.setDescription(subcategories.getDescription());
+                                                subcategoriesToSend.setSelected(true);
+                                                subcategories.setSelected(true);
+                                                showSubcategoryChange(true, tviSubcategory);
+                                            } else{
+                                                for(Subcategories subcategoriesToUnselect : subcategoriesList){
+                                                    if(subcategoriesToUnselect.getDescription().toLowerCase().equals("todos")){
+                                                        subcategoriesToUnselect.setSelected(false);
+                                                        break;
+                                                    }
+                                                }
+                                                for(int i = 0; i<subLinearLayout.getChildCount(); i++){
+                                                    LinearLayout llaSubContent = (LinearLayout) subLinearLayout.getChildAt(i);
+                                                    for(int j = 0; j<llaSubContent.getChildCount(); j++){
+                                                        TextView tviSubcontent = (TextView) llaSubContent.getChildAt(j);
+                                                        if(i == 0 && j == 0){
+                                                            showSubcategoryChange(false, tviSubcontent);
+                                                        }
+                                                    }
+                                                }
+                                                showSubcategoryChange(true, tviSubcategory);
+                                                subcategories.setSelected(true);
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                            positionCategory = (int) ((finalI) / 3);
+                            llaCategories.addView(subLinearLayout, (positionCategory + 1));
+                            sublinearLayoutAdded = true;
+                        } else{
+                            sublinearLayoutAdded = false;
+                        }
+                    }
+                }
+            });
+        }
+        selectOptionPublicType(true, false, false, false);
+    }
+
+    private void initLinearLayout(){
+        linearLayout = new LinearLayout(this);
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setGravity(Gravity.CENTER);
+    }
+
+    private void initSublinearLayout(){
+        subLinearLayout = new LinearLayout(this);
+        subLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        subLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        subLinearLayout.setGravity(Gravity.CENTER);
+        subLinearLayout.setPadding(0, 30, 0, 0);
+    }
+
+    private void initSubcontentLinearLayout(){
+        subcontentLinearLayout = new LinearLayout(this);
+        subcontentLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        subcontentLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        subcontentLinearLayout.setGravity(Gravity.CENTER);
+    }
+
+    @OnClick(R.id.tviGeneral)
+    public void generalPublic(){
+        selectOptionPublicType(true, false, false, false);
+    }
+
+    @OnClick(R.id.tviAdultos)
+    public void adultsPublic(){
+        selectOptionPublicType(false, true, false, false);
+    }
+
+    @OnClick(R.id.tviNinos)
+    public void childrenPublic(){
+        selectOptionPublicType(false, false, true, false);
+    }
+
+    @OnClick(R.id.tviTerceraEdad)
+    public void oldPublic(){
+        selectOptionPublicType(false, false, false, true);
+    }
+
+    @OnClick(R.id.btn_comenzar)
+    public void beginApp(){
+        //categoriesPresenter.saveCategoriesToPreferences(categoriesListToSend);
+    }
+
+    private void selectOptionPublicType(boolean statusGeneral, boolean statusAdultos, boolean statusNinos, boolean statusTerceraEdad){
+        this.statusGeneral = statusGeneral;
+        this.statusAdultos = statusAdultos;
+        this.statusNinos = statusNinos;
+        this.statusTerceraEdad = statusTerceraEdad;
+        showPublicTypeChange(statusGeneral, tviGeneral);
+        showPublicTypeChange(statusAdultos, tviAdultos);
+        showPublicTypeChange(statusNinos, tviNinos);
+        showPublicTypeChange(statusTerceraEdad, tviTerceraEdad);
+    }
+
+    public boolean showPublicTypeChange(boolean status, TextView tviCategory){
+        boolean newStatus;
+        if (status == true) {
+            newStatus = false;
+            tviCategory.setTextColor(getResources().getColor(R.color.white));
+            tviCategory.setBackgroundResource(R.drawable.type_public_on);
+        } else{
+            newStatus = true;
+            tviCategory.setTextColor(getResources().getColor(R.color.secondary_text));
+            tviCategory.setBackgroundResource(R.drawable.type_public_off);
+        }
+        return newStatus;
+    }
+
+    public boolean showSubcategoryChange(boolean status, TextView tviSubcategory){
+        boolean newStatus;
+        if (status == false) {
+            newStatus = true;
+            tviSubcategory.setTextColor(getResources().getColor(R.color.white));
+            tviSubcategory.setBackgroundResource(R.drawable.type_sub_category_off);
+        } else{
+            newStatus = false;
+            tviSubcategory.setTextColor(getResources().getColor(R.color.color_text_on));
+            tviSubcategory.setBackgroundResource(R.drawable.type_public_off);
+        }
+        return newStatus;
     }
 
 }

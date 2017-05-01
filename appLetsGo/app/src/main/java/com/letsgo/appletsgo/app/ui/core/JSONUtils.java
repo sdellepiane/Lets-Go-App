@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+
 /**
  * Created by louislopez on 28/02/17.
  */
@@ -51,6 +53,14 @@ public class JSONUtils {
         GsonBuilder gsonb = new GsonBuilder();
         Gson gson = gsonb.create();
         Object nObj = gson.fromJson(jsonString, objectClass);
+        return nObj;
+    }
+
+    public static Object jsonStringToArray(String jsonString, Type type) {
+        GsonBuilder gsonb = new GsonBuilder();
+        Gson gson = gsonb.create();
+        Object nObj = gson.fromJson(jsonString, type);
+
         return nObj;
     }
 }

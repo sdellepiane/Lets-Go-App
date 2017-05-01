@@ -17,13 +17,14 @@
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/famCalendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         fab:menu_icon="@drawable/school_calendar"
         android:layout_gravity="bottom|end"
         fab:menu_colorNormal="@color/bg_facebook_two"
         fab:menu_fab_size="normal"
         fab:menu_animationDelayPerItem="0"
+        fab:menu_backgroundColor="#A6000000"
         fab:menu_labels_ellipsize="end"
         fab:menu_shadowRadius="4dp"
         android:layout_centerHorizontal="true">
@@ -32,18 +33,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/school_calendar"
+            style="@style/MenuButtonsStyle"
             fab:fab_label="@string/select_date" />
 
         <com.github.clans.fab.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/school_calendar"
+            style="@style/MenuButtonsStyle"
             fab:fab_label="@string/this_week" />
 
         <com.github.clans.fab.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/school_calendar"
+            style="@style/MenuButtonsStyle"
             fab:fab_label="@string/today"/>
 
     </com.github.clans.fab.FloatingActionMenu>

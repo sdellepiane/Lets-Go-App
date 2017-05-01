@@ -59,6 +59,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
 
     @BindView(R.id.famCalendar) FloatingActionMenu famCalendar;
     @BindView(R.id.rviEvents) RecyclerView rviEvents;
+    @BindView(R.id.tviNoData) TextView tviNoData;
     @BindView(R.id.drawer_layout)   DrawerLayout drawer;
     @BindView(R.id.nav_view) NavigationView navigationView;
     @BindView(R.id.iviLogo) ImageView iviLogo;
@@ -399,6 +400,13 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     public void hideLoading() {
         viewLoading.setVisibility(View.GONE);
         rviEvents.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showEmptyActivitys() {
+        rviEvents.setVisibility(View.GONE);
+        tviNoData.setVisibility(View.VISIBLE);
+
     }
 
     @Override
