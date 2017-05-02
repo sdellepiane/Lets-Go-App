@@ -45,6 +45,7 @@
         android:layout_below="@id/rlaToolBar">
 
         <RelativeLayout
+            android:id="@+id/rlaWhatsApp"
             android:background="@drawable/shape_contact_whatsapp"
             android:layout_width="match_parent"
             android:layout_height="60dp">
@@ -91,6 +92,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlaCall"
             android:background="@drawable/shape_contact_what"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
@@ -138,6 +140,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlaSendEmail"
             android:background="@drawable/shape_contact_mail"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"

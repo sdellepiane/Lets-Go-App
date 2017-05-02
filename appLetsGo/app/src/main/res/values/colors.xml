@@ -32,6 +32,7 @@
 
    <color name="texto_filtro_first">#333333</color>
    <color name="btn_comenzar">#fbbe00</color>
+   <color name="color_error">#F44336</color>
 
 
    <color name="color_star">#9036e6</color>

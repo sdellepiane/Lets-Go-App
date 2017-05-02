@@ -27,6 +27,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
+import com.letsgo.appletsgo.R;
 import com.letsgo.appletsgo.app.utils.svgGlide.SvgDecoder;
 import com.letsgo.appletsgo.app.utils.svgGlide.SvgDrawableTranscoder;
 import com.letsgo.appletsgo.app.utils.svgGlide.SvgSoftwareLayerSetter;
@@ -146,11 +147,11 @@ public class BaseAppCompat extends AppCompatActivity implements View.OnClickList
                 .into(imageView);
     }
 
-    public void snackBar(String msj, View rlaContent){
-       /* Snackbar snackbar = Snackbar
+    public void snackBarError(String msj, View rlaContent){
+        Snackbar snackbar = Snackbar
                 .make(rlaContent, msj, Snackbar.LENGTH_LONG);
-        snackbar.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.title_dialog_color_fail));
-        snackbar.show();*/
+        snackbar.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.color_error));
+        snackbar.show();
 
     }
 

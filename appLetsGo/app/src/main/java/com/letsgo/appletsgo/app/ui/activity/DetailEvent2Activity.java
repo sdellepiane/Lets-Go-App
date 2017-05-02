@@ -2,6 +2,7 @@ package com.letsgo.appletsgo.app.ui.activity;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -18,6 +19,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.letsgo.appletsgo.R;
 import com.letsgo.appletsgo.app.ui.component.HorarioComponent;
 import com.letsgo.appletsgo.app.ui.component.PreciosComponent;
@@ -36,6 +44,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailEvent2Activity extends BaseAppCompat implements ActividadesView {
     private static final String TAG = "DetailEvent2Activity";
@@ -46,6 +55,7 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
     @BindView(R.id.iviImagen) ImageView iviImagen;
     @BindView(R.id.iviFavorite) ImageView iviFavorite;
     @BindView(R.id.iviShared) ImageView iviShared;
+    @BindView(R.id.iviSharedInImagen) ImageView iviSharedInImagen;
     @BindView(R.id.tviCategory) TextView tviCategory;
     @BindView(R.id.tviDescripcion) TextView tviDescripcion;
     @BindView(R.id.tviNamePlace) TextView tviNamePlace;
@@ -61,11 +71,33 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
     private ImageButton locButton;
     private ActividadesPresenter actividadesPresenter;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_event2);
         ButterKnife.bind(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+        // this part is optional
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }});
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle("");
@@ -93,14 +125,6 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-
-
-
-
-
-
-
-
         loadBackdrop();
     }
 
@@ -123,6 +147,20 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
                 .into(backdrop);*/
     }
 
+
+    public void sharedEventFacebook(){
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentTitle("Hello Facebook")
+                    .setContentDescription(
+                            "Lets Go, sample  showcases simple Facebook integration")
+                    .setContentUrl(Uri.parse("https://www.facebook.com/CINESCAPE.PERU/?fref=ts"))
+                    .build();
+
+            shareDialog.show(linkContent);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -139,6 +177,16 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
                 LogUtils.v(TAG, "CLICK FAVORITE");
                 break;
         }
+    }
+
+    @OnClick(R.id.iviSharedInImagen)
+    public void setbannerShared(){
+        sharedEventFacebook();
+    }
+
+    @OnClick(R.id.iviShared)
+    public void iviShared(){
+        sharedEventFacebook();
     }
 
     @Override
