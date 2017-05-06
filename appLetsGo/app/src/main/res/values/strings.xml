@@ -49,4 +49,7 @@
     <string name="select_date">Selecciona fecha</string>
     <string name="no_data_events">No se encontraron eventos para mostrar</string>
 
+    <string name="sOk">Aceptar</string>
+    <string name="sCancel">Cancelar</string>
+
 </resources>

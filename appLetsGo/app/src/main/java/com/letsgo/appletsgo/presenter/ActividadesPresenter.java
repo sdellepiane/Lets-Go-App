@@ -7,6 +7,7 @@ import com.letsgo.appletsgo.data.entity.raw.DetalleActividadRaw;
 import com.letsgo.appletsgo.data.mapper.ActividadesDataMapper;
 import com.letsgo.appletsgo.domain.interactor.ActividadesInteractor;
 import com.letsgo.appletsgo.domain.model.entity.Actividades;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.DetalleActividades;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.repository.ActividadesServiceRepository;
@@ -47,6 +48,10 @@ public class ActividadesPresenter implements Presenter<ActividadesView>, Request
         actividadesInteractor.distritos(this);
     }
 
+    public void getCategoriesFromPreferences(){
+        actividadesView.showLoading();
+        actividadesInteractor.getCategoriesFromPreferences(this);
+    }
 
     @Override
     public void onRequestSuccess(Object object) {
@@ -78,6 +83,13 @@ public class ActividadesPresenter implements Presenter<ActividadesView>, Request
                 break;
         }
 
+    }
+
+    @Override
+    public void onCategoriesFromPreferencesRequestSuccess(Object object) {
+        actividadesView.hideLoading();
+        CategoriesToPreferences categoriesToPreferences = (CategoriesToPreferences) object;
+        actividadesView.getCategoriesFromPreferences(categoriesToPreferences);
     }
 
     @Override

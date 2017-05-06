@@ -18,4 +18,5 @@ public interface CategoriesView extends BaseView {
     void hideLoading();
     void showEmptyCategories();
     void showMessageError(String message);
+    void saveCategoriesToPreferencesSuccess();
 }

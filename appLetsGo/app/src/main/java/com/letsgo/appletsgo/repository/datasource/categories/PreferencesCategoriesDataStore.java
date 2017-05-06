@@ -6,6 +6,7 @@ import com.letsgo.appletsgo.data.entity.response.CategoriesResponse;
 import com.letsgo.appletsgo.data.rest.ApiClient;
 import com.letsgo.appletsgo.data.store.SessionUser;
 import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.repository.Categories.RepositoryCallBackCategories;
 
 import java.util.List;
@@ -30,13 +31,13 @@ public class PreferencesCategoriesDataStore implements CategoriesPreferencesData
 
     @Override
     public void getCategoriesPreferences(final RepositoryCallBackCategories repositoryCallBackCategories) {
-        List<Categories> categoriesList = this.sessionUser.getCategoriesUser(context);
-        repositoryCallBackCategories.onSuccess(categoriesList);
+        CategoriesToPreferences categoriesToPreferences = this.sessionUser.getCategoriesUser(context);
+        repositoryCallBackCategories.onSuccess(categoriesToPreferences);
     }
 
     @Override
-    public void saveCategoriesToPreferences(List<Categories> categoriesList, RepositoryCallBackCategories repositoryCallBackCategories) {
-        this.sessionUser.saveCategoriesUser(context, categoriesList);
+    public void saveCategoriesToPreferences(CategoriesToPreferences categoriesToPreferences, RepositoryCallBackCategories repositoryCallBackCategories) {
+        this.sessionUser.saveCategoriesUser(context, categoriesToPreferences);
         repositoryCallBackCategories.onSuccess(true);
     }
 }

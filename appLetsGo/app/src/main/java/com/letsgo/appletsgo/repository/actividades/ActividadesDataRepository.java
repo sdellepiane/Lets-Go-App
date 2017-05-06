@@ -13,8 +13,11 @@ import com.letsgo.appletsgo.domain.model.entity.DetalleActividades;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.repository.ActividadesServiceRepository;
 import com.letsgo.appletsgo.domain.repository.interactor.RequestCallBackActividades;
+import com.letsgo.appletsgo.repository.Categories.RepositoryCallBackCategories;
 import com.letsgo.appletsgo.repository.datasource.actividades.ActividadesDataStoreFactory;
 import com.letsgo.appletsgo.repository.datasource.actividades.ActividadesServiceDataStore;
+import com.letsgo.appletsgo.repository.datasource.categories.CategoriesDataStoreFactory;
+import com.letsgo.appletsgo.repository.datasource.categories.CategoriesPreferencesDataStore;
 
 import java.util.List;
 
@@ -35,7 +38,7 @@ public class ActividadesDataRepository implements ActividadesServiceRepository {
 
     @Override
     public void getActividadesRequest(ActividadesRaw raw, final RequestCallBackActividades requestCallBackActividades) {
-        final ActividadesServiceDataStore actividadesServiceDataStore = this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.CLOUD);
+        final ActividadesServiceDataStore actividadesServiceDataStore = (ActividadesServiceDataStore) this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.CLOUD);
         actividadesServiceDataStore.getActividades(raw, new RepositoryCallBackActividades() {
             @Override
             public void onSuccess(Object object) {
@@ -58,7 +61,7 @@ public class ActividadesDataRepository implements ActividadesServiceRepository {
 
     @Override
     public void getDetalleActividadesRequest(DetalleActividadRaw raw, final RequestCallBackActividades requestCallBackActividades) {
-        final ActividadesServiceDataStore actividadesServiceDataStore = this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.CLOUD);
+        final ActividadesServiceDataStore actividadesServiceDataStore = (ActividadesServiceDataStore) this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.CLOUD);
         actividadesServiceDataStore.getDetailActividad(raw, new RepositoryCallBackActividades() {
             @Override
             public void onSuccess(Object object) {
@@ -82,7 +85,7 @@ public class ActividadesDataRepository implements ActividadesServiceRepository {
 
     @Override
     public void getDistritos(final RequestCallBackActividades requestCallBackActividades) {
-        final ActividadesServiceDataStore actividadesServiceDataStore = this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.CLOUD);
+        final ActividadesServiceDataStore actividadesServiceDataStore = (ActividadesServiceDataStore) this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.CLOUD);
         actividadesServiceDataStore.getDistritos(new RepositoryCallBackActividades() {
             @Override
             public void onSuccess(Object object) {
@@ -102,5 +105,21 @@ public class ActividadesDataRepository implements ActividadesServiceRepository {
             }
         });
 
+    }
+
+    @Override
+    public void getCategoriesFromPreferences(final RequestCallBackActividades requestCallBackPreferencesCategories) {
+        final CategoriesPreferencesDataStore categoriesServiceDataStore = (CategoriesPreferencesDataStore)this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.PREFERENCES);
+        categoriesServiceDataStore.getCategoriesPreferences(new RepositoryCallBackCategories() {
+            @Override
+            public void onSuccess(Object object) {
+                requestCallBackPreferencesCategories.onCategoriesFromPreferencesRequestSuccess(object);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+            }
+        });
     }
 }

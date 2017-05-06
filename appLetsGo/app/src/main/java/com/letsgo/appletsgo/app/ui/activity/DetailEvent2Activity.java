@@ -26,6 +26,7 @@ import com.letsgo.appletsgo.app.utils.LogUtils;
 import com.letsgo.appletsgo.data.entity.raw.ActividadesRaw;
 import com.letsgo.appletsgo.data.entity.raw.DetalleActividadRaw;
 import com.letsgo.appletsgo.domain.model.entity.Actividades;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.DetalleActividades;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.presenter.ActividadesPresenter;
@@ -214,6 +215,11 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
 
     @Override
     public void showEmptyActivitys() {
+
+    }
+
+    @Override
+    public void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences) {
 
     }
 

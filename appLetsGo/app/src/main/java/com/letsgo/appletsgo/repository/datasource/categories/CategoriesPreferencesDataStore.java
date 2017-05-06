@@ -1,6 +1,7 @@
 package com.letsgo.appletsgo.repository.datasource.categories;
 
 import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.repository.Categories.RepositoryCallBackCategories;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 public interface CategoriesPreferencesDataStore {
-    void saveCategoriesToPreferences(List<Categories> categoriesList, RepositoryCallBackCategories repositoryCallBackCategories);
+    void saveCategoriesToPreferences(CategoriesToPreferences categoriesToPreferences, RepositoryCallBackCategories repositoryCallBackCategories);
     void getCategoriesPreferences(RepositoryCallBackCategories repositoryCallBackCategories);
 
 
