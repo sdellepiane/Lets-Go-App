@@ -70,8 +70,6 @@ public class ApiClient {
         @GET("cms/api/activities_subtypes_by_types")
         Call<CategoriesResponse> getCategories();
 
-
-
 //        @POST("api?action=get_items_temps_15_apps")
 //        Call<ProductResponse> getDetailProduct(@Body Object raw);
 //

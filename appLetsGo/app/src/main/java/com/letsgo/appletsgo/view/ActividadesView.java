@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public interface ActividadesView extends BaseView {
-    void getActividades(List<Actividades> actividadesList);
+    void getActividades(List<Actividades> tiendaList);
     void detalleActividad(DetalleActividades detalleActividades);
     void getDistritos(List<Distrito> distritoList);
     void showLoading();

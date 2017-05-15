@@ -10,7 +10,6 @@ import java.util.List;
 public class ActividadesRaw implements Serializable {
     private String filterPublics;
     private String filterFree;
-    private String q;
     private List<filterPlacesRaw> filterPlaces;
 
     public String getFilterPublics() {
@@ -29,29 +28,11 @@ public class ActividadesRaw implements Serializable {
         this.filterFree = filterFree;
     }
 
-    public String getQ() {
-        return q;
-    }
-
-    public void setQ(String q) {
-        this.q = q;
-    }
-
     public List<filterPlacesRaw> getFilterPlaces() {
         return filterPlaces;
     }
 
     public void setFilterPlaces(List<filterPlacesRaw> filterPlaces) {
         this.filterPlaces = filterPlaces;
-    }
-
-    @Override
-    public String toString() {
-        return "ActividadesRaw{" +
-                "filterPublics='" + filterPublics + '\'' +
-                ", filterFree='" + filterFree + '\'' +
-                ", q='" + q + '\'' +
-                ", filterPlaces=" + filterPlaces +
-                '}';
     }
 }
