@@ -12,6 +12,7 @@ import com.letsgo.appletsgo.data.mapper.ActividadesDataMapper;
 import com.letsgo.appletsgo.data.mapper.CategoriesDataMapper;
 import com.letsgo.appletsgo.domain.model.entity.Actividades;
 import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.DetalleActividades;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.model.entity.TypeCategoriesList;
@@ -64,9 +65,9 @@ public class CategoriesDataRepository implements CategoriesServiceRepository {
     }
 
     @Override
-    public void saveCategoriesToPreferences(List<Categories> categoriesList, final RequestCallBackPreferencesCategories requestCallBackPreferencesCategories) {
+    public void saveCategoriesToPreferences(CategoriesToPreferences categoriesToPreferences, final RequestCallBackPreferencesCategories requestCallBackPreferencesCategories) {
         final CategoriesPreferencesDataStore categoriesServiceDataStore = (CategoriesPreferencesDataStore)this.categoriesDataStoreFactory.create(CategoriesDataStoreFactory.PREFERENCES);
-        categoriesServiceDataStore.saveCategoriesToPreferences(categoriesList, new RepositoryCallBackCategories() {
+        categoriesServiceDataStore.saveCategoriesToPreferences(categoriesToPreferences, new RepositoryCallBackCategories() {
             @Override
             public void onSuccess(Object object) {
                 requestCallBackPreferencesCategories.onSaveCategoriesPreferencesSuccess(object);

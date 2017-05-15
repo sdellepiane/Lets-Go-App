@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="message_nedd_more_categories">Debe seleccionar por lo menos 2 opciones de categorias para continuar</string>
+</resources>

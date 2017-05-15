@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.letsgo.appletsgo.app.ui.core.JSONUtils;
 import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.DistritosSession;
 import com.letsgo.appletsgo.domain.model.entity.User;
 
@@ -62,20 +63,19 @@ public class SessionUser {
         return distritosSession;
     }
 
-    public void saveCategoriesUser(Context context, List<Categories> categoriesList){
+    public void saveCategoriesUser(Context context, CategoriesToPreferences categoriesToPreferences){
         String LETS_GO_CATEGORIES = LETS_GO + CATEGORIES_USER;
         initPreferences(context, LETS_GO_CATEGORIES);
-        editor.putString(LETS_GO_CATEGORIES, JSONUtils.generateJSONArray(categoriesList).toString());
+        editor.putString(LETS_GO_CATEGORIES, JSONUtils.generateJSONObject(categoriesToPreferences).toString());
         editor.commit();
     }
 
-    public List<Categories> getCategoriesUser(Context context){
+    public CategoriesToPreferences getCategoriesUser(Context context){
         String LETS_GO_CATEGORIES = LETS_GO + CATEGORIES_USER;
         initPreferences(context, LETS_GO_CATEGORIES);
-        String sCategoriesList = preferences.getString(LETS_GO_CATEGORIES, null);
-        Type categoriesType = new TypeToken<List<Categories>>(){}.getType();
-        List<Categories> categoriesList = (List<Categories>) JSONUtils.jsonStringToArray(sCategoriesList,
-                categoriesType);
-        return categoriesList;
+        GsonBuilder gsonb = new GsonBuilder();
+        Gson gson = gsonb.create();
+        CategoriesToPreferences categoriesToPreferences = gson.fromJson(preferences.getString(LETS_GO_CATEGORIES, ""), CategoriesToPreferences.class);
+        return categoriesToPreferences;
     }
 }

@@ -7,6 +7,7 @@ package com.letsgo.appletsgo.domain.repository.interactor;
 public interface RequestCallBackActividades<T> {
     public void onRequestSuccess(T object);
     public void onRequestSuccess(T object, int type);
+    public void onCategoriesFromPreferencesRequestSuccess(T object);
     public void onRequestFailure(Throwable e);
     public void onRequestFailure(Throwable throwable, int type);
 }

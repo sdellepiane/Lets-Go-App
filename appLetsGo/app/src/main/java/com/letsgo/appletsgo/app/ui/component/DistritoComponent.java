@@ -103,7 +103,7 @@ public class DistritoComponent extends LinearLayout {
             @Override
             public void onClick(View view) {
                 allDistritoCheck.setVisibility(GONE);
-                LogUtils.v("SESION", "OPTION SELECCIONADO : " +  distritoList.get(position).getDescription());
+                LogUtils.v("SESION", "OPTION SELECCIONADOooo : " +  distritoList.get(position).getDescription());
                 if (distritoList.get(position).isCheck()){
                     distritoList.get(position).setCheck(false);
                     holder.iviCheck.setVisibility(View.GONE);

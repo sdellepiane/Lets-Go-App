@@ -1,6 +1,7 @@
 package com.letsgo.appletsgo.view;
 
 import com.letsgo.appletsgo.domain.model.entity.Actividades;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.DetalleActividades;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 
@@ -17,5 +18,6 @@ public interface ActividadesView extends BaseView {
     void showLoading();
     void hideLoading();
     void showEmptyActivitys();
+    void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences);
     void showMessageError(String message);
 }

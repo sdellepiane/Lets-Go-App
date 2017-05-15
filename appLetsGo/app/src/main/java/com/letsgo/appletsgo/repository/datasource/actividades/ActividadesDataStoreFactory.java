@@ -3,6 +3,8 @@ package com.letsgo.appletsgo.repository.datasource.actividades;
 import android.content.Context;
 
 import com.letsgo.appletsgo.data.rest.ApiClient;
+import com.letsgo.appletsgo.data.store.SessionUser;
+import com.letsgo.appletsgo.repository.datasource.categories.PreferencesCategoriesDataStore;
 
 /**
  * Created by louislopez on 4/03/17.
@@ -22,24 +24,25 @@ public class ActividadesDataStoreFactory {
         this.context = context.getApplicationContext();
     }
 
-    public ActividadesServiceDataStore create(int dataSource){
-        ActividadesServiceDataStore catalogServiceDataStore = null;
+    public Object create(int dataSource){
+        Object object = null;
 
         switch (dataSource) {
             case CLOUD:
-                catalogServiceDataStore = createCloudDataStore();
+                object = createCloudDataStore();
                 break;
             case DB:
                 //detailWalkingServiceDataStore= new DbDetailWalkingServiceDataStore();
                 break;
             case PREFERENCES:
+                object = new PreferencesCategoriesDataStore(context, new SessionUser());
                 //detailWalkingServiceDataStore = new PrefDetailWalkingServiceDataStore(context,new PreferencesHelper());
                 break;
             case IMG_LIBRARY:
                 //detailWalkingServiceDataStore = new ImageLibraryWalkingServiceDataStore(context, new ImageHelper());
                 break;
         }
-        return catalogServiceDataStore;
+        return object;
     }
 
     public ActividadesServiceDataStore createCloudDataStore(){

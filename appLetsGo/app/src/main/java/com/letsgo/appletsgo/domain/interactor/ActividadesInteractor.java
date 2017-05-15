@@ -38,6 +38,11 @@ public class ActividadesInteractor {
             }
 
             @Override
+            public void onCategoriesFromPreferencesRequestSuccess(Object object) {
+
+            }
+
+            @Override
             public void onRequestFailure(Throwable e) {
                 requestCallBackActividades.onRequestFailure(e);
             }
@@ -62,6 +67,11 @@ public class ActividadesInteractor {
                 DetalleActividades detalleActividades = (DetalleActividades) object;
                 LogUtils.v(TAG, "tiendasList " + detalleActividades.toString());
                 requestCallBackActividades.onRequestSuccess(detalleActividades,type);
+
+            }
+
+            @Override
+            public void onCategoriesFromPreferencesRequestSuccess(Object object) {
 
             }
 
@@ -93,6 +103,11 @@ public class ActividadesInteractor {
             }
 
             @Override
+            public void onCategoriesFromPreferencesRequestSuccess(Object object) {
+
+            }
+
+            @Override
             public void onRequestFailure(Throwable e) {
 
             }
@@ -100,6 +115,36 @@ public class ActividadesInteractor {
             @Override
             public void onRequestFailure(Throwable throwable, int type) {
                 LogUtils.v(TAG, "onRequestFailure " + throwable + " ERROR: " + type);
+                requestCallBackActividades.onRequestFailure(throwable,type);
+            }
+        });
+    }
+
+    public void getCategoriesFromPreferences(final RequestCallBackActividades requestCallBackActividades){
+        this.actividadesServiceRepository.getCategoriesFromPreferences(new RequestCallBackActividades() {
+            @Override
+            public void onRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onRequestSuccess(Object object, int type) {
+
+            }
+
+            @Override
+            public void onCategoriesFromPreferencesRequestSuccess(Object object) {
+                requestCallBackActividades.onCategoriesFromPreferencesRequestSuccess(object);
+            }
+
+            @Override
+            public void onRequestFailure(Throwable e) {
+                requestCallBackActividades.onRequestFailure(e);
+            }
+
+            @Override
+            public void onRequestFailure(Throwable throwable, int type) {
+                LogUtils.v(TAG, "onRequestFailure " + throwable + " ERRO: " + type);
                 requestCallBackActividades.onRequestFailure(throwable,type);
             }
         });

@@ -1,5 +1,6 @@
 package com.letsgo.appletsgo.app.ui.activity;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -19,14 +20,18 @@ import com.letsgo.appletsgo.data.store.SessionUser;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.model.entity.DistritosSession;
 import com.letsgo.appletsgo.domain.model.entity.User;
+import com.letsgo.appletsgo.presenter.SplashPresenter;
+import com.letsgo.appletsgo.view.SplashView;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplashActivity extends BaseAppCompat {
+public class SplashActivity extends BaseAppCompat implements SplashView{
     User user = new User();
+    SplashPresenter splashPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,8 @@ public class SplashActivity extends BaseAppCompat {
         DistritosSession distritosSession = new DistritosSession();
         distritosSession.setDistritoList(distritoList);
         SessionUser.saveDistrosUser(this, distritosSession);
+        splashPresenter = new SplashPresenter();
+        splashPresenter.attachedView(this);
 
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
@@ -58,12 +65,26 @@ public class SplashActivity extends BaseAppCompat {
         handler.postDelayed(new Runnable() {
             public void run() {
                 if (user != null && !user.getIdFacebook().equals("")){
-                    nextActivity(FilterFirstActivity.class, false);
+                    splashPresenter.getCategoriesFromPreferences();
                 }else{
                     nextActivity(LoginActivity.class, false);
                 }
 
             }
         }, 500);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void evaluateCategoriesFromPreferences(boolean saved) {
+        if(saved){
+            nextActivity(HomeActivity.class, false);
+        } else{
+            nextActivity(FilterFirstActivity.class, false);
+        }
     }
 }

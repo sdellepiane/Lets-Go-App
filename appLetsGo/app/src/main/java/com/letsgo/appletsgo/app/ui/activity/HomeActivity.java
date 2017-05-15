@@ -33,12 +33,18 @@ import com.letsgo.appletsgo.app.utils.RecyclerClickListener;
 import com.letsgo.appletsgo.app.utils.RecyclerTouchListener;
 import com.letsgo.appletsgo.app.utils.ScreenUtils;
 import com.letsgo.appletsgo.data.entity.raw.ActividadesRaw;
+import com.letsgo.appletsgo.data.entity.raw.CategoriesRaw;
+import com.letsgo.appletsgo.data.entity.raw.PlacesRaw;
+import com.letsgo.appletsgo.data.entity.raw.SubcategoriesRaw;
 import com.letsgo.appletsgo.data.entity.raw.filterPlacesRaw;
 import com.letsgo.appletsgo.data.store.SessionUser;
 import com.letsgo.appletsgo.domain.model.entity.Actividades;
+import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.DetalleActividades;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.model.entity.DistritosSession;
+import com.letsgo.appletsgo.domain.model.entity.Subcategories;
 import com.letsgo.appletsgo.domain.model.entity.User;
 import com.letsgo.appletsgo.presenter.ActividadesPresenter;
 import com.letsgo.appletsgo.view.ActividadesView;
@@ -97,6 +103,9 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     Distrito distrito;
     String[] distritosArray;
     SessionUser sessionUser = new SessionUser();
+    private CategoriesToPreferences categoriesToPreferences;
+    private ActividadesRaw actividadesRaw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,9 +117,6 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         initUI();
         initOnclickListenerViews(iviMenu, rlaFree, rlaFilterAll, rlaBtnDistrito, rlaDistrito, tviCancelarDialogDistrito, tviAceptarFilterDistrito, rlaAllDistrito);
         initViewEvents();
-
-
-
     }
 
     public void initUI(){
@@ -202,14 +208,8 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         actividadesPresenter = new ActividadesPresenter();
         actividadesPresenter.attachedView(this);
 
-        ActividadesRaw raw = new ActividadesRaw();
-        raw.setFilterPublics("1");
-        actividadesPresenter.listCatalog(raw);
-        actividadesPresenter.distritosDisponibles();
-
+        actividadesPresenter.getCategoriesFromPreferences();
     }
-
-
 
     public void initViewEvents(){
         rviEvents.setHasFixedSize(true);
@@ -235,8 +235,8 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         actividadesList = new ArrayList<>();
         ActividadesRaw raw = new ActividadesRaw();
         raw.setFilterPublics("1");
-        raw.setFilterFree("0");
-        raw.setFilterPlaces(distritos);
+        raw.setFree(0);
+        //raw.setFilterPlaces(distritos);
 
 
         actividadesPresenter.listCatalog(raw);
@@ -253,7 +253,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
                 actividadesList = new ArrayList<>();
                 ActividadesRaw raw = new ActividadesRaw();
                 raw.setFilterPublics("1");
-                raw.setFilterFree("1");
+                raw.setFree(1);
                 actividadesPresenter.listCatalog(raw);
 
                 llaLinearFree.setVisibility(View.VISIBLE);
@@ -271,7 +271,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
                     actividadesList = new ArrayList<>();
                     ActividadesRaw raw2 = new ActividadesRaw();
                     raw2.setFilterPublics("1");
-                    raw2.setFilterFree("0");
+                    raw2.setFree(0);
                     actividadesPresenter.listCatalog(raw2);
 
                     llaLinearFree.setVisibility(View.INVISIBLE);
@@ -371,12 +371,14 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         actividadesList = tiendaList;
         eventAdapter = new EventAdapter(this, actividadesList);
         rviEvents.setAdapter(eventAdapter);
-
+        tviNoData.setVisibility(View.GONE);
+        rviEvents.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void detalleActividad(DetalleActividades detalleActividades) {
-
+        tviNoData.setVisibility(View.GONE);
+        rviEvents.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -386,7 +388,8 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         listDistrito = distritoList;
         llaDistritoComponent.removeAllViews();
         llaDistritoComponent.init(listDistrito, this, false, iviCheckAllDistrito);
-
+        tviNoData.setVisibility(View.GONE);
+        rviEvents.setVisibility(View.VISIBLE);
     }
 
 
@@ -410,6 +413,14 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     }
 
     @Override
+    public void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences) {
+        this.categoriesToPreferences = categoriesToPreferences;
+        actividadesRaw = generateActividadesRaw(0, new ArrayList<PlacesRaw>(), 0, "", "", "", "", "", "");
+        actividadesPresenter.listCatalog(actividadesRaw);
+        actividadesPresenter.distritosDisponibles();
+    }
+
+    @Override
     public void showMessageError(String message) {
 
     }
@@ -417,5 +428,42 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     @Override
     public Context getContext() {
         return this;
+    }
+
+    private ActividadesRaw generateActividadesRaw(int free, List<PlacesRaw> placesRawList,
+                                                  int dateDays, String date_since, String date_until,
+                                                  String latitude, String longitude, String quantity,
+                                                  String from){
+        ActividadesRaw actividadesRaw = new ActividadesRaw();
+        actividadesRaw.setFilterPublics(String.valueOf(categoriesToPreferences.getPublicType()));
+        List<Categories> categoriesList = categoriesToPreferences.getCategoriesList();
+        List<CategoriesRaw> categoriesRawList = new ArrayList<>();
+        for(Categories categories : categoriesList){
+            CategoriesRaw categoriesRaw = new CategoriesRaw();
+            categoriesRaw.setId(categories.getId_activities_types());
+            List<Subcategories> subcategoriesList = categories.getSubcategoriesList();
+            List<SubcategoriesRaw> subcategoriesRawList = new ArrayList<>();
+            if(subcategoriesList != null){
+                for(Subcategories subcategories : subcategoriesList){
+                    SubcategoriesRaw subcategoriesRaw = new SubcategoriesRaw();
+                    subcategoriesRaw.setId(subcategories.getId_activities_subtypes());
+                    subcategoriesRawList.add(subcategoriesRaw);
+                }
+
+            }
+            categoriesRaw.setFilterSubtypes(subcategoriesRawList);
+            categoriesRawList.add(categoriesRaw);
+        }
+        actividadesRaw.setFilterTypes(categoriesRawList);
+        actividadesRaw.setFree(free);
+        actividadesRaw.setFilterPlaces(placesRawList);
+        actividadesRaw.setDate_days(dateDays);
+        actividadesRaw.setDate_since(date_since);
+        actividadesRaw.setDate_until(date_until);
+        actividadesRaw.setLatitude(latitude);
+        actividadesRaw.setLongitude(longitude);
+        actividadesRaw.setQuantity(quantity);
+        actividadesRaw.setFrom(from);
+        return actividadesRaw;
     }
 }

@@ -4,6 +4,7 @@ import com.letsgo.appletsgo.app.utils.LogUtils;
 import com.letsgo.appletsgo.data.mapper.CategoriesDataMapper;
 import com.letsgo.appletsgo.domain.interactor.CategoriesInteractor;
 import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.TypeCategoriesList;
 import com.letsgo.appletsgo.domain.repository.CategoriesServiceRepository;
 import com.letsgo.appletsgo.domain.repository.interactor.RequestCallBackCategories;
@@ -29,9 +30,9 @@ public class CategoriesPresenter implements Presenter<CategoriesView>, RequestCa
         categoriesInteractor.listCategoriesInteractor(this);
     }
 
-    public void saveCategoriesToPreferences(List<Categories> categoriesList){
+    public void saveCategoriesToPreferences(CategoriesToPreferences categoriesToPreferences){
         categoriesView.showLoading();
-        categoriesInteractor.saveCategoriesToPreferences(categoriesList, this);
+        categoriesInteractor.saveCategoriesToPreferences(categoriesToPreferences, this);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class CategoriesPresenter implements Presenter<CategoriesView>, RequestCa
     @Override
     public void onSaveCategoriesPreferencesSuccess(Object object) {
         categoriesView.hideLoading();
-
+        categoriesView.saveCategoriesToPreferencesSuccess();
     }
 
     @Override

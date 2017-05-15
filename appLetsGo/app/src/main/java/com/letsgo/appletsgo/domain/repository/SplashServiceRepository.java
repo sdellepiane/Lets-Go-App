@@ -8,9 +8,6 @@ import com.letsgo.appletsgo.domain.repository.interactor.RequestCallBackActivida
  * Created by louislopez on 4/03/17.
  */
 
-public interface ActividadesServiceRepository {
-    void getActividadesRequest(ActividadesRaw raw, RequestCallBackActividades requestCallBackActividades);
-    void getDetalleActividadesRequest(DetalleActividadRaw raw, RequestCallBackActividades requestCallBackActividades);
-    void getDistritos(RequestCallBackActividades requestCallBackActividades);
+public interface SplashServiceRepository {
     void getCategoriesFromPreferences(RequestCallBackActividades requestCallBackActividades);
 }

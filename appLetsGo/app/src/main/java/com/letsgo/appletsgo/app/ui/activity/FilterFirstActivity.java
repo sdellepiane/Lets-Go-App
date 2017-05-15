@@ -1,5 +1,6 @@
 package com.letsgo.appletsgo.app.ui.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +19,11 @@ import com.letsgo.appletsgo.R;
 import com.letsgo.appletsgo.app.ui.component.BuildConcierto;
 import com.letsgo.appletsgo.app.ui.component.CustomTextView;
 import com.letsgo.appletsgo.app.ui.core.BaseAppCompat;
+import com.letsgo.appletsgo.app.utils.DialogUtil;
 import com.letsgo.appletsgo.app.utils.LogUtils;
 import com.letsgo.appletsgo.data.store.SessionUser;
 import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.Subcategories;
 import com.letsgo.appletsgo.domain.model.entity.TypeCategoriesList;
 import com.letsgo.appletsgo.presenter.CategoriesPresenter;
@@ -37,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FilterFirstActivity extends BaseAppCompat implements CategoriesView{
+public class FilterFirstActivity extends BaseAppCompat implements CategoriesView, DialogUtil.OnDialogListener{
     private static final String TAG = "FilterFirstActivity";
 
     @BindView(R.id.llaCategories) LinearLayout llaCategories;
@@ -60,6 +63,8 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
     private int positionCategory = 0;
     private List<Categories> categoriesToSendList;
     private List<Subcategories> subcategoriesToSendList;
+    private DialogUtil dialogUtil;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
         categoriesPresenter.getCategories();
         categoriesToSendList = new ArrayList<>();
         subcategoriesToSendList = new ArrayList<>();
+        dialogUtil = new DialogUtil(this);
 
         //TODO 2017-03-29 19:30:00
         String input_date="01-08-2017";
@@ -148,6 +154,29 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
 
     }
 
+    @Override
+    public void saveCategoriesToPreferencesSuccess() {
+        nextActivity(HomeActivity.class, false);
+    }
+
+    @Override
+    public void onAccept(int index) {
+        switch(index){
+            case 0:
+                dialog.dismiss();
+                break;
+        }
+    }
+
+    @Override
+    public void onCancel(int index) {
+        switch(index){
+            case 0:
+                dialog.dismiss();
+                break;
+        }
+    }
+
     public class ViewHolderTeatro {
         @BindView(R.id.tviComedia) TextView tviComedia;
 
@@ -177,8 +206,7 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
             tviCategory.setLayoutParams(layoutParams);
             linearLayout.addView(tviCategory);
             if(i == categoriesList.size() - 1){
-                if(llaCategories.getChildCount() != 3)
-                    llaCategories.addView(linearLayout);
+                llaCategories.addView(linearLayout);
             }
             final int finalI = i;
             tviCategory.setOnClickListener(new View.OnClickListener() {
@@ -248,16 +276,23 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
                                 tviSubcategory.setLayoutParams(layoutParams);
                                 subcontentLinearLayout.addView(tviSubcategory);
                                 if (j == subcategoriesList.size() - 1) {
-                                    if (subcontentLinearLayout.getChildCount() != 4)
-                                        subLinearLayout.addView(subcontentLinearLayout);
+                                    subLinearLayout.addView(subcontentLinearLayout);
                                 }
                                 tviSubcategory.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+                                        subcategoriesToSendList = categoriesToSendList.get(categoriesToSendList.size() - 1).getSubcategoriesList();
                                         if(subcategories.isSelected()){
                                             if(!subcategories.getDescription().toLowerCase().equals("todos")){
                                                 showSubcategoryChange(false, tviSubcategory);
                                                 subcategories.setSelected(false);
+                                                for(int i = 1; i<subcategoriesToSendList.size(); i++){
+                                                    Subcategories subcategoriesToDelete = subcategoriesToSendList.get(i);
+                                                    if(subcategoriesToDelete.getId_activities_subtypes() == subcategories.getId_activities_subtypes()){
+                                                        subcategoriesToSendList.remove(i);
+                                                        break;
+                                                    }
+                                                }
                                             }
                                         } else{
                                             if(subcategories.getDescription().toLowerCase().equals("todos")){
@@ -277,10 +312,13 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
                                                         }
                                                     }
                                                 }
+                                                subcategoriesToSendList = new ArrayList<Subcategories>();
                                                 Subcategories subcategoriesToSend = new Subcategories();
                                                 subcategoriesToSend.setId_activities_subtypes(subcategories.getId_activities_subtypes());
                                                 subcategoriesToSend.setDescription(subcategories.getDescription());
                                                 subcategoriesToSend.setSelected(true);
+                                                subcategoriesToSendList.add(subcategoriesToSend);
+                                                categoriesToSendList.get(categoriesToSendList.size() - 1).setSubcategoriesList(subcategoriesToSendList);
                                                 subcategories.setSelected(true);
                                                 showSubcategoryChange(true, tviSubcategory);
                                             } else{
@@ -299,6 +337,13 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
                                                         }
                                                     }
                                                 }
+                                                if(subcategoriesToSendList.get(0).getDescription().toLowerCase().equals("todos"))
+                                                    subcategoriesToSendList.remove(0);
+                                                Subcategories subcategoriesToSend = new Subcategories();
+                                                subcategoriesToSend.setId_activities_subtypes(subcategories.getId_activities_subtypes());
+                                                subcategoriesToSend.setDescription(subcategories.getDescription());
+                                                subcategoriesToSend.setSelected(true);
+                                                subcategoriesToSendList.add(subcategoriesToSend);
                                                 showSubcategoryChange(true, tviSubcategory);
                                                 subcategories.setSelected(true);
                                             }
@@ -363,7 +408,20 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
 
     @OnClick(R.id.btn_comenzar)
     public void beginApp(){
-        //categoriesPresenter.saveCategoriesToPreferences(categoriesListToSend);
+        if(categoriesToSendList.size() < 2){
+            dialog = dialogUtil.createCustomDialog("LetsGo", getString(R.string.message_nedd_more_categories), this, 0, true, false);
+            dialog.show();
+        } else{
+            int public_type = 0;
+            if(statusGeneral) public_type = 1;
+            else if(statusAdultos) public_type = 2;
+            else if(statusNinos) public_type = 3;
+            else if(statusTerceraEdad) public_type = 4;
+            CategoriesToPreferences categoriesToPreferences = new CategoriesToPreferences();
+            categoriesToPreferences.setPublicType(public_type);
+            categoriesToPreferences.setCategoriesList(categoriesToSendList);
+            categoriesPresenter.saveCategoriesToPreferences(categoriesToPreferences);
+        }
     }
 
     private void selectOptionPublicType(boolean statusGeneral, boolean statusAdultos, boolean statusNinos, boolean statusTerceraEdad){

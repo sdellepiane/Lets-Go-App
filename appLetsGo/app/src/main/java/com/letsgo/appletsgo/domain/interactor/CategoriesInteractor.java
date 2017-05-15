@@ -5,6 +5,7 @@ import com.letsgo.appletsgo.data.entity.raw.ActividadesRaw;
 import com.letsgo.appletsgo.data.entity.raw.DetalleActividadRaw;
 import com.letsgo.appletsgo.domain.model.entity.Actividades;
 import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.DetalleActividades;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.model.entity.TypeCategoriesList;
@@ -44,8 +45,8 @@ public class CategoriesInteractor {
         });
     }
 
-    public void saveCategoriesToPreferences(List<Categories> categoriesList, final RequestCallBackPreferencesCategories requestCallBackPreferencesCategories){
-        this.categoriesServiceRepository.saveCategoriesToPreferences(categoriesList, new RequestCallBackPreferencesCategories() {
+    public void saveCategoriesToPreferences(CategoriesToPreferences categoriesToPreferences, final RequestCallBackPreferencesCategories requestCallBackPreferencesCategories){
+        this.categoriesServiceRepository.saveCategoriesToPreferences(categoriesToPreferences, new RequestCallBackPreferencesCategories() {
 
             @Override
             public void onSaveCategoriesPreferencesSuccess(Object object) {
