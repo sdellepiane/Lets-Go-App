@@ -49,6 +49,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by louislopez on 14/02/17.
@@ -83,6 +84,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     @BindView(R.id.llaDistritoComponent) DistritoComponent llaDistritoComponent;
     @BindView(R.id.tviAllDistrito) TextView tviAllDistrito;
     @BindView(R.id.iviCheckAllDistrito) ImageView iviCheckAllDistrito;
+    @BindView(R.id.iviSearch) ImageView iviSearch;
 
 
     ImageView iviPerfil;
@@ -305,6 +307,10 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         }
     }
 
+    @OnClick(R.id.iviSearch)
+    public void touchSearch(){
+        nextActivity(SearchActivity.class, true);
+    }
 
 
     private void changeTextHeader(TextView textView, int type){

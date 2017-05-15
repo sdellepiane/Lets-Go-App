@@ -364,6 +364,7 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
     @OnClick(R.id.btn_comenzar)
     public void beginApp(){
         //categoriesPresenter.saveCategoriesToPreferences(categoriesListToSend);
+        nextActivity(HomeActivity.class, false);
     }
 
     private void selectOptionPublicType(boolean statusGeneral, boolean statusAdultos, boolean statusNinos, boolean statusTerceraEdad){

@@ -75,8 +75,9 @@
         <activity
             android:name=".app.ui.activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.letsgo"></activity>
-        <activity android:name=".app.ui.activity.FilterOptionActivity"></activity>
+            android:theme="@style/Base.Theme.letsgo" />
+        <activity android:name=".app.ui.activity.FilterOptionActivity" />
+        <activity android:name=".app.ui.activity.SearchActivity"></activity>
     </application>
 
 </manifest>
