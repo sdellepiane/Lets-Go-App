@@ -35,6 +35,11 @@ public class CategoriesPresenter implements Presenter<CategoriesView>, RequestCa
         categoriesInteractor.saveCategoriesToPreferences(categoriesToPreferences, this);
     }
 
+    public void getCategoriesFromPreferences(){
+        categoriesView.showLoading();
+        categoriesInteractor.getCategoriesToPreferences(this);
+    }
+
     @Override
     public void onRequestSuccess(Object object) {
         categoriesView.hideLoading();
@@ -71,6 +76,8 @@ public class CategoriesPresenter implements Presenter<CategoriesView>, RequestCa
 
     @Override
     public void onGetCategoriesPreferencesSuccess(Object object) {
-
+        categoriesView.hideLoading();
+        CategoriesToPreferences categoriesToPreferences = (CategoriesToPreferences) object;
+        categoriesView.getCategoriesFromPreferences(categoriesToPreferences);
     }
 }

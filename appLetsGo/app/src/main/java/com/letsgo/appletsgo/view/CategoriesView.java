@@ -2,6 +2,7 @@ package com.letsgo.appletsgo.view;
 
 import com.letsgo.appletsgo.domain.model.entity.Actividades;
 import com.letsgo.appletsgo.domain.model.entity.Categories;
+import com.letsgo.appletsgo.domain.model.entity.CategoriesToPreferences;
 import com.letsgo.appletsgo.domain.model.entity.DetalleActividades;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.model.entity.TypeCategoriesList;
@@ -19,4 +20,5 @@ public interface CategoriesView extends BaseView {
     void showEmptyCategories();
     void showMessageError(String message);
     void saveCategoriesToPreferencesSuccess();
+    void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences);
 }
