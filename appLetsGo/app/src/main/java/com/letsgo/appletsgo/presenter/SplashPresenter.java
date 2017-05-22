@@ -61,6 +61,21 @@ public class SplashPresenter implements Presenter<SplashView>, RequestCallBackAc
     }
 
     @Override
+    public void onSaveFavoriteSuccess(Object object) {
+
+    }
+
+    @Override
+    public void onDeleteFavoriteSuccess(Object object) {
+
+    }
+
+    @Override
+    public void onAssignFavoriteSuccess(Object object) {
+
+    }
+
+    @Override
     public void onRequestFailure(Throwable e) {
 
     }

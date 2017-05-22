@@ -1,5 +1,7 @@
 package com.letsgo.appletsgo.domain.model.entity;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 /**
@@ -7,15 +9,43 @@ import java.io.Serializable;
  */
 
 public class Actividades implements Serializable{
+
+    @DatabaseField(generatedId = true)
+    private int id;
+
+    @DatabaseField
     private String id_activities;
+
+    @DatabaseField
     private String type;
+
+    @DatabaseField
     private String activity;
+
+    @DatabaseField
     private String schedul;
+
+    @DatabaseField
     private String schedul_date;
+
+    @DatabaseField
     private String schedul_time;
+
+    @DatabaseField
     private String price;
+
+    @DatabaseField
     private String path;
 
+    private boolean favorite;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getId_activities() {
         return id_activities;
@@ -81,10 +111,19 @@ public class Actividades implements Serializable{
         this.path = path;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public String toString() {
-        return "ActividadesEntity{" +
-                "id_activities='" + id_activities + '\'' +
+        return "Actividades{" +
+                "id=" + id +
+                ", id_activities='" + id_activities + '\'' +
                 ", type='" + type + '\'' +
                 ", activity='" + activity + '\'' +
                 ", schedul='" + schedul + '\'' +
@@ -92,6 +131,7 @@ public class Actividades implements Serializable{
                 ", schedul_time='" + schedul_time + '\'' +
                 ", price='" + price + '\'' +
                 ", path='" + path + '\'' +
+                ", favorite=" + favorite +
                 '}';
     }
 }

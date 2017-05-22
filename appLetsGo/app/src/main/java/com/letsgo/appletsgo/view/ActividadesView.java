@@ -20,4 +20,9 @@ public interface ActividadesView extends BaseView {
     void showEmptyActivitys();
     void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences);
     void showMessageError(String message);
+    void saveFavorite(Actividades actividades);
+    void deleteFavorite(Actividades actividades, int actividadId);
+    void assignFavorites(List<Actividades> actividadesList);
+    void saveFavoriteSuccess();
+    void deleteFavoriteSuccess();
 }

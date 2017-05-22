@@ -43,6 +43,21 @@ public class ActividadesInteractor {
             }
 
             @Override
+            public void onSaveFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onDeleteFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onAssignFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
             public void onRequestFailure(Throwable e) {
                 requestCallBackActividades.onRequestFailure(e);
             }
@@ -72,6 +87,21 @@ public class ActividadesInteractor {
 
             @Override
             public void onCategoriesFromPreferencesRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onSaveFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onDeleteFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onAssignFavoriteSuccess(Object object) {
 
             }
 
@@ -108,6 +138,21 @@ public class ActividadesInteractor {
             }
 
             @Override
+            public void onSaveFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onDeleteFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onAssignFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
             public void onRequestFailure(Throwable e) {
 
             }
@@ -138,6 +183,21 @@ public class ActividadesInteractor {
             }
 
             @Override
+            public void onSaveFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onDeleteFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onAssignFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
             public void onRequestFailure(Throwable e) {
                 requestCallBackActividades.onRequestFailure(e);
             }
@@ -150,4 +210,172 @@ public class ActividadesInteractor {
         });
     }
 
+    public void saveFavoriteInteractor(Actividades actividades, final RequestCallBackActividades requestCallBackActividades){
+        this.actividadesServiceRepository.saveFavorite(actividades, new RequestCallBackActividades() {
+            @Override
+            public void onRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onRequestSuccess(Object object, int type) {
+            }
+
+            @Override
+            public void onCategoriesFromPreferencesRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onSaveFavoriteSuccess(Object object) {
+                requestCallBackActividades.onSaveFavoriteSuccess(object);
+            }
+
+            @Override
+            public void onDeleteFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onAssignFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onRequestFailure(Throwable e) {
+            }
+
+            @Override
+            public void onRequestFailure(Throwable throwable, int type) {
+            }
+        });
+    }
+
+    public void deleteFavoriteInteractor(int id, final RequestCallBackActividades requestCallBackActividades){
+        this.actividadesServiceRepository.deleteFavorite(id, new RequestCallBackActividades() {
+            @Override
+            public void onRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onRequestSuccess(Object object, int type) {
+            }
+
+            @Override
+            public void onCategoriesFromPreferencesRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onSaveFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onDeleteFavoriteSuccess(Object object) {
+                requestCallBackActividades.onDeleteFavoriteSuccess(object);
+            }
+
+            @Override
+            public void onAssignFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onRequestFailure(Throwable e) {
+            }
+
+            @Override
+            public void onRequestFailure(Throwable throwable, int type) {
+            }
+        });
+    }
+
+    public void getFavoriteInteractor(int idFavorite, final RequestCallBackActividades requestCallBackActividades){
+        this.actividadesServiceRepository.getFavorite(idFavorite, new RequestCallBackActividades() {
+            @Override
+            public void onRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onRequestSuccess(Object object, int type) {
+
+            }
+
+            @Override
+            public void onCategoriesFromPreferencesRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onSaveFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onDeleteFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onAssignFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onRequestFailure(Throwable e) {
+            }
+
+            @Override
+            public void onRequestFailure(Throwable throwable, int type) {
+
+            }
+        });
+    }
+
+    public void assignFavoritesInteractor(List<Actividades> actividadesList, final RequestCallBackActividades requestCallBackActividades){
+        this.actividadesServiceRepository.assignFavorites(actividadesList, new RequestCallBackActividades() {
+            @Override
+            public void onRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onRequestSuccess(Object object, int type) {
+
+            }
+
+            @Override
+            public void onCategoriesFromPreferencesRequestSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onSaveFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onDeleteFavoriteSuccess(Object object) {
+
+            }
+
+            @Override
+            public void onAssignFavoriteSuccess(Object object) {
+                List<Actividades> actividadesList = (List<Actividades>) object;
+                requestCallBackActividades.onAssignFavoriteSuccess(actividadesList);
+            }
+
+            @Override
+            public void onRequestFailure(Throwable e) {
+            }
+
+            @Override
+            public void onRequestFailure(Throwable throwable, int type) {
+
+            }
+        });
+    }
 }
