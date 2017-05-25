@@ -42,10 +42,9 @@ dependencies {
     //TODO REST
     //TODO SOURCE MEDIA
     //TODO LIBRERY SVG
-    
 
     //TODO FACEBOOK
-    
+
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.code.gson:gson:2.7'
@@ -59,6 +58,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

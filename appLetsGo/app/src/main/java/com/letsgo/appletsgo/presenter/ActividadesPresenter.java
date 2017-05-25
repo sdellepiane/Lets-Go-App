@@ -53,6 +53,26 @@ public class ActividadesPresenter implements Presenter<ActividadesView>, Request
         actividadesInteractor.getCategoriesFromPreferences(this);
     }
 
+    public void saveFavorite(Actividades actividades){
+        actividadesView.showLoading();
+        actividadesInteractor.saveFavoriteInteractor(actividades, this);
+    }
+
+    public void deleteFavorite(int id){
+        actividadesView.showLoading();
+        actividadesInteractor.deleteFavoriteInteractor(id, this);
+    }
+
+    public void getFavorite(int idFavorite){
+        actividadesView.showLoading();
+        actividadesInteractor.getFavoriteInteractor(idFavorite, this);
+    }
+
+    public void assignFavorites(List<Actividades> actividadesList){
+        actividadesView.showLoading();
+        actividadesInteractor.assignFavoritesInteractor(actividadesList, this);
+    }
+
     @Override
     public void onRequestSuccess(Object object) {
 
@@ -90,6 +110,26 @@ public class ActividadesPresenter implements Presenter<ActividadesView>, Request
         actividadesView.hideLoading();
         CategoriesToPreferences categoriesToPreferences = (CategoriesToPreferences) object;
         actividadesView.getCategoriesFromPreferences(categoriesToPreferences);
+    }
+
+    @Override
+    public void onSaveFavoriteSuccess(Object object) {
+        actividadesView.saveFavoriteSuccess();
+        actividadesView.hideLoading();
+
+    }
+
+    @Override
+    public void onDeleteFavoriteSuccess(Object object) {
+        actividadesView.deleteFavoriteSuccess();
+        actividadesView.hideLoading();
+    }
+
+    @Override
+    public void onAssignFavoriteSuccess(Object object) {
+        List<Actividades> actividadesList = (List<Actividades>) object;
+        actividadesView.hideLoading();
+        actividadesView.assignFavorites(actividadesList);
     }
 
     @Override

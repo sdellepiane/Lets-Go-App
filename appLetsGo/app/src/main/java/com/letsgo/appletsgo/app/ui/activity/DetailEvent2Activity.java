@@ -277,6 +277,31 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
     }
 
     @Override
+    public void saveFavorite(Actividades actividades) {
+
+    }
+
+    @Override
+    public void deleteFavorite(Actividades actividades, int actividadId) {
+
+    }
+
+    @Override
+    public void assignFavorites(List<Actividades> actividadesList) {
+
+    }
+
+    @Override
+    public void saveFavoriteSuccess() {
+
+    }
+
+    @Override
+    public void deleteFavoriteSuccess() {
+
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }

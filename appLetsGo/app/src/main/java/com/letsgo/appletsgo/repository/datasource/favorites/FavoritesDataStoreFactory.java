@@ -1,24 +1,25 @@
-package com.letsgo.appletsgo.repository.datasource.actividades;
+package com.letsgo.appletsgo.repository.datasource.favorites;
 
 import android.content.Context;
 
 import com.letsgo.appletsgo.data.rest.ApiClient;
 import com.letsgo.appletsgo.data.store.SessionUser;
 import com.letsgo.appletsgo.data.store.db.DaoFactory;
+import com.letsgo.appletsgo.repository.datasource.actividades.DatabaseActividadesDataStore;
 import com.letsgo.appletsgo.repository.datasource.categories.PreferencesCategoriesDataStore;
 
 /**
  * Created by louislopez on 4/03/17.
  */
 
-public class ActividadesDataStoreFactory {
+public class FavoritesDataStoreFactory {
     public static final  int DB=1;
     public static final  int CLOUD=2;
     public static final  int PREFERENCES=3;
     public static final  int IMG_LIBRARY=4;
     private final Context context;
 
-    public ActividadesDataStoreFactory(Context context) {
+    public FavoritesDataStoreFactory(Context context) {
         if (context == null) {
             throw new IllegalArgumentException("Constructor parameters cannot be null!!!");
         }
@@ -30,13 +31,11 @@ public class ActividadesDataStoreFactory {
 
         switch (dataSource) {
             case CLOUD:
-                object = createCloudDataStore();
                 break;
             case DB:
-                object= new DatabaseActividadesDataStore(new DaoFactory(context));
+                object= new DatabaseFavoritesDataStore(new DaoFactory(context));
                 break;
             case PREFERENCES:
-                object = new PreferencesCategoriesDataStore(context, new SessionUser());
                 //detailWalkingServiceDataStore = new PrefDetailWalkingServiceDataStore(context,new PreferencesHelper());
                 break;
             case IMG_LIBRARY:
@@ -45,10 +44,4 @@ public class ActividadesDataStoreFactory {
         }
         return object;
     }
-
-    public ActividadesServiceDataStore createCloudDataStore(){
-        ApiClient restApi = new ApiClient(this.context);
-        return new CloudActividadesSdataStore(restApi);
-    }
-
 }

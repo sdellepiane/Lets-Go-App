@@ -16,6 +16,7 @@ import com.letsgo.appletsgo.domain.repository.interactor.RequestCallBackActivida
 import com.letsgo.appletsgo.repository.Categories.RepositoryCallBackCategories;
 import com.letsgo.appletsgo.repository.datasource.actividades.ActividadesDataStoreFactory;
 import com.letsgo.appletsgo.repository.datasource.actividades.ActividadesServiceDataStore;
+import com.letsgo.appletsgo.repository.datasource.actividades.DatabaseActividadesDataStore;
 import com.letsgo.appletsgo.repository.datasource.categories.CategoriesDataStoreFactory;
 import com.letsgo.appletsgo.repository.datasource.categories.CategoriesPreferencesDataStore;
 
@@ -114,6 +115,90 @@ public class ActividadesDataRepository implements ActividadesServiceRepository {
             @Override
             public void onSuccess(Object object) {
                 requestCallBackPreferencesCategories.onCategoriesFromPreferencesRequestSuccess(object);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+            }
+        });
+    }
+
+    @Override
+    public void saveFavorite(Actividades actividades, final RequestCallBackActividades requestCallBackActividades) {
+        final DatabaseActividadesDataStore actividadesDatabaseDataStore = (DatabaseActividadesDataStore)this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.DB);
+        actividadesDatabaseDataStore.saveFavorite(actividades, new RepositoryCallBackActividades() {
+            @Override
+            public void onSuccess(Object object) {
+                requestCallBackActividades.onSaveFavoriteSuccess(object);
+            }
+
+            @Override
+            public void onSuccess(Object response, Object header) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+            }
+        });
+    }
+
+    @Override
+    public void deleteFavorite(int idActividad, final RequestCallBackActividades requestCallBackActividades) {
+        final DatabaseActividadesDataStore actividadesDatabaseDataStore = (DatabaseActividadesDataStore)this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.DB);
+        actividadesDatabaseDataStore.deleteFavorite(idActividad, new RepositoryCallBackActividades() {
+            @Override
+            public void onSuccess(Object object) {
+                requestCallBackActividades.onDeleteFavoriteSuccess(object);
+            }
+
+            @Override
+            public void onSuccess(Object response, Object header) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getFavorite(int idFavorite, final RequestCallBackActividades requestCallBackActividades) {
+        final DatabaseActividadesDataStore actividadesDatabaseDataStore = (DatabaseActividadesDataStore)this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.DB);
+        actividadesDatabaseDataStore.getFavorite(idFavorite, new RepositoryCallBackActividades() {
+            @Override
+            public void onSuccess(Object object) {
+                //requestCallBackActividades.onGr(object);
+            }
+
+            @Override
+            public void onSuccess(Object response, Object header) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+            }
+        });
+    }
+
+    @Override
+    public void assignFavorites(List<Actividades> actividadesList, final RequestCallBackActividades requestCallBackActividades) {
+        final DatabaseActividadesDataStore actividadesDatabaseDataStore = (DatabaseActividadesDataStore)this.actividadesDataStoreFactory.create(ActividadesDataStoreFactory.DB);
+        actividadesDatabaseDataStore.assignFavorites(actividadesList, new RepositoryCallBackActividades() {
+            @Override
+            public void onSuccess(Object object) {
+                requestCallBackActividades.onAssignFavoriteSuccess(object);
+            }
+
+            @Override
+            public void onSuccess(Object response, Object header) {
+
             }
 
             @Override

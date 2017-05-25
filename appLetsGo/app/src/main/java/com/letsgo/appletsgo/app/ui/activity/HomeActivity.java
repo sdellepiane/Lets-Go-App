@@ -89,6 +89,8 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     @BindView(R.id.llaDistritoComponent) DistritoComponent llaDistritoComponent;
     @BindView(R.id.tviAllDistrito) TextView tviAllDistrito;
     @BindView(R.id.iviCheckAllDistrito) ImageView iviCheckAllDistrito;
+    @BindView(R.id.tviQuantityFilter) TextView tviQuantityFilter;
+    @BindView(R.id.iviLike) ImageView iviLike;
 
 
     ImageView iviPerfil;
@@ -105,6 +107,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     SessionUser sessionUser = new SessionUser();
     private CategoriesToPreferences categoriesToPreferences;
     private ActividadesRaw actividadesRaw;
+    private Actividades favorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +118,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
 
         initPresenter();
         initUI();
-        initOnclickListenerViews(iviMenu, rlaFree, rlaFilterAll, rlaBtnDistrito, rlaDistrito, tviCancelarDialogDistrito, tviAceptarFilterDistrito, rlaAllDistrito);
+        initOnclickListenerViews(iviMenu, rlaFree, rlaFilterAll, rlaBtnDistrito, rlaDistrito, tviCancelarDialogDistrito, tviAceptarFilterDistrito, rlaAllDistrito, iviLike);
         initViewEvents();
     }
 
@@ -232,14 +235,17 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
 
     public void filterDistritos(List<filterPlacesRaw> distritos){
         rviEvents.removeAllViews();
+        List<PlacesRaw> placesRawList = new ArrayList<>();
+        for(filterPlacesRaw filterPlacesRaw : distritos){
+            PlacesRaw placesRaw = new PlacesRaw();
+            placesRaw.setId(Integer.parseInt(filterPlacesRaw.getId()));
+            placesRawList.add(placesRaw);
+        }
         actividadesList = new ArrayList<>();
-        ActividadesRaw raw = new ActividadesRaw();
-        raw.setFilterPublics("1");
-        raw.setFree(0);
-        //raw.setFilterPlaces(distritos);
-
-
-        actividadesPresenter.listCatalog(raw);
+        actividadesRaw.setFree(0);
+        actividadesRaw.setFilterPublics(actividadesRaw.getFilterPublics());
+        actividadesRaw.setFilterPlaces(placesRawList);
+        actividadesPresenter.listCatalog(actividadesRaw);
     }
 
     @Override
@@ -251,10 +257,9 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
             case R.id.rlaFree:
                 rviEvents.removeAllViews();
                 actividadesList = new ArrayList<>();
-                ActividadesRaw raw = new ActividadesRaw();
-                raw.setFilterPublics("1");
-                raw.setFree(1);
-                actividadesPresenter.listCatalog(raw);
+                actividadesRaw.setFree(1);
+                actividadesRaw.setFilterPublics(actividadesRaw.getFilterPublics());
+                actividadesPresenter.listCatalog(actividadesRaw);
 
                 llaLinearFree.setVisibility(View.VISIBLE);
                 changeTextHeader(tviFree, 3);
@@ -269,10 +274,9 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
                 }else {
                     rviEvents.removeAllViews();
                     actividadesList = new ArrayList<>();
-                    ActividadesRaw raw2 = new ActividadesRaw();
-                    raw2.setFilterPublics("1");
-                    raw2.setFree(0);
-                    actividadesPresenter.listCatalog(raw2);
+                    actividadesRaw.setFree(0);
+                    actividadesRaw.setFilterPublics(actividadesRaw.getFilterPublics());
+                    actividadesPresenter.listCatalog(actividadesRaw);
 
                     llaLinearFree.setVisibility(View.INVISIBLE);
                     changeTextHeader(tviFree, 1);
@@ -300,6 +304,9 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
                 iviCheckAllDistrito.setVisibility(View.VISIBLE);
                 llaDistritoComponent.removeAllViews();
                 llaDistritoComponent.init(listDistrito, this, true, iviCheckAllDistrito);
+                break;
+            case R.id.iviLike:
+                nextActivity(FavoritesActivity.class, true);
                 break;
 
         }
@@ -369,10 +376,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     public void getActividades(List<Actividades> tiendaList) {
         LogUtils.v(TAG, " Lista actividades" + tiendaList.toString() );
         actividadesList = tiendaList;
-        eventAdapter = new EventAdapter(this, actividadesList);
-        rviEvents.setAdapter(eventAdapter);
-        tviNoData.setVisibility(View.GONE);
-        rviEvents.setVisibility(View.VISIBLE);
+        actividadesPresenter.assignFavorites(this.actividadesList);
     }
 
     @Override
@@ -416,6 +420,8 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     public void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences) {
         this.categoriesToPreferences = categoriesToPreferences;
         actividadesRaw = generateActividadesRaw(0, new ArrayList<PlacesRaw>(), 0, "", "", "", "", "", "");
+        actividadesRaw.setFree(0);
+        actividadesRaw.setFilterPublics(actividadesRaw.getFilterPublics());
         actividadesPresenter.listCatalog(actividadesRaw);
         actividadesPresenter.distritosDisponibles();
     }
@@ -423,6 +429,39 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     @Override
     public void showMessageError(String message) {
 
+    }
+
+    @Override
+    public void saveFavorite(Actividades actividades) {
+        this.favorite = actividades;
+        actividadesPresenter.saveFavorite(actividades);
+    }
+
+    @Override
+    public void deleteFavorite(Actividades actividades, int actividadId) {
+        this.favorite = actividades;
+        actividadesPresenter.deleteFavorite(actividadId);
+    }
+
+    @Override
+    public void assignFavorites(List<Actividades> actividadesList) {
+        this.actividadesList = actividadesList;
+        eventAdapter = new EventAdapter(this, this.actividadesList, this);
+        rviEvents.setAdapter(eventAdapter);
+        tviNoData.setVisibility(View.GONE);
+        rviEvents.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void saveFavoriteSuccess() {
+        this.favorite.setFavorite(true);
+        eventAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void deleteFavoriteSuccess() {
+        this.favorite.setFavorite(false);
+        eventAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -437,6 +476,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         ActividadesRaw actividadesRaw = new ActividadesRaw();
         actividadesRaw.setFilterPublics(String.valueOf(categoriesToPreferences.getPublicType()));
         List<Categories> categoriesList = categoriesToPreferences.getCategoriesList();
+        tviQuantityFilter.setText(String.valueOf(categoriesList.size()));
         List<CategoriesRaw> categoriesRawList = new ArrayList<>();
         for(Categories categories : categoriesList){
             CategoriesRaw categoriesRaw = new CategoriesRaw();
@@ -454,7 +494,8 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
             categoriesRaw.setFilterSubtypes(subcategoriesRawList);
             categoriesRawList.add(categoriesRaw);
         }
-        actividadesRaw.setFilterTypes(categoriesRawList);
+        //actividadesRaw.setFilterTypes(categoriesRawList);
+        actividadesRaw.setFilterTypes(new ArrayList<CategoriesRaw>());
         actividadesRaw.setFree(free);
         actividadesRaw.setFilterPlaces(placesRawList);
         actividadesRaw.setDate_days(dateDays);

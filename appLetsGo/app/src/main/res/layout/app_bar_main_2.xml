@@ -60,10 +60,10 @@
 
         <RelativeLayout
             android:id="@+id/rlaHeadToolBar"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:background="@drawable/bg_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_toolbar"
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <RelativeLayout
                 android:id="@+id/rlaToolBar"
@@ -72,174 +72,174 @@
 
                 <ImageView
                     android:id="@+id/iviMenu"
-                    android:src="@drawable/ic_menu"
-                    android:layout_marginLeft="16dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_centerVertical="true"
-                    />
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/ic_menu" />
 
                 <ImageView
                     android:id="@+id/iviLogo"
-                    android:src="@drawable/lets_go"
                     android:layout_width="59dp"
                     android:layout_height="20dp"
                     android:layout_alignBottom="@+id/iviMenu"
                     android:layout_marginLeft="16dp"
-                    android:layout_toEndOf="@+id/iviMenu" />
+                    android:layout_toEndOf="@+id/iviMenu"
+                    android:src="@drawable/lets_go" />
 
                 <ImageView
                     android:id="@+id/iviLike"
-                    android:src="@drawable/ic_favorite_white"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/ic_favorite_24dp" />
 
                 <ImageView
                     android:id="@+id/iviSearch"
-                    android:src="@drawable/ic_search_24dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginRight="16dp"
                     android:layout_centerVertical="true"
-                    android:layout_toStartOf="@+id/iviLike" />
+                    android:layout_marginRight="16dp"
+                    android:layout_toStartOf="@+id/iviLike"
+                    android:src="@drawable/ic_search_24dp" />
 
 
             </RelativeLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:id="@+id/tabLayout"
-                android:layout_below="@+id/rlaToolBar"
                 android:layout_width="match_parent"
-                android:layout_height="44dp">
+                android:layout_height="44dp"
+                android:layout_below="@+id/rlaToolBar"
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:id="@+id/rlaFilterAll"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:id="@+id/llaLinearFilter"
-                        android:layout_gravity="bottom"
-                        android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="bottom"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true" />
+                        android:background="@color/white"
+                        android:orientation="vertical" />
 
 
                     <RelativeLayout
                         android:id="@+id/rlaCirculeCart"
-                        android:layout_toEndOf="@+id/tviFiltros"
-                        android:background="@drawable/pop_filtro"
-                        android:gravity="center"
-                        android:layout_centerVertical="true"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="4dp"
+                        android:layout_toEndOf="@+id/tviFiltros"
+                        android:background="@drawable/pop_filtro"
                         android:fromXScale="0.0"
                         android:fromYScale="0.0"
+                        android:gravity="center"
                         android:toXScale="0.0"
                         android:toYScale="0.0">
 
                         <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                            android:id="@+id/tviQuantityFilter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:tag="3"
                             android:text="3"
-                            android:textSize="14sp"
                             android:textColor="@color/colorPrimary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:textSize="14sp" />
 
                     </RelativeLayout>
 
                     <com.letsgo.appletsgo.app.ui.component.CustomTextView
-                        android:tag="2"
                         android:id="@+id/tviFiltros"
-                        android:text="Filtros"
-                        android:textColor="@color/white"
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"/>
+                        android:gravity="center"
+                        android:tag="2"
+                        android:text="Filtros"
+                        android:textColor="@color/white" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rlaFree"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:id="@+id/llaLinearFree"
-                        android:visibility="invisible"
-                        android:layout_gravity="bottom"
-                        android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="bottom"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true" />
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:visibility="invisible" />
 
                     <com.letsgo.appletsgo.app.ui.component.CustomTextView
-                        android:tag="1"
                         android:id="@+id/tviFree"
-                        android:text="Gratis"
-                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:tag="1"
+                        android:text="Gratis"
+                        android:textColor="@color/white" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rlaBtnDistrito"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
                     <LinearLayout
-                        android:visibility="invisible"
-                        android:layout_gravity="bottom"
-                        android:background="@color/white"
+                        android:id="@+id/linearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="4dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentStart="true"
-                        android:id="@+id/linearLayout"
-                        android:orientation="horizontal" />
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:visibility="invisible" />
 
                     <com.letsgo.appletsgo.app.ui.component.CustomTextView
-                        android:tag="1"
                         android:id="@+id/tviDistrito"
-                        android:text="Distrito"
-                        android:textColor="@color/white"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:tag="1"
+                        android:text="Distrito"
+                        android:textColor="@color/white" />
 
                     <ImageView
-                        android:src="@drawable/ic_distrito_arrow_24dp"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:layout_toEndOf="@+id/tviDistrito" />
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/tviDistrito"
+                        android:src="@drawable/ic_distrito_arrow_24dp" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -247,13 +247,7 @@
         </RelativeLayout>
 
 
-
     </android.support.design.widget.AppBarLayout>
-
-
-
-
-
 
 
 </android.support.design.widget.CoordinatorLayout>

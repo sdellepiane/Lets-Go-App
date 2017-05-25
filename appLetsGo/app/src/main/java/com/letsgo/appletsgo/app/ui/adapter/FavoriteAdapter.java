@@ -1,6 +1,5 @@
 package com.letsgo.appletsgo.app.ui.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +14,6 @@ import android.widget.TextView;
 
 import com.letsgo.appletsgo.R;
 import com.letsgo.appletsgo.app.ui.activity.DetailEvent2Activity;
-import com.letsgo.appletsgo.app.ui.activity.DetailEventActivity;
-import com.letsgo.appletsgo.app.utils.CircleTransform;
 import com.letsgo.appletsgo.app.utils.LogUtils;
 import com.letsgo.appletsgo.domain.model.entity.Actividades;
 import com.letsgo.appletsgo.view.ActividadesView;
@@ -37,7 +34,7 @@ import butterknife.ButterKnife;
  * Created by louislopez on 12/02/17.
  */
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private String TAG = "ADAPTER_ACTIVIDAD" ;
     private Context context;
     private List<Actividades> actividadesList = new ArrayList<>();
@@ -47,12 +44,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     private int mYear;
     private int year1;
     private int mMonth;
-    private ActividadesView actividadesView;
 
-    public EventAdapter(Context context, List<Actividades> actividadesList, ActividadesView view) {
+    public FavoriteAdapter(Context context, List<Actividades> actividadesList) {
         this.context  = context;
         this.actividadesList  = actividadesList;
-        this.actividadesView= view;
     }
 
     @Override
@@ -64,27 +59,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Actividades actividades = actividadesList.get(position);
-        holder.rlaContentRow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Bundle bundle = new Bundle();
-                bundle.putString("ID_ACTIVIDAD", actividadesList.get(position).getId_activities() );
-                Intent intent = new Intent(context, DetailEvent2Activity.class);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-
-               /* if (position == 1) {
-                    Intent intent = new Intent(context, DetailEvent2Activity.class);
-                    intent.putExtras(bundle);
-                    context.startActivity(intent);
-                }else{
-                    Intent intent = new Intent(context, DetailEventActivity.class);
-                    intent.putExtras(bundle);
-                    context.startActivity(intent);
-                }*/
-            }
-        });
 
         holder.tviNameEvent.setText(actividadesList.get(position).getActivity());
 
@@ -95,33 +69,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         else
             holder.tviPrice.setText(actividadesList.get(position).getPrice());
 
-        if(actividades.isFavorite()){
-            holder.iviFavorite.setImageResource(R.drawable.ic_favorite_red);
-            holder.iviClock.setColorFilter(context.getResources().getColor(R.color.colorRed));
-            holder.iviTicket.setColorFilter(context.getResources().getColor(R.color.colorRed));
-        } else{
-            holder.iviFavorite.setImageResource(R.drawable.ic_favorite_24dp);
-            holder.iviClock.setColorFilter(context.getResources().getColor(R.color.white));
-            holder.iviTicket.setColorFilter(context.getResources().getColor(R.color.white));
-        }
-
-        holder.iviFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(actividades.isFavorite()){
-                    holder.iviFavorite.setImageResource(R.drawable.ic_favorite_24dp);
-                    holder.iviClock.setColorFilter(context.getResources().getColor(R.color.white));
-                    holder.iviTicket.setColorFilter(context.getResources().getColor(R.color.white));
-                    actividadesView.deleteFavorite(actividades, Integer.parseInt(actividades.getId_activities()));
-                } else{
-                    holder.iviFavorite.setImageResource(R.drawable.ic_favorite_red);
-                    holder.iviClock.setColorFilter(context.getResources().getColor(R.color.colorRed));
-                    holder.iviTicket.setColorFilter(context.getResources().getColor(R.color.colorRed));
-                    actividadesView.saveFavorite(actividades);
-                }
-
-            }
-        });
+        holder.iviFavorite.setImageResource(R.drawable.ic_favorite_red);
+        holder.iviClock.setColorFilter(context.getResources().getColor(R.color.colorRed));
+        holder.iviTicket.setColorFilter(context.getResources().getColor(R.color.colorRed));
 
         Picasso.with(context)
                 .load(actividadesList.get(position).getPath())

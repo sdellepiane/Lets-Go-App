@@ -5,9 +5,12 @@ package com.letsgo.appletsgo.domain.repository.interactor;
  */
 
 public interface RequestCallBackActividades<T> {
-    public void onRequestSuccess(T object);
-    public void onRequestSuccess(T object, int type);
-    public void onCategoriesFromPreferencesRequestSuccess(T object);
-    public void onRequestFailure(Throwable e);
-    public void onRequestFailure(Throwable throwable, int type);
+    void onRequestSuccess(T object);
+    void onRequestSuccess(T object, int type);
+    void onCategoriesFromPreferencesRequestSuccess(T object);
+    void onSaveFavoriteSuccess(T object);
+    void onDeleteFavoriteSuccess(T object);
+    void onAssignFavoriteSuccess(T object);
+    void onRequestFailure(Throwable e);
+    void onRequestFailure(Throwable throwable, int type);
 }

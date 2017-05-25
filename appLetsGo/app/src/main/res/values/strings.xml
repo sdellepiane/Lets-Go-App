@@ -51,5 +51,6 @@
 
     <string name="sOk">Aceptar</string>
     <string name="sCancel">Cancelar</string>
+    <string name="sFavorites">Favoritos</string>
 
 </resources>

@@ -52,6 +52,7 @@
             android:gravity="center|start">
 
             <ImageView
+                android:id="@+id/iviTicket"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_price" />
@@ -107,6 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/iviClock"
                     android:src="@drawable/ic_query_24dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp" />

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.letsgo.appletsgo.app.ui.activity.FavoritesActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/rlaHeadToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rlaToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/bg_toolbar">
+
+            <ImageView
+                android:id="@+id/iviBack"
+                android:src="@drawable/back"
+                android:layout_marginLeft="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true" />
+            
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sFavorites"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/iviBack"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/white"/>
+
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rviFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_loading"
+        android:id="@+id/vieLoading"
+        android:visibility="gone"/>
+
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:id="@+id/tviNoData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_data_events"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

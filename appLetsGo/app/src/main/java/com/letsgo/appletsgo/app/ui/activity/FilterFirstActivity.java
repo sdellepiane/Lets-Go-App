@@ -79,44 +79,6 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
         categoriesToSendList = new ArrayList<>();
         subcategoriesToSendList = new ArrayList<>();
         dialogUtil = new DialogUtil(this);
-
-        //TODO 2017-03-29 19:30:00
-        String input_date="01-08-2017";
-        Date dt1 = null;
-        Locale locale = new Locale ( "es" , "ES" );
-        SimpleDateFormat format1=new SimpleDateFormat("dd-MM-yyyy", locale);
-
-        try {
-            dt1=format1.parse(input_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String dayOfTheWeek = (String) DateFormat.format("EEEE", dt1);
-        String day          = (String) DateFormat.format("dd",   dt1);
-        String monthString  = (String) DateFormat.format("MMM",  dt1);
-        String monthNumber  = (String) DateFormat.format("MM",   dt1);
-        String year         = (String) DateFormat.format("yyyy", dt1);
-        LogUtils.v(TAG, " fecha: " + dayOfTheWeek);
-        LogUtils.v(TAG, " fecha: " + day);
-        LogUtils.v(TAG, " fecha: " + monthString);
-        LogUtils.v(TAG, " fecha: " + monthNumber);
-        LogUtils.v(TAG, " fecha: " + dayOfTheWeek);
-        LogUtils.v(TAG, " fecha: " + year);
-
-        /*try {
-            String _24HourTime = "20:00";
-            SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
-            SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
-            Date _24HourDt = _24HourSDF.parse(_24HourTime);
-            System.out.println(_24HourDt);
-            System.out.println(_12HourSDF.format(_24HourDt));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        LogUtils.v(TAG, " fecha: " + _24HourDt);
-        LogUtils.v(TAG, " fecha: " + _12HourSDF.format(_24HourDt));*/
-
-
     }
 
     private void initPresenter(){
@@ -160,6 +122,11 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
     }
 
     @Override
+    public void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences) {
+
+    }
+
+    @Override
     public void onAccept(int index) {
         switch(index){
             case 0:
@@ -174,14 +141,6 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
             case 0:
                 dialog.dismiss();
                 break;
-        }
-    }
-
-    public class ViewHolderTeatro {
-        @BindView(R.id.tviComedia) TextView tviComedia;
-
-        public ViewHolderTeatro(View container) {
-            ButterKnife.bind(this,container);
         }
     }
 
