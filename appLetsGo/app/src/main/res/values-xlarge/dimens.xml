@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size">16sp</dimen>
+    <dimen name="padding_textview_category_left_right">20dp</dimen>
+    <dimen name="padding_textview_category_top_bottom">15dp</dimen>
+    <dimen name="padding_textview_subcategory_left_right">25dp</dimen>
+    <dimen name="padding_textview_subcategory_top_bottom">20dp</dimen>
+
+    <dimen name="margin_textview_category_left">8dp</dimen>
+    <dimen name="margin_textview_category_right">8dp</dimen>
+    <dimen name="margin_textview_category_top">8dp</dimen>
+
+    <dimen name="padding_sublinearlayout_top">14dp</dimen>
+    <dimen name="padding_sublinearlayout_bottom">14dp</dimen>
+    <dimen name="padding_sublinearlayout_left">10dp</dimen>
+    <dimen name="padding_sublinearlayout_right">10dp</dimen>
+
+    <dimen name="margin_textview_subcategory_top">10dp</dimen>
+    <dimen name="margin_textview_subcategory_bottom">10dp</dimen>
+    <dimen name="margin_textview_subcategory_left">12dp</dimen>
+    <dimen name="margin_textview_subcategory_right">12dp</dimen>
+</resources>

@@ -53,4 +53,8 @@
     <string name="sCancel">Cancelar</string>
     <string name="sFavorites">Favoritos</string>
 
+    <string name="sAllDistricts">Todos los Distritos</string>
+    <string name="sNearly">Cercanos</string>
+    <string name="sChooseYourDistrict">Escoge tu distrito</string>
+
 </resources>

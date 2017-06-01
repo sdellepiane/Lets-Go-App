@@ -10,7 +10,7 @@ import java.util.List;
 public class ActividadesRaw implements Serializable {
     private String filterPublics;
     private List<CategoriesRaw> filterTypes;
-    private int free;
+    private String filterPrices;
     private List<PlacesRaw> filterPlaces;
     private int date_days;
     private String date_since;
@@ -36,12 +36,12 @@ public class ActividadesRaw implements Serializable {
         this.filterTypes = filterTypes;
     }
 
-    public int getFree() {
-        return free;
+    public String getFilterPrices() {
+        return filterPrices;
     }
 
-    public void setFree(int free) {
-        this.free = free;
+    public void setFilterPrices(String filterPrices) {
+        this.filterPrices = filterPrices;
     }
 
     public List<PlacesRaw> getFilterPlaces() {

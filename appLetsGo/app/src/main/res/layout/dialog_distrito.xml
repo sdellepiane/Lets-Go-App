@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <com.letsgo.appletsgo.app.ui.component.CustomTextView
-        android:text="Escoge tu distrito"
+        android:text="@string/sChooseYourDistrict"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:gravity="center"
@@ -14,11 +14,39 @@
         android:layout_height="48dp" />
 
     <RelativeLayout
-        android:id="@+id/rlaAllDistrito"
+        android:id="@+id/rlaNearly"
         android:layout_width="match_parent"
         android:layout_height="48dp">
 
+        <com.letsgo.appletsgo.app.ui.component.CustomTextView
+            android:textColor="@color/primary_text"
+            android:id="@+id/tviNearly"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sNearly" />
 
+        <ImageView
+            android:id="@+id/iviCheckNearly"
+            android:visibility="gone"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/ic_check_circle"
+            android:layout_alignTop="@+id/tviNearly"
+            android:layout_toStartOf="@+id/tviNearly" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="@color/liner_color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <RelativeLayout
+        android:id="@+id/rlaAllDistrito"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
 
         <com.letsgo.appletsgo.app.ui.component.CustomTextView
             android:textColor="@color/primary_text"
@@ -27,7 +55,7 @@
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Todos los Distritos" />
+            android:text="@string/sAllDistricts" />
 
         <ImageView
             android:id="@+id/iviCheckAllDistrito"

@@ -158,10 +158,77 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
             tviCategory.setBackgroundResource(R.drawable.type_public_off);
             tviCategory.setTextColor(getResources().getColor(R.color.secondary_text));
             tviCategory.setGravity(Gravity.CENTER);
-            tviCategory.setPadding(40, 40, 40, 40);
+            int textview_category_left_right;
+            int textview_category_top_bottom;
+            int margin_textview_category_left;
+            int margin_textview_category_top;
+            int margin_textview_category_right;
+            final int padding_textview_subcategory_left_right;
+            final int padding_textview_subcategory_top_bottom;
+
+            float density = getResources().getDisplayMetrics().density;
+            if(density == 1){
+                textview_category_left_right = 20;
+                textview_category_top_bottom = 15;
+                margin_textview_category_left = 2;
+                margin_textview_category_top = 2;
+                margin_textview_category_right = 2;
+                padding_textview_subcategory_left_right = 15;
+                padding_textview_subcategory_top_bottom = 10;
+            } else if(density == 1.5){
+                textview_category_left_right = 22;
+                textview_category_top_bottom = 17;
+                margin_textview_category_left = 2;
+                margin_textview_category_top = 2;
+                margin_textview_category_right = 2;
+                padding_textview_subcategory_left_right = 17;
+                padding_textview_subcategory_top_bottom = 12;
+            } else if(density == 2){
+                textview_category_left_right = 24;
+                textview_category_top_bottom = 19;
+                margin_textview_category_left = 2;
+                margin_textview_category_top = 2;
+                margin_textview_category_right = 2;
+                padding_textview_subcategory_left_right = 19;
+                padding_textview_subcategory_top_bottom = 14;
+            } else if(density == 2.5){
+                textview_category_left_right = 26;
+                textview_category_top_bottom = 21;
+                margin_textview_category_left = 4;
+                margin_textview_category_top = 4;
+                margin_textview_category_right = 4;
+                padding_textview_subcategory_left_right = 21;
+                padding_textview_subcategory_top_bottom = 16;
+            } else if(density == 3){
+                textview_category_left_right = 28;
+                textview_category_top_bottom = 23;
+                margin_textview_category_left = 6;
+                margin_textview_category_top = 6;
+                margin_textview_category_right = 6;
+                padding_textview_subcategory_left_right = 23;
+                padding_textview_subcategory_top_bottom = 18;
+            } else {
+                textview_category_left_right = 30;
+                textview_category_top_bottom = 25;
+                margin_textview_category_left = 8;
+                margin_textview_category_top = 8;
+                margin_textview_category_right = 8;
+                padding_textview_subcategory_left_right = 25;
+                padding_textview_subcategory_top_bottom = 20;
+            }
+            tviCategory.setPadding(
+                    textview_category_left_right,
+                    textview_category_top_bottom,
+                    textview_category_left_right,
+                    textview_category_top_bottom);
+            tviCategory.setTextSize(16);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 0, 20, 30);
+            layoutParams.setMargins(
+                    margin_textview_category_left,
+                    margin_textview_category_top,
+                    margin_textview_category_right,
+                    0);
             tviCategory.setLayoutParams(layoutParams);
             linearLayout.addView(tviCategory);
             if(i == categoriesList.size() - 1){
@@ -228,10 +295,19 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
                                     showSubcategoryChange(false, tviSubcategory);
                                 }
                                 tviSubcategory.setGravity(Gravity.CENTER);
-                                tviSubcategory.setPadding(40, 40, 40, 40);
+                                tviSubcategory.setPadding(
+                                        padding_textview_subcategory_left_right,
+                                        padding_textview_subcategory_top_bottom,
+                                        padding_textview_subcategory_left_right,
+                                        padding_textview_subcategory_top_bottom);
+                                tviSubcategory.setTextSize(16);
                                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                                         LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                layoutParams.setMargins(10, 20, 10, 30);
+                                layoutParams.setMargins(
+                                        getResources().getDimensionPixelSize(R.dimen.margin_textview_subcategory_left),
+                                        getResources().getDimensionPixelSize(R.dimen.margin_textview_subcategory_top),
+                                        getResources().getDimensionPixelSize(R.dimen.margin_textview_subcategory_right),
+                                        getResources().getDimensionPixelSize(R.dimen.margin_textview_subcategory_bottom));
                                 tviSubcategory.setLayoutParams(layoutParams);
                                 subcontentLinearLayout.addView(tviSubcategory);
                                 if (j == subcategoriesList.size() - 1) {
@@ -335,7 +411,11 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
         subLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         subLinearLayout.setOrientation(LinearLayout.VERTICAL);
         subLinearLayout.setGravity(Gravity.CENTER);
-        subLinearLayout.setPadding(0, 30, 0, 0);
+        subLinearLayout.setPadding(
+                getResources().getDimensionPixelSize(R.dimen.padding_sublinearlayout_left),
+                getResources().getDimensionPixelSize(R.dimen.padding_sublinearlayout_top),
+                getResources().getDimensionPixelSize(R.dimen.padding_sublinearlayout_right),
+                getResources().getDimensionPixelSize(R.dimen.padding_sublinearlayout_bottom));
     }
 
     private void initSubcontentLinearLayout(){
