@@ -10,7 +10,8 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled  true
+        manifestPlaceholders = [HOCKEYAPP_APP_ID: "40e3af3bac4445868c1d29a3681b27fb"]
     }
     buildTypes {
         release {
@@ -27,6 +28,16 @@ android {
             storePassword '69letsGo69'
             v2SigningEnabled false
         }
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
     }
 }
 
@@ -45,8 +56,9 @@ dependencies {
 
     //TODO FACEBOOK
 
-    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:design:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
@@ -59,6 +71,8 @@ dependencies {
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.google.android.gms:play-services:9.0.2'
+    compile 'net.hockeyapp.android:HockeySDK:4.0.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

@@ -18,6 +18,7 @@ import com.letsgo.appletsgo.data.store.SessionUser;
 import com.letsgo.appletsgo.domain.model.entity.DateGroup;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.model.entity.DistritosSession;
+import com.letsgo.appletsgo.view.NearlyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class DistritoComponent extends LinearLayout {
     private Context context;
     private boolean allDistrito;
     private ImageView allDistritoCheck;
+    private boolean nearly;
+    private NearlyView nearlyView;
 
 
     public DistritoComponent(Context context) {
@@ -46,11 +49,13 @@ public class DistritoComponent extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(List<Distrito> distritoList, Context context, boolean allDistrito, ImageView allDistritoCheck){
+    public void init(List<Distrito> distritoList, Context context, boolean allDistrito, boolean nearly, ImageView allDistritoCheck, NearlyView nearlyView){
         this.distritoList = distritoList;
         this.context = context;
         this.allDistrito = allDistrito;
         this.allDistritoCheck = allDistritoCheck;
+        this.nearly = nearly;
+        this.nearlyView = nearlyView;
         populate();
     }
 
@@ -78,7 +83,8 @@ public class DistritoComponent extends LinearLayout {
         final ViewHolder holder = new ViewHolder(item);
         holder.tviDistrito.setText(distrito.getDescription());
 
-        if (allDistrito != true) {
+        if (!allDistrito && !nearly) {
+            nearlyView.nearlySelected(false);
             List<Distrito> Mydistrito = SessionUser.getDistrosUser(context).getDistritoList();
             for (int i = 0 ; i < Mydistrito.size(); i++){
                 if (distrito.getId_ubigeos().equals(Mydistrito.get(i).getId_ubigeos())){
@@ -90,14 +96,20 @@ public class DistritoComponent extends LinearLayout {
                 }
 
             }
-        }else{
-            List<Distrito> Mydistrito = new ArrayList<>();
-            DistritosSession distritosSession = new DistritosSession();
-            distritosSession.setDistritoList(Mydistrito);
-            SessionUser.saveDistrosUser(context, distritosSession);
+        } else {
+            for(Distrito distritoSelected : distritoList){
+                distritoSelected.setCheck(false);
+            }
+            if(allDistrito){
+                nearlyView.nearlySelected(false);
+                List<Distrito> Mydistrito = new ArrayList<>();
+                DistritosSession distritosSession = new DistritosSession();
+                distritosSession.setDistritoList(Mydistrito);
+                SessionUser.saveDistrosUser(context, distritosSession);
+            } else{
+                nearlyView.nearlySelected(true);
+            }
         }
-
-
 
         holder.rlaRowDistrito.setOnClickListener(new OnClickListener() {
             @Override
@@ -125,9 +137,6 @@ public class DistritoComponent extends LinearLayout {
 
             }
         });
-
-
-
 
         return item;
     }

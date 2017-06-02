@@ -67,12 +67,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.rlaContentRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!actividades.getId_activities().equals("0")){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ID_ACTIVIDAD", actividadesList.get(position).getId_activities() );
+                    Intent intent = new Intent(context, DetailEvent2Activity.class);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
 
-                Bundle bundle = new Bundle();
-                bundle.putString("ID_ACTIVIDAD", actividadesList.get(position).getId_activities() );
-                Intent intent = new Intent(context, DetailEvent2Activity.class);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
 
                /* if (position == 1) {
                     Intent intent = new Intent(context, DetailEvent2Activity.class);
@@ -85,6 +87,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 }*/
             }
         });
+
+        if(actividades.getId_activities().equals("0")){
+            holder.iviClock.setVisibility(View.GONE);
+            holder.tviDate.setVisibility(View.GONE);
+            holder.iviTicket.setVisibility(View.GONE);
+            holder.iviFavorite.setVisibility(View.GONE);
+            holder.tviPrice.setVisibility(View.GONE);
+            holder.tviCategory.setVisibility(View.GONE);
+        } else{
+            holder.iviClock.setVisibility(View.VISIBLE);
+            holder.tviDate.setVisibility(View.VISIBLE);
+            holder.iviTicket.setVisibility(View.VISIBLE);
+            holder.iviFavorite.setVisibility(View.VISIBLE);
+            holder.tviPrice.setVisibility(View.VISIBLE);
+            holder.tviCategory.setVisibility(View.VISIBLE);
+        }
 
         holder.tviNameEvent.setText(actividadesList.get(position).getActivity());
 
