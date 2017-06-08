@@ -3,12 +3,15 @@ package com.letsgo.appletsgo.data.rest;
 import android.content.Context;
 import android.util.Log;
 
+import com.letsgo.appletsgo.data.entity.CompleteUserResponse;
 import com.letsgo.appletsgo.data.entity.response.ActividadesResponse;
 import com.letsgo.appletsgo.data.entity.response.CategoriesResponse;
 import com.letsgo.appletsgo.data.entity.response.DetalleActividadResponse;
 import com.letsgo.appletsgo.data.entity.response.DistritosResponse;
+import com.letsgo.appletsgo.data.entity.response.LoginResponse;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -69,6 +72,12 @@ public class ApiClient {
 
         @GET("cms/api/activities_subtypes_by_types")
         Call<CategoriesResponse> getCategories();
+
+        @POST("cms/api/login_with_facebook")
+        Call<LoginResponse> loginWithFacebook(@Body Object raw);
+
+        @POST("cms/api/edit_users")
+        Call<CompleteUserResponse> completeLoginRegiste(@Body Object raw);
 
 //        @POST("api?action=get_items_temps_15_apps")
 //        Call<ProductResponse> getDetailProduct(@Body Object raw);

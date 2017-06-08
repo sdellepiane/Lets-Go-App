@@ -29,7 +29,7 @@ public class ActividadesEntity implements Serializable{
     private String schedul_time;
     private String price;
     private String path;
-
+    private String advertisements;
 
     public String getId_activities() {
         return id_activities;
@@ -95,6 +95,14 @@ public class ActividadesEntity implements Serializable{
         this.path = path;
     }
 
+    public String getAdvertisements() {
+        return advertisements;
+    }
+
+    public void setAdvertisements(String advertisements) {
+        this.advertisements = advertisements;
+    }
+
     @Override
     public String toString() {
         return "ActividadesEntity{" +
@@ -106,6 +114,7 @@ public class ActividadesEntity implements Serializable{
                 ", schedul_time='" + schedul_time + '\'' +
                 ", price='" + price + '\'' +
                 ", path='" + path + '\'' +
+                ", advertisements='" + advertisements + '\'' +
                 '}';
     }
 }

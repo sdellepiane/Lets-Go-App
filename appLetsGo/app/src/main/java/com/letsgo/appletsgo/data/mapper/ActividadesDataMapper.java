@@ -43,6 +43,7 @@ public class ActividadesDataMapper {
                     actividades.setSchedul_time(actividadesEntity.getSchedul_time());
                     actividades.setType(actividadesEntity.getType());
                     actividades.setPath(actividadesEntity.getPath());
+                    actividades.setAdvertisements(actividadesEntity.getAdvertisements());
                     actividadesList.add(actividades);
                 }catch (Exception e){
 

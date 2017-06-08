@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.letsgo.appletsgo.app.ui.activity.CompleteUserRegisterActivity">
+
+
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:tag="2"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Queremos saber un poco mas de ti"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp" />
+
+    <com.letsgo.appletsgo.app.ui.component.CustomTextView
+        android:id="@+id/tviHappy"
+        android:textSize="16sp"
+        android:background="@drawable/bg_seleccionar"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccione su Cumpleaños"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="82dp" />
+
+    <include
+        android:id="@+id/vHappy"
+        android:visibility="gone"
+        layout="@layout/layout_fecha"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

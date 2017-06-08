@@ -39,6 +39,9 @@ public class Actividades implements Serializable{
 
     private boolean favorite;
 
+    private String advertisements;
+
+
     public int getId() {
         return id;
     }
@@ -119,6 +122,14 @@ public class Actividades implements Serializable{
         this.favorite = favorite;
     }
 
+    public String getAdvertisements() {
+        return advertisements;
+    }
+
+    public void setAdvertisements(String advertisements) {
+        this.advertisements = advertisements;
+    }
+
     @Override
     public String toString() {
         return "Actividades{" +
@@ -132,6 +143,7 @@ public class Actividades implements Serializable{
                 ", price='" + price + '\'' +
                 ", path='" + path + '\'' +
                 ", favorite=" + favorite +
+                ", advertisements='" + advertisements + '\'' +
                 '}';
     }
 }

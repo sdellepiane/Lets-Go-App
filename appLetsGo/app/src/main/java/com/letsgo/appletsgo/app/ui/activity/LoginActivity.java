@@ -1,6 +1,7 @@
 package com.letsgo.appletsgo.app.ui.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -27,8 +28,13 @@ import com.google.gson.Gson;
 import com.letsgo.appletsgo.R;
 import com.letsgo.appletsgo.app.ui.core.BaseAppCompat;
 import com.letsgo.appletsgo.app.utils.LogUtils;
+import com.letsgo.appletsgo.data.entity.raw.LoginRaw;
 import com.letsgo.appletsgo.data.store.SessionUser;
+import com.letsgo.appletsgo.domain.model.entity.CompleteUser;
+import com.letsgo.appletsgo.domain.model.entity.Login;
 import com.letsgo.appletsgo.domain.model.entity.User;
+import com.letsgo.appletsgo.presenter.LoginPresenter;
+import com.letsgo.appletsgo.view.LoginView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +51,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends BaseAppCompat {
+public class LoginActivity extends BaseAppCompat implements LoginView{
     private static final String TAG = "LoginActivity";
 
     private static final int REQUEST_SIGNUP = 0;
@@ -56,11 +62,15 @@ public class LoginActivity extends BaseAppCompat {
 
     CallbackManager callbackManager;
 
+    LoginPresenter loginPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        loginPresenter = new LoginPresenter();
+        loginPresenter.attachedView(this);
 
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
@@ -141,6 +151,15 @@ public class LoginActivity extends BaseAppCompat {
         });
     }
 
+    public void verificationLogin(String idFacebook, String firtName, String lastName, String email){
+        LoginRaw raw = new LoginRaw();
+        raw.setId_facebook(idFacebook);
+        raw.setFirst_name(firtName);
+        raw.setLast_name(lastName);
+        raw.setEmail(email);
+        loginPresenter.setLogin(raw);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -214,6 +233,7 @@ public class LoginActivity extends BaseAppCompat {
                         nextActivity(FilterFirstActivity.class,false);
 
                         //TODO CONSUMIR WS REGISTRO
+                        verificationLogin(idFacebook, f_first_name, f_last_name, f_email);
 
                     } else {
 //                        onLoginFailed("no se pudo recuperar el email de facebook");/
@@ -229,5 +249,30 @@ public class LoginActivity extends BaseAppCompat {
         parameters.putString("fields", "gender,id,name,first_name,last_name,link,email,picture");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void loginFacebook(Login login) {
+
+    }
+
+    @Override
+    public void completeUserRegister(CompleteUser completeUser) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }

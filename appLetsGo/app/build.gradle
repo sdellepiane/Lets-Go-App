@@ -10,7 +10,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        multiDexEnabled  true
+        multiDexEnabled true
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "40e3af3bac4445868c1d29a3681b27fb"]
     }
     buildTypes {

@@ -118,7 +118,8 @@ public class FilterFirstActivity extends BaseAppCompat implements CategoriesView
 
     @Override
     public void saveCategoriesToPreferencesSuccess() {
-        nextActivity(HomeActivity.class, false);
+        //nextActivity(HomeActivity.class, false);
+        nextActivity(CompleteUserRegisterActivity.class, false);
     }
 
     @Override

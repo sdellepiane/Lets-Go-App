@@ -20,12 +20,12 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}" />
 
         <activity
             android:name=".app.ui.activity.SplashActivity"
@@ -82,12 +82,15 @@
             android:name=".app.ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.letsgo" />
-        <activity android:name=".app.ui.activity.FilterOptionActivity"
+        <activity
+            android:name=".app.ui.activity.FilterOptionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.letsgo"/>
-        <activity android:name=".app.ui.activity.FavoritesActivity"
+            android:theme="@style/Base.Theme.letsgo" />
+        <activity
+            android:name=".app.ui.activity.FavoritesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.letsgo"/>
+            android:theme="@style/Base.Theme.letsgo" />
+        <activity android:name=".app.ui.activity.CompleteUserRegisterActivity"></activity>
     </application>
 
 </manifest>

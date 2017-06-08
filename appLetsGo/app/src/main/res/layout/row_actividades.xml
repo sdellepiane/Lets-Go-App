@@ -25,7 +25,6 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/llaSeparador"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
@@ -49,22 +48,33 @@
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="8dp"
             android:layout_marginRight="0dp"
-            android:gravity="center|start">
+            android:gravity="center|start|bottom">
+
+            <com.letsgo.appletsgo.app.ui.component.CustomTextView
+                android:tag=""
+                android:textColor="@color/white"
+                android:id="@+id/tviDesde"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:text="Desde " />
 
             <ImageView
                 android:id="@+id/iviTicket"
                 android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_marginBottom="1dp"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_price" />
 
             <com.letsgo.appletsgo.app.ui.component.CustomTextView
                 android:id="@+id/tviPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
+                android:layout_marginLeft="2dp"
                 android:layout_marginRight="16dp"
-                android:tag="2ç"
-                android:text="S/ 5.00"
+                android:tag="2"
+                android:text="5.00"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
