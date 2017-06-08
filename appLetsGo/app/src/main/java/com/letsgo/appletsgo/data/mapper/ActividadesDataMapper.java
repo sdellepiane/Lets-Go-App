@@ -114,8 +114,9 @@ public class ActividadesDataMapper {
         List<DateGroup> dateGroupList = new ArrayList<>();
         DateGroup dateGroup;
         try {
-            dateGroup = new DateGroup();
+
             for (DateGroupEntity dateGroupEntity : entityList){
+                dateGroup = new DateGroup();
                 dateGroup.setSchedule_date(dateGroupEntity.getSchedule_date());
                 dateGroup.setSchedule_time(transFormTimeGroupWalkingService(dateGroupEntity.getSchedule_time()));
                 dateGroupList.add(dateGroup);

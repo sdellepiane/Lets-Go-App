@@ -45,14 +45,21 @@ public class HorarioComponent extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(String fecha, List<TimesGroup> timesGroupList){
+/*    public void init(String fecha, List<TimesGroup> timesGroupList){
         this.timesGroupList = timesGroupList;
         this.fecha = fecha;
         this.context = context;
         populate();
+    }*/
+
+   public void init(String fecha, List<DateGroup> dateGroupList){
+        this.dateGroupList = dateGroupList;
+        //this.fecha = fecha;
+        this.context = context;
+        populate();
     }
 
-    private void populate(){
+/*    private void populate(){
         int bottom= ScreenUtils.dpToPx(10);
         childrens= new ArrayList<>();
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((FrameLayout.LayoutParams.WRAP_CONTENT), (FrameLayout.LayoutParams.WRAP_CONTENT));
@@ -67,9 +74,32 @@ public class HorarioComponent extends LinearLayout {
             childrens.add(child);
         }
         this.requestLayout();
+    }*/
+
+    public void populate(){
+        int minimaMostrar = this.dateGroupList.size();
+        int bottom= ScreenUtils.dpToPx(10);
+        childrens= new ArrayList<>();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((FrameLayout.LayoutParams.WRAP_CONTENT), (FrameLayout.LayoutParams.WRAP_CONTENT));
+        lp.setMargins(0, 0, bottom, 0);
+        View child;
+        DateGroup dateGroup;
+
+        if (this.dateGroupList.size() > 10)
+            minimaMostrar = 10;
+
+        for (int i = 0 ; i < minimaMostrar ; i++){
+            dateGroup = this.dateGroupList.get(i);
+            for (int j = 0 ; j < dateGroup.getSchedule_time().size() ; j++){
+                child= buildCombosChild(dateGroup.getSchedule_date(), dateGroup.getSchedule_time().get(j));
+                child.setLayoutParams(lp);
+                this.addView(child);
+                childrens.add(child);
+            }
+        }
     }
 
-    private View buildCombosChild(final TimesGroup timesGroup){
+    private View buildCombosChild(String fecha,final  TimesGroup timesGroup){
          int mDay;
          int month;
          int mYear;
@@ -92,7 +122,7 @@ public class HorarioComponent extends LinearLayout {
             e.printStackTrace();
         }
 
-        String dayOfTheWeek = (String) DateFormat.format("EEEE", dt1);
+        String dayOfTheWeek = (String) DateFormat.format("EEE", dt1);
         String day          = (String) DateFormat.format("dd",   dt1);
         String monthString  = (String) DateFormat.format("MMM",  dt1);
         String monthNumber  = (String) DateFormat.format("MM",   dt1);

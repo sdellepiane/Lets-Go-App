@@ -72,6 +72,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by louislopez on 14/02/17.
@@ -398,6 +399,11 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         textView.setTypeface(tf);
     }
 
+    @OnClick(R.id.iviSearch)
+    public void onClickIviSearch(){
+        nextActivity(CompleteUserRegisterActivity.class, true);
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -563,6 +569,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
                     }
                 }
             } else{
+                subcategoriesList = new ArrayList<>();
                 subcategoriesList.add(new Subcategories());
                 categoriesRaw.setFilterSubtypes(subcategoriesRawList);
             }

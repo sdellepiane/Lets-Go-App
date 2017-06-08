@@ -228,7 +228,12 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
         tviDescripcion.setText(detalleActividades.getLong_description());
         tviNamePlace.setText(detalleActividades.getPlaces().get(0).getName_place());
         tviAddressPlace.setText(detalleActividades.getPlaces().get(0).getAddresses());
-        llaHorarioCompoent.init(detalleActividades.getPlaces().get(0).getGroup_date().get(0).getSchedule_date(),detalleActividades.getPlaces().get(0).getGroup_date().get(0).getSchedule_time());
+
+
+        LogUtils.v(TAG, "Horarios: " + detalleActividades.getPlaces().get(0).toString());
+        LogUtils.v(TAG, "Horarios: " + detalleActividades.getPlaces().get(0).getGroup_date().get(0).getSchedule_time());
+
+        llaHorarioCompoent.init(detalleActividades.getPlaces().get(0).getGroup_date().get(0).getSchedule_date(),detalleActividades.getPlaces().get(0).getGroup_date());
 
         if (tviDescripcion.length() < 100 ) {
             tviVerMas.setVisibility(View.GONE);

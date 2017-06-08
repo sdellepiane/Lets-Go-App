@@ -26,6 +26,7 @@ public class CompleteUserRegisterActivity extends BaseAppCompat {
     @BindView(R.id.btnGetHappy)
     Button btnGetHappy;
 
+    String fechaNacimiento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,13 @@ public class CompleteUserRegisterActivity extends BaseAppCompat {
     @OnClick(R.id.btnGetHappy)
     public void onClickBtnGetHappy(){
         SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
-        String inspectiondate = df.format(new Date(datePicker.getYear() - 1900, datePicker.getMonth(), datePicker.getDayOfMonth()));
-        LogUtils.v("Fecha", inspectiondate);
+        fechaNacimiento = df.format(new Date(datePicker.getYear() - 1900, datePicker.getMonth(), datePicker.getDayOfMonth()));
+        LogUtils.v("Fecha", fechaNacimiento);
+    }
+
+    @OnClick(R.id.btnGetHappy)
+    public void getFechaNacimiento(){
+        vHappy.setVisibility(View.GONE);
+        tviHappy.setText(fechaNacimiento);
     }
 }
