@@ -148,52 +148,52 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
 
         //TODO 2017-03-29 19:30:00
-        String input_date= actividadesList.get(position).getSchedul_date();
-        Date dt1 = null;
-        Locale locale = new Locale ( "es" , "ES" );
-        SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd", locale);
+        String input_date= actividades.getSchedul_date();
+        if(input_date.length() > 0){
+            Date dt1 = null;
+            Locale locale = new Locale ( "es" , "ES" );
+            SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd", locale);
 
-        try {
-            dt1=format1.parse(input_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            try {
+                dt1=format1.parse(input_date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            String dayOfTheWeek = (String) DateFormat.format("EEEE", dt1);
+            String day          = (String) DateFormat.format("dd",   dt1);
+            String monthString  = (String) DateFormat.format("MMM",  dt1);
+            String monthNumber  = (String) DateFormat.format("MM",   dt1);
+            String year         = (String) DateFormat.format("yyyy", dt1);
+            String monthNumber2;
+            String day2;
+
+            LogUtils.v(TAG, " dayOfTheWeek: " + dayOfTheWeek);
+            LogUtils.v(TAG, " day: " + day);
+            LogUtils.v(TAG, " monthString: " + monthString);
+            LogUtils.v(TAG, " monthNumber: " + monthNumber);
+            LogUtils.v(TAG, " dayOfTheWeek: " + dayOfTheWeek);
+            LogUtils.v(TAG, " year: " + year);
+            LogUtils.v(TAG, " -------------------------------- ");
+            Calendar cal = Calendar.getInstance();
+            day2  = (String) DateFormat.format("dd",  cal);
+            monthNumber2  = (String) DateFormat.format("MM",  cal);
+            LogUtils.v(TAG, " HOY Calendar mes...: " + monthNumber2);
+            LogUtils.v(TAG, " HOY Calendar dia...: " + day2);
+
+            Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+            LogUtils.v(TAG, " HOY mYear...: " + mYear);
+            LogUtils.v(TAG, " HOY mMonth...: " + mMonth);
+            LogUtils.v(TAG, " HOY mDay...: " + mDay);
+            LogUtils.v(TAG, " -------------------------------- ");
+            if (day.equals(day2))
+                holder.tviDate.setText("Hoy, " + actividadesList.get(position).getSchedul_time());
+            else
+                holder.tviDate.setText(dayOfTheWeek + " " + actividadesList.get(position).getSchedul_time());
         }
-
-        String dayOfTheWeek = (String) DateFormat.format("EEEE", dt1);
-        String day          = (String) DateFormat.format("dd",   dt1);
-        String monthString  = (String) DateFormat.format("MMM",  dt1);
-        String monthNumber  = (String) DateFormat.format("MM",   dt1);
-        String year         = (String) DateFormat.format("yyyy", dt1);
-        String monthNumber2;
-        String day2;
-
-        LogUtils.v(TAG, " dayOfTheWeek: " + dayOfTheWeek);
-        LogUtils.v(TAG, " day: " + day);
-        LogUtils.v(TAG, " monthString: " + monthString);
-        LogUtils.v(TAG, " monthNumber: " + monthNumber);
-        LogUtils.v(TAG, " dayOfTheWeek: " + dayOfTheWeek);
-        LogUtils.v(TAG, " year: " + year);
-        LogUtils.v(TAG, " -------------------------------- ");
-        Calendar cal = Calendar.getInstance();
-        day2  = (String) DateFormat.format("dd",  cal);
-        monthNumber2  = (String) DateFormat.format("MM",  cal);
-        LogUtils.v(TAG, " HOY Calendar mes...: " + monthNumber2);
-        LogUtils.v(TAG, " HOY Calendar dia...: " + day2);
-
-        Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-        LogUtils.v(TAG, " HOY mYear...: " + mYear);
-        LogUtils.v(TAG, " HOY mMonth...: " + mMonth);
-        LogUtils.v(TAG, " HOY mDay...: " + mDay);
-        LogUtils.v(TAG, " -------------------------------- ");
-        if (day.equals(day2))
-            holder.tviDate.setText("Hoy, " + actividadesList.get(position).getSchedul_time());
-        else
-            holder.tviDate.setText(dayOfTheWeek + " " + actividadesList.get(position).getSchedul_time());
-
-
     }
 
     @Override

@@ -563,6 +563,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
                     }
                 }
             } else{
+                subcategoriesList = new ArrayList<>();
                 subcategoriesList.add(new Subcategories());
                 categoriesRaw.setFilterSubtypes(subcategoriesRawList);
             }
