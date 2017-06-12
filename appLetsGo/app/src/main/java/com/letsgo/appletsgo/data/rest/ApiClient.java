@@ -79,6 +79,9 @@ public class ApiClient {
         @POST("cms/api/edit_users")
         Call<CompleteUserResponse> completeLoginRegiste(@Body Object raw);
 
+        @POST("cms/api/ubigeos_lima")
+        Call<DistritosResponse> ubigeoLima();
+
 //        @POST("api?action=get_items_temps_15_apps")
 //        Call<ProductResponse> getDetailProduct(@Body Object raw);
 //

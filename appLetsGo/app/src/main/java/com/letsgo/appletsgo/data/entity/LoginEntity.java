@@ -9,6 +9,8 @@ import java.io.Serializable;
  "first_name" : "",
  "last_name" : "",
  "email" : "",
+ "id_ubigeos": null,
+ "birthdate": null,
  "id_facebook" : "22222222"
  }
  */
@@ -18,6 +20,8 @@ public class LoginEntity implements Serializable{
     private String first_name;
     private String last_name;
     private String email;
+    private String id_ubigeos;
+    private String birthdate;
     private String id_facebook;
 
     public String getId_users() {
@@ -50,6 +54,22 @@ public class LoginEntity implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getId_ubigeos() {
+        return id_ubigeos;
+    }
+
+    public void setId_ubigeos(String id_ubigeos) {
+        this.id_ubigeos = id_ubigeos;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getId_facebook() {

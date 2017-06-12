@@ -11,5 +11,6 @@ import com.letsgo.appletsgo.domain.repository.interactor.RequestCallBackLogin;
 public interface LoginServiceRepository {
     void setLoginReuqest(LoginRaw raw, RequestCallBackLogin requestCallBackLogin);
     void setCompleteUserReuqest(CompleteUserRaw raw, RequestCallBackLogin requestCallBackLogin);
+    void distritos(RequestCallBackLogin requestCallBackLogin);
 
 }

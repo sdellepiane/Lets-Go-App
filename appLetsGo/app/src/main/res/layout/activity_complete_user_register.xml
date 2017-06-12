@@ -8,7 +8,7 @@
 
 
     <com.letsgo.appletsgo.app.ui.component.CustomTextView
-        android:id="@+id/customTextView2"
+        android:id="@+id/tviDistristo"
         android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_marginLeft="16dp"
@@ -22,7 +22,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/tviHappy" />
+        app:layout_constraintTop_toBottomOf="@+id/tviHappy"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <com.letsgo.appletsgo.app.ui.component.CustomTextView
         android:tag="2"
@@ -37,30 +39,104 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <com.letsgo.appletsgo.app.ui.component.CustomTextView
         android:id="@+id/tviHappy"
-        android:textSize="16sp"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/bg_seleccionar"
         android:gravity="center"
         android:padding="10dp"
-        android:layout_width="0dp"
-        android:layout_height="54dp"
         android:text="Ingrese su fecha de cumpleaños"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:layout_marginRight="16dp"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/rlaDistritoLima"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/black_00_transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rviDistritos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.letsgo.appletsgo.app.ui.component.CustomButtonFont
+        android:id="@+id/btnNext"
+        android:background="@drawable/bg_sub_categoria_filtro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="continuar"
+        android:visibility="visible"
+        android:textColor="@color/white"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <include
+        android:id="@+id/vLoading"
+        android:visibility="gone"
+        layout="@layout/layout_loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <include
         android:id="@+id/vHappy"
+        layout="@layout/layout_fecha"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:visibility="gone"
-        layout="@layout/layout_fecha"/>
-
-
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

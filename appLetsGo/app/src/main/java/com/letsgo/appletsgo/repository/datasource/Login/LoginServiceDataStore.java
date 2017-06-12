@@ -12,4 +12,5 @@ public interface LoginServiceDataStore {
 
     void setLogin(LoginRaw raw, RepositoryCallBackLogin repositoryCallBackLogin);
     void setCompleteLogin(CompleteUserRaw raw, RepositoryCallBackLogin repositoryCallBackLogin);
+    void distritos(RepositoryCallBackLogin repositoryCallBackLogin);
 }

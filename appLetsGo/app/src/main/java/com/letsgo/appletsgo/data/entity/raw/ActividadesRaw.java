@@ -19,6 +19,7 @@ public class ActividadesRaw implements Serializable {
     private String longitude;
     private String quantity;
     private String from;
+    private String q;
 
     public String getFilterPublics() {
         return filterPublics;
@@ -106,5 +107,13 @@ public class ActividadesRaw implements Serializable {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getQ() {
+        return q;
+    }
+
+    public void setQ(String q) {
+        this.q = q;
     }
 }

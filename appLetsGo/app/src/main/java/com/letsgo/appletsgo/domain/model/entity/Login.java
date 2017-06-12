@@ -11,6 +11,8 @@ public class Login implements Serializable{
     private String first_name;
     private String last_name;
     private String email;
+    private String id_ubigeos;
+    private String birthdate;
     private String id_facebook;
 
     public String getId_users() {
@@ -45,6 +47,22 @@ public class Login implements Serializable{
         this.email = email;
     }
 
+    public String getId_ubigeos() {
+        return id_ubigeos;
+    }
+
+    public void setId_ubigeos(String id_ubigeos) {
+        this.id_ubigeos = id_ubigeos;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
     public String getId_facebook() {
         return id_facebook;
     }
@@ -60,6 +78,8 @@ public class Login implements Serializable{
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
+                ", id_ubigeos='" + id_ubigeos + '\'' +
+                ", birthdate='" + birthdate + '\'' +
                 ", id_facebook='" + id_facebook + '\'' +
                 '}';
     }

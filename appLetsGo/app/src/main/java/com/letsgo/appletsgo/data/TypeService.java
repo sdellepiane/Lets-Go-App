@@ -10,4 +10,5 @@ public class TypeService {
     public static final  int LISTA_DISTRITO = 3;
     public static final  int LOGIN_FACEBOOK = 4;
     public static final  int COMPLETE_LOGIN = 5;
+    public static final  int DISTRITOS = 6;
 }

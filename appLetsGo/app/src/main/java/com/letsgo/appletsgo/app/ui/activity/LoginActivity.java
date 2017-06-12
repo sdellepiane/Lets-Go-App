@@ -31,6 +31,7 @@ import com.letsgo.appletsgo.app.utils.LogUtils;
 import com.letsgo.appletsgo.data.entity.raw.LoginRaw;
 import com.letsgo.appletsgo.data.store.SessionUser;
 import com.letsgo.appletsgo.domain.model.entity.CompleteUser;
+import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.model.entity.Login;
 import com.letsgo.appletsgo.domain.model.entity.User;
 import com.letsgo.appletsgo.presenter.LoginPresenter;
@@ -46,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -184,14 +186,21 @@ public class LoginActivity extends BaseAppCompat implements LoginView{
             if (resultCode == RESULT_OK) {
                 setResult(RESULT_OK, null);
                 finish();
-                nextActivity(FilterFirstActivity.class, false);
+                //nextActivity(FilterFirstActivity.class, false);
 
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
+    String f_email;
+    String f_name;
+    String f_first_name;
+    String f_last_name;
+    String f_id;
+    String f_gender;
+    String f_birthday;
+    String idFacebook;
     private void verifyExistUser() {
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
@@ -201,13 +210,13 @@ public class LoginActivity extends BaseAppCompat implements LoginView{
                 LogUtils.v(TAG, " object" + object.toString());
                 try {
                     if (json.has("email")) {
-                        final String f_email = json.getString("email");
-                        final String f_name = json.has("name") ? json.getString("name") : "";
-                        final String f_first_name = json.has("first_name") ? json.getString("first_name") : "";
-                        final String f_last_name = json.has("last_name") ? json.getString("last_name") : "";
-                        final String f_id = json.has("id") ? json.getString("id") : "";
-                        final String f_gender = json.has("gender") ? json.getString("gender") : "";
-                        final String f_birthday = json.has("birthday") ? json.getString("birthday") : "";
+                        f_email = json.getString("email");
+                        f_name = json.has("name") ? json.getString("name") : "";
+                        f_first_name = json.has("first_name") ? json.getString("first_name") : "";
+                        f_last_name = json.has("last_name") ? json.getString("last_name") : "";
+                        f_id = json.has("id") ? json.getString("id") : "";
+                        f_gender = json.has("gender") ? json.getString("gender") : "";
+                        f_birthday = json.has("birthday") ? json.getString("birthday") : "";
                         LogUtils.v(TAG, " gender" + f_gender);
                         LogUtils.v(TAG, " f_birthday" + f_birthday);
                         /*HashMap<String, String> parametros = new HashMap();
@@ -218,19 +227,10 @@ public class LoginActivity extends BaseAppCompat implements LoginView{
                         parametros.put("birthday", f_birthday==null?"":f_birthday);
                         parametros.put("id_sessions", SessionManager.getInstance(LoginActivity.this).getAndroidId());*/
 
-                        final String idFacebook = json.getString("id");
+                        idFacebook = json.getString("id");
 
-                        User user = new User();
-                        user.setIdFacebook(idFacebook);
-                        user.setName_complete(f_name);
-                        user.setFirst_name(f_first_name);
-                        user.setLast_name(f_last_name);
-                        user.setName_complete(f_name);
-                        user.setGender(f_gender);
-                        user.setEmail(f_email);
-                        SessionUser.saveSessionUser(getApplicationContext(), user);
-                        LogUtils.v(TAG, " SESSION USER" +   SessionUser.getSessionUser(getApplicationContext()).toString());
-                        nextActivity(FilterFirstActivity.class,false);
+
+                        //nextActivity(FilterFirstActivity.class,false);
 
                         //TODO CONSUMIR WS REGISTRO
                         verificationLogin(idFacebook, f_first_name, f_last_name, f_email);
@@ -258,11 +258,33 @@ public class LoginActivity extends BaseAppCompat implements LoginView{
 
     @Override
     public void loginFacebook(Login login) {
+        LogUtils.v(TAG, " loginFacebook: " + login.toString());
+        User user = new User();
+        user.setIdFacebook(idFacebook);
+        user.setName_complete(f_name);
+        user.setFirst_name(f_first_name);
+        user.setLast_name(f_last_name);
+        user.setName_complete(f_name);
+        user.setGender(f_gender);
+        user.setEmail(f_email);
+        user.setIdUser(login.getId_users());
+        SessionUser.saveSessionUser(getApplicationContext(), user);
 
+        if (login.getId_ubigeos() == ""){
+            LogUtils.v(TAG, " SESSION USER" +   SessionUser.getSessionUser(getApplicationContext()).toString());
+            nextActivity(CompleteUserRegisterActivity.class, false);
+        }else{
+            nextActivity(HomeActivity.class, false);
+        }
     }
 
     @Override
     public void completeUserRegister(CompleteUser completeUser) {
+
+    }
+
+    @Override
+    public void distritosLima(List<Distrito> distritoList) {
 
     }
 

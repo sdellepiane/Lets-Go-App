@@ -3,6 +3,7 @@ package com.letsgo.appletsgo.repository.datasource.Login;
 import com.letsgo.appletsgo.data.entity.CompleteUserResponse;
 import com.letsgo.appletsgo.data.entity.raw.CompleteUserRaw;
 import com.letsgo.appletsgo.data.entity.raw.LoginRaw;
+import com.letsgo.appletsgo.data.entity.response.DistritosResponse;
 import com.letsgo.appletsgo.data.entity.response.LoginResponse;
 import com.letsgo.appletsgo.data.rest.ApiClient;
 import com.letsgo.appletsgo.domain.model.entity.CompleteUser;
@@ -57,6 +58,24 @@ public class CloudLoginSdataStore implements LoginServiceDataStore{
             @Override
             public void onFailure(Call<CompleteUserResponse> call, Throwable t) {
                 repositoryCallBackLogin.onFailure(t);
+            }
+        });
+    }
+
+    @Override
+    public void distritos(final RepositoryCallBackLogin repositoryCallBackLogin) {
+        Call<DistritosResponse> call = restApi.getLetsGoTokenInterface().ubigeoLima();
+        call.enqueue(new Callback<DistritosResponse>() {
+            @Override
+            public void onResponse(Call<DistritosResponse> call, Response<DistritosResponse> response) {
+                DistritosResponse distritosResponse = response.body();
+                if (distritosResponse != null) repositoryCallBackLogin.onSuccess(distritosResponse);
+                else repositoryCallBackLogin.onSuccess(null);
+            }
+
+            @Override
+            public void onFailure(Call<DistritosResponse> call, Throwable t) {
+
             }
         });
     }

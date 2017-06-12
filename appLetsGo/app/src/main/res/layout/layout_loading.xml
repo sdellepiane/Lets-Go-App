@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#88FFFFFF"
+                android:background="@color/black_transparent"
                 android:id="@+id/rlayLoading"
                 android:clickable="true"
-                android:visibility="gone">
+                android:visibility="visible">
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"

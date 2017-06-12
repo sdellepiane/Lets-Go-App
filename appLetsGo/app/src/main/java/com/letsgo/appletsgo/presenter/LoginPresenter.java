@@ -8,12 +8,16 @@ import com.letsgo.appletsgo.data.entity.raw.LoginRaw;
 import com.letsgo.appletsgo.data.mapper.LoginDataMapper;
 import com.letsgo.appletsgo.domain.interactor.LoginInteractor;
 import com.letsgo.appletsgo.domain.model.entity.CompleteUser;
+import com.letsgo.appletsgo.domain.model.entity.Distrito;
 import com.letsgo.appletsgo.domain.model.entity.Login;
 import com.letsgo.appletsgo.domain.repository.LoginServiceRepository;
 import com.letsgo.appletsgo.domain.repository.interactor.RequestCallBackLogin;
 import com.letsgo.appletsgo.repository.Login.LoginDataRepository;
 import com.letsgo.appletsgo.repository.datasource.Login.LoginDataStoreFactory;
 import com.letsgo.appletsgo.view.LoginView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by louislopez on 4/06/17.
@@ -38,6 +42,11 @@ public class LoginPresenter implements Presenter<LoginView>, RequestCallBackLogi
             loginView.showLoading();
             loginInteractor.setCompleteUserRegister(raw, this);
         }
+    }
+
+    public void getDistrito(){
+        loginView.showLoading();
+        loginInteractor.getDistritos(this);
     }
 
     @Override
@@ -76,7 +85,14 @@ public class LoginPresenter implements Presenter<LoginView>, RequestCallBackLogi
                     loginView.completeUserRegister(completeUser);
                 }
                 break;
+            case TypeService.DISTRITOS:
+                List<Distrito> distritoList = (List<Distrito>) object ;
+                if (distritoList != null){
+                    loginView.distritosLima(distritoList);
+                }
+                break;
         }
+        loginView.hideLoading();
     }
 
     @Override
