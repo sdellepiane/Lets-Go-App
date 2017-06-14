@@ -19,6 +19,7 @@ public class DetalleActividades implements Serializable {
     private String business_name;
     private String face_organizer;
     private List<Places> places ;
+    private List<Advertisements> advertisements;
     /* TODO
     "group_date": []
     "prices": []
@@ -113,8 +114,13 @@ public class DetalleActividades implements Serializable {
         this.img = img;
     }
 
+    public List<Advertisements> getAdvertisements() {
+        return advertisements;
+    }
 
-
+    public void setAdvertisements(List<Advertisements> advertisements) {
+        this.advertisements = advertisements;
+    }
 
     @Override
     public String toString() {
@@ -129,6 +135,7 @@ public class DetalleActividades implements Serializable {
                 ", business_name='" + business_name + '\'' +
                 ", face_organizer='" + face_organizer + '\'' +
                 ", places=" + places +
+                ", advertisements=" + advertisements +
                 ", img=" + img +
                 '}';
     }

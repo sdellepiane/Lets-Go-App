@@ -18,6 +18,8 @@ public class PlacesEntity implements Serializable {
     private String id_activities_places;
     private String name_place;
     private String addresses;
+    private String latitude;
+    private String longitude;
     private List<DateGroupEntity>  group_date;
     private List<PricesEntity> prices;
 
@@ -45,6 +47,22 @@ public class PlacesEntity implements Serializable {
         this.addresses = addresses;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     public List<DateGroupEntity> getGroup_date() {
         return group_date;
     }
@@ -67,6 +85,8 @@ public class PlacesEntity implements Serializable {
                 "id_activities_places='" + id_activities_places + '\'' +
                 ", name_place='" + name_place + '\'' +
                 ", addresses='" + addresses + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
                 ", group_date=" + group_date +
                 ", prices=" + prices +
                 '}';

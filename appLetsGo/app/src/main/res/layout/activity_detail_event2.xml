@@ -31,12 +31,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:id="@+id/tabLayout"
+                    android:id="@+id/iviAdvertisements_1"
                     android:background="@color/white"
                     android:src="@drawable/logo_bbva"
                     android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
-                    android:layout_height="46dp"/>
+                    android:layout_height="56dp"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -199,14 +200,14 @@
                 android:layout_height="match_parent"
                 android:visibility="gone" />
             <ImageView
-
+                android:id="@+id/iviAdvertisements_2"
                 android:src="@drawable/publicidad_test"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:layout_below="@id/viewContenedor"
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"/>
+                android:layout_height="wrap_content"/>
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>

@@ -54,6 +54,7 @@ public class DetalleActividadesEntity implements Serializable {
     private String business_name;
     private String face_organizer;
     private List<PlacesEntity> places ;
+    private List<AdvertisementsEntity> advertisements;
     /* TODO
     "group_date": []
     "prices": []
@@ -148,6 +149,14 @@ public class DetalleActividadesEntity implements Serializable {
         this.img = img;
     }
 
+    public List<AdvertisementsEntity> getAdvertisements() {
+        return advertisements;
+    }
+
+    public void setAdvertisements(List<AdvertisementsEntity> advertisements) {
+        this.advertisements = advertisements;
+    }
+
     @Override
     public String toString() {
         return "DetalleActividadesEntity{" +
@@ -161,6 +170,7 @@ public class DetalleActividadesEntity implements Serializable {
                 ", business_name='" + business_name + '\'' +
                 ", face_organizer='" + face_organizer + '\'' +
                 ", places=" + places +
+                ", advertisements=" + advertisements +
                 ", img=" + img +
                 '}';
     }

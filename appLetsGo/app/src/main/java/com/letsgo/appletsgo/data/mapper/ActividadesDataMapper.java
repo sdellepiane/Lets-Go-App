@@ -1,6 +1,7 @@
 package com.letsgo.appletsgo.data.mapper;
 
 import com.letsgo.appletsgo.data.entity.ActividadesEntity;
+import com.letsgo.appletsgo.data.entity.AdvertisementsEntity;
 import com.letsgo.appletsgo.data.entity.DateGroupEntity;
 import com.letsgo.appletsgo.data.entity.DistritoEntity;
 import com.letsgo.appletsgo.data.entity.ImagenesActividadesEntity;
@@ -11,6 +12,7 @@ import com.letsgo.appletsgo.data.entity.response.ActividadesResponse;
 import com.letsgo.appletsgo.data.entity.response.DetalleActividadResponse;
 import com.letsgo.appletsgo.data.entity.response.DistritosResponse;
 import com.letsgo.appletsgo.domain.model.entity.Actividades;
+import com.letsgo.appletsgo.domain.model.entity.Advertisements;
 import com.letsgo.appletsgo.domain.model.entity.DateGroup;
 import com.letsgo.appletsgo.domain.model.entity.DetalleActividades;
 import com.letsgo.appletsgo.domain.model.entity.Distrito;
@@ -65,6 +67,7 @@ public class ActividadesDataMapper {
                 detalleActividades.setLong_description(response.getData().getLong_description());
                 detalleActividades.setImg(transFormImagenesWalkingService(response.getData().getImg()));
                 detalleActividades.setPlaces(transFormPlacesWalkingService(response.getData().getPlaces()));
+                detalleActividades.setAdvertisements(transFormAdvertisementsWalkingService(response.getData().getAdvertisements()));
 
             }catch (Exception e){
 
@@ -97,6 +100,8 @@ public class ActividadesDataMapper {
                 places.setId_activities_places(placesEntity.getId_activities_places());
                 places.setAddresses(placesEntity.getAddresses());
                 places.setName_place(placesEntity.getName_place());
+                places.setLatitude(placesEntity.getLatitude());
+                places.setLongitude(placesEntity.getLongitude());
                 places.setGroup_date(transFormDataGroupWalkingService(placesEntity.getGroup_date()));
                 places.setPrices(transFormPriceWalkingService(placesEntity.getPrices()));
                 placesList.add(places);
@@ -105,9 +110,24 @@ public class ActividadesDataMapper {
         }catch (Exception e){
 
         }
-
-
         return placesList;
+    }
+
+    public List<Advertisements> transFormAdvertisementsWalkingService(List<AdvertisementsEntity> entityList){
+        List<Advertisements> advertisementsList = new ArrayList<>();
+        Advertisements advertisements;
+        try {
+            for (AdvertisementsEntity entity : entityList){
+                advertisements = new Advertisements();
+                advertisements.setDescription(entity.getDescription());
+                advertisements.setLink(entity.getLink());
+                advertisements.setPath(entity.getPath());
+                advertisementsList.add(advertisements);
+            }
+        }catch (Exception e){
+
+        }
+        return advertisementsList;
     }
 
     public List<DateGroup> transFormDataGroupWalkingService(List<DateGroupEntity> entityList){

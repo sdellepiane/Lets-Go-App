@@ -1,6 +1,7 @@
 package com.letsgo.appletsgo.app.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,6 +55,9 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
     @BindView(R.id.appbarLayout) AppBarLayout appbarLayout;
     @BindView(R.id.tviTileToolbar) TextView tviTileToolbar;
     @BindView(R.id.tviTileBanner) TextView tviTileBanner;
+    @BindView(R.id.iviAdvertisements_1) ImageView iviAdvertisements_1;
+    @BindView(R.id.iviAdvertisements_2) ImageView iviAdvertisements_2;
+    @BindView(R.id.iviMenu) ImageView iviMenu;
     @BindView(R.id.iviImagen) ImageView iviImagen;
     @BindView(R.id.iviFavorite) ImageView iviFavorite;
     @BindView(R.id.iviShared) ImageView iviShared;
@@ -66,6 +71,7 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
     @BindView(R.id.viewContenedor) View viewContenedor;
     @BindView(R.id.btnEntradas) Button btnEntradas;
     @BindView(R.id.rlaLoading) RelativeLayout viewLoading;
+    @BindView(R.id.llaMap) LinearLayout llaMap;
     @BindView(R.id.llaHorarioCompoent) HorarioComponent llaHorarioCompoent;
     @BindView(R.id.llaPrecioComponent) PreciosComponent llaPrecioComponent;
 
@@ -75,6 +81,9 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
 
     CallbackManager callbackManager;
     ShareDialog shareDialog;
+
+    String longitude;
+    String latitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,6 +189,34 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
         }
     }
 
+    @OnClick(R.id.iviMenu)
+    public void onClickIviMenu(){
+        onBackPressed();
+    }
+
+    @OnClick(R.id.llaMap)
+    public void initMap(){
+        String uri = "http://maps.google.com/maps?q=loc:"+latitude+","+longitude;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+        intent.setData(Uri.parse(uri));
+        startActivity(intent);
+
+//        try
+//        {
+//            String url = "waze://?q=Hawaii";
+//            Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
+//            startActivity( intent );
+//        }
+//        catch ( ActivityNotFoundException ex  )
+//        {
+//            Intent intent =
+//                    new Intent( Intent.ACTION_VIEW, Uri.parse( "market://details?id=com.waze" ) );
+//            startActivity(intent);
+//        }
+    }
+
     @OnClick(R.id.iviSharedInImagen)
     public void setbannerShared(){
         sharedEventFacebook();
@@ -215,11 +252,24 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
 
     @Override
     public void detalleActividad(DetalleActividades detalleActividades) {
+        latitude = detalleActividades.getPlaces().get(0).getLatitude();
+        longitude = detalleActividades.getPlaces().get(0).getLongitude();
         LogUtils.v(TAG, detalleActividades.toString());
         Picasso.with(this)
                 .load(detalleActividades.getImg().get(0).getPath())
                 .placeholder(R.drawable.place_holder)
                 .into(iviImagen);
+
+        Picasso.with(this)
+                .load(detalleActividades.getAdvertisements().get(0).getPath())
+                .placeholder(R.drawable.place_holder)
+                .into(iviAdvertisements_1);
+
+        Picasso.with(this)
+                .load(detalleActividades.getAdvertisements().get(1).getPath())
+                .placeholder(R.drawable.place_holder)
+                .into(iviAdvertisements_2);
+
 
         collapsingToolbarLayout.setTitle(detalleActividades.getActivity());
         tviTileBanner.setText(detalleActividades.getActivity());
@@ -247,6 +297,7 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
             btnEntradas.setText("ENTRADAS");
             llaPrecioComponent.init(detalleActividades.getPlaces().get(0).getPrices());
         }
+
 
     }
 
