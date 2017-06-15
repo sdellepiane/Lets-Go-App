@@ -11,6 +11,7 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -50,6 +51,7 @@ import com.letsgo.appletsgo.app.utils.RecyclerTouchListener;
 import com.letsgo.appletsgo.app.utils.ScreenUtils;
 import com.letsgo.appletsgo.data.entity.raw.ActividadesRaw;
 import com.letsgo.appletsgo.data.entity.raw.CategoriesRaw;
+import com.letsgo.appletsgo.data.entity.raw.FilterDateRaw;
 import com.letsgo.appletsgo.data.entity.raw.PlacesRaw;
 import com.letsgo.appletsgo.data.entity.raw.SubcategoriesRaw;
 import com.letsgo.appletsgo.data.entity.raw.filterPlacesRaw;
@@ -67,8 +69,11 @@ import com.letsgo.appletsgo.view.ActividadesView;
 import com.letsgo.appletsgo.view.NearlyView;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -492,7 +497,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     @Override
     public void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences) {
         this.categoriesToPreferences = categoriesToPreferences;
-        actividadesRaw = generateActividadesRaw("", 0, "", "", "", "", "", "");
+        actividadesRaw = generateActividadesRaw("", "", "", "", "", "", "", "");
         validateFiltroDistrito();
         actividadesRaw.setFilterPrices("3");
         actividadesRaw.setFilterPublics(actividadesRaw.getFilterPublics());
@@ -544,7 +549,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     }
 
     private ActividadesRaw generateActividadesRaw(String free,
-                                                  int dateDays, String date_since, String date_until,
+                                                  String dateDays, String date_since, String date_until,
                                                   String latitude, String longitude, String quantity,
                                                   String from){
         ActividadesRaw actividadesRaw = new ActividadesRaw();
@@ -683,5 +688,34 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
                 }
                 break;
         }
+    }
+
+    @OnClick(R.id.fabToday)
+    public void todayClick(){
+        Locale locale = new Locale("es", "ES");
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd", locale);
+        String currentDateandTime = format1.format(new Date());
+        FilterDateRaw filterDateRaw = new FilterDateRaw();
+        filterDateRaw.setDate_since(currentDateandTime);
+        filterDateRaw.setDate_until(currentDateandTime);
+        actividadesRaw.setFilterDate(filterDateRaw);
+        actividadesRaw.setDate_days("");
+        actividadesPresenter.listCatalog(actividadesRaw);
+        famCalendar.close(true);
+    }
+
+    @OnClick(R.id.fabThisWeek)
+    public void thisWeekClick(){
+        FilterDateRaw filterDateRaw = new FilterDateRaw();
+        actividadesRaw.setFilterDate(filterDateRaw);
+        actividadesRaw.setDate_days("7");
+        actividadesPresenter.listCatalog(actividadesRaw);
+        famCalendar.close(true);
+    }
+
+    @OnClick(R.id.fabSelectDate)
+    public void selectDateClick(){
+        nextActivity(DateSelectActivity.class, true);
+        famCalendar.close(true);
     }
 }

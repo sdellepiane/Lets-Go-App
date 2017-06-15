@@ -12,7 +12,8 @@ public class ActividadesRaw implements Serializable {
     private List<CategoriesRaw> filterTypes;
     private String filterPrices;
     private List<PlacesRaw> filterPlaces;
-    private int date_days;
+    private FilterDateRaw filterDate;
+    private String date_days;
     private String date_since;
     private String date_until;
     private String latitude;
@@ -53,11 +54,11 @@ public class ActividadesRaw implements Serializable {
         this.filterPlaces = filterPlaces;
     }
 
-    public int getDate_days() {
+    public String getDate_days() {
         return date_days;
     }
 
-    public void setDate_days(int date_days) {
+    public void setDate_days(String date_days) {
         this.date_days = date_days;
     }
 
@@ -115,5 +116,13 @@ public class ActividadesRaw implements Serializable {
 
     public void setQ(String q) {
         this.q = q;
+    }
+
+    public FilterDateRaw getFilterDate() {
+        return filterDate;
+    }
+
+    public void setFilterDate(FilterDateRaw filterDate) {
+        this.filterDate = filterDate;
     }
 }

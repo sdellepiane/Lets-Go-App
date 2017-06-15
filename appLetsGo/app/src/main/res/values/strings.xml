@@ -56,5 +56,7 @@
     <string name="sAllDistricts">Todos los Distritos</string>
     <string name="sNearly">Cercanos</string>
     <string name="sChooseYourDistrict">Escoge tu distrito</string>
+    <string name="sSelectSinceDate">Escoja su fecha inicial</string>
+    <string name="sSelectUntilDate">Escoja su fecha final</string>
 
 </resources>

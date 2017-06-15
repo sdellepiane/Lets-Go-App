@@ -30,6 +30,7 @@
         android:layout_centerHorizontal="true">
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabSelectDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/school_calendar"
@@ -37,6 +38,7 @@
             fab:fab_label="@string/select_date" />
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabThisWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/school_calendar"
@@ -44,6 +46,7 @@
             fab:fab_label="@string/this_week" />
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabToday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/school_calendar"
