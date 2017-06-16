@@ -58,5 +58,7 @@
     <string name="sChooseYourDistrict">Escoge tu distrito</string>
     <string name="sSelectSinceDate">Escoja su fecha inicial</string>
     <string name="sSelectUntilDate">Escoja su fecha final</string>
+    <string name="sSelect">Seleccionar</string>
+    <string name="sNotSelectUntilDate">Debe seleccionsr la fecha final</string>
 
 </resources>

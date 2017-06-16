@@ -90,6 +90,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
     private static final int REQUEST_CHECK_SETTINGS = 0x1;
+    private static final int REQUEST_CODE_SELECT_DATES = 2;
 
     @BindView(R.id.famCalendar) FloatingActionMenu famCalendar;
     @BindView(R.id.rviEvents) RecyclerView rviEvents;
@@ -497,7 +498,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     @Override
     public void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences) {
         this.categoriesToPreferences = categoriesToPreferences;
-        actividadesRaw = generateActividadesRaw("", "", "", "", "", "", "", "");
+        actividadesRaw = generateActividadesRaw("", "", "", "", "", "");
         validateFiltroDistrito();
         actividadesRaw.setFilterPrices("3");
         actividadesRaw.setFilterPublics(actividadesRaw.getFilterPublics());
@@ -549,7 +550,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     }
 
     private ActividadesRaw generateActividadesRaw(String free,
-                                                  String dateDays, String date_since, String date_until,
+                                                  String dateDays,
                                                   String latitude, String longitude, String quantity,
                                                   String from){
         ActividadesRaw actividadesRaw = new ActividadesRaw();
@@ -583,8 +584,6 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         actividadesRaw.setFilterTypes(categoriesRawList);
         actividadesRaw.setFilterPrices(free);
         actividadesRaw.setDate_days(dateDays);
-        actividadesRaw.setDate_since(date_since);
-        actividadesRaw.setDate_until(date_until);
         actividadesRaw.setLatitude(latitude);
         actividadesRaw.setLongitude(longitude);
         actividadesRaw.setQuantity(quantity);
@@ -687,6 +686,20 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
                         break;
                 }
                 break;
+            case REQUEST_CODE_SELECT_DATES:
+                if(resultCode == 2){
+                    String sinceDate = data.getStringExtra("sinceDate");
+                    String untilDate = data.getStringExtra("untilDate");
+                    FilterDateRaw filterDateRaw = new FilterDateRaw();
+                    filterDateRaw.setDate_since(sinceDate);
+                    filterDateRaw.setDate_until(untilDate);
+                    List<FilterDateRaw> filterDateRawList = new ArrayList<>();
+                    filterDateRawList.add(filterDateRaw);
+                    actividadesRaw.setFilterDate(filterDateRawList);
+                    actividadesRaw.setDate_days("");
+                    actividadesPresenter.listCatalog(actividadesRaw);
+                }
+                break;
         }
     }
 
@@ -698,7 +711,9 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         FilterDateRaw filterDateRaw = new FilterDateRaw();
         filterDateRaw.setDate_since(currentDateandTime);
         filterDateRaw.setDate_until(currentDateandTime);
-        actividadesRaw.setFilterDate(filterDateRaw);
+        List<FilterDateRaw> filterDateRawList = new ArrayList<>();
+        filterDateRawList.add(filterDateRaw);
+        actividadesRaw.setFilterDate(filterDateRawList);
         actividadesRaw.setDate_days("");
         actividadesPresenter.listCatalog(actividadesRaw);
         famCalendar.close(true);
@@ -707,7 +722,9 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     @OnClick(R.id.fabThisWeek)
     public void thisWeekClick(){
         FilterDateRaw filterDateRaw = new FilterDateRaw();
-        actividadesRaw.setFilterDate(filterDateRaw);
+        List<FilterDateRaw> filterDateRawList = new ArrayList<>();
+        filterDateRawList.add(filterDateRaw);
+        actividadesRaw.setFilterDate(new ArrayList<FilterDateRaw>());
         actividadesRaw.setDate_days("7");
         actividadesPresenter.listCatalog(actividadesRaw);
         famCalendar.close(true);
@@ -715,7 +732,8 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
 
     @OnClick(R.id.fabSelectDate)
     public void selectDateClick(){
-        nextActivity(DateSelectActivity.class, true);
+        Intent intent = new Intent(HomeActivity.this, DateSelectActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_SELECT_DATES);
         famCalendar.close(true);
     }
 }
