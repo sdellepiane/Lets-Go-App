@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         fab:menu_icon="@drawable/school_calendar"
         android:layout_gravity="bottom|end"
-        fab:menu_colorNormal="@color/bg_facebook_two"
+        fab:menu_colorNormal="@color/colorPrimary"
         fab:menu_fab_size="normal"
         fab:menu_animationDelayPerItem="0"
         fab:menu_backgroundColor="#A6000000"
@@ -35,7 +35,10 @@
             android:layout_height="wrap_content"
             android:src="@drawable/school_calendar"
             style="@style/MenuButtonsStyle"
-            fab:fab_label="@string/select_date" />
+            fab:fab_label="@string/select_date"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_colorPressed="@color/colorAccent"
+            fab:fab_colorRipple="@color/colorAccent"/>
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fabThisWeek"
@@ -43,6 +46,9 @@
             android:layout_height="wrap_content"
             android:src="@drawable/school_calendar"
             style="@style/MenuButtonsStyle"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_colorPressed="@color/colorAccent"
+            fab:fab_colorRipple="@color/colorAccent"
             fab:fab_label="@string/this_week" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -50,6 +56,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/school_calendar"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_colorPressed="@color/colorAccent"
+            fab:fab_colorRipple="@color/colorAccent"
             style="@style/MenuButtonsStyle"
             fab:fab_label="@string/today"/>
 
