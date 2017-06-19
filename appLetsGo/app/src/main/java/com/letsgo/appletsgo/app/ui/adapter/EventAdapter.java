@@ -72,6 +72,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                     if (!actividades.getId_activities().equals("0")) {
                         Bundle bundle = new Bundle();
                         bundle.putString("ID_ACTIVIDAD", actividadesList.get(position).getId_activities());
+                        bundle.putSerializable("ÄCTIVIDAD", actividades);
                         Intent intent = new Intent(context, DetailEvent2Activity.class);
                         intent.putExtras(bundle);
                         context.startActivity(intent);
@@ -212,7 +213,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                     if (day.equals(day2))
                         holder.tviDate.setText("Hoy, " + _12HourSDF.format(_24HourDt));
                     else
-                        holder.tviDate.setText(dayOfTheWeek + " " + _12HourSDF.format(_24HourDt));
+                        holder.tviDate.setText(dayOfTheWeek + " " +  day + " " + monthString+ " " + _12HourSDF.format(_24HourDt) );
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

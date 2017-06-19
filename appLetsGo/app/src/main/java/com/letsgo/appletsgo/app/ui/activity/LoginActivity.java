@@ -274,7 +274,7 @@ public class LoginActivity extends BaseAppCompat implements LoginView{
             LogUtils.v(TAG, " SESSION USER" +   SessionUser.getSessionUser(getApplicationContext()).toString());
             nextActivity(CompleteUserRegisterActivity.class, false);
         }else{
-            nextActivity(HomeActivity.class, false);
+            nextActivity(FilterFirstActivity.class, false);
         }
     }
 

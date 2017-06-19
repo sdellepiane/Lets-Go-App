@@ -90,12 +90,15 @@
             android:name=".app.ui.activity.FavoritesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.letsgo" />
-        <activity android:name=".app.ui.activity.CompleteUserRegisterActivity"
+        <activity
+            android:name=".app.ui.activity.CompleteUserRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.letsgo" />
-        <activity android:name=".app.ui.activity.DateSelectActivity"
+        <activity
+            android:name=".app.ui.activity.DateSelectActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.letsgo"/>
+            android:theme="@style/Base.Theme.letsgo" />
+        <activity android:name=".app.ui.activity.SearchActivity"></activity>
     </application>
 
 </manifest>

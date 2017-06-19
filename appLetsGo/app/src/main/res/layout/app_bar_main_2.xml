@@ -7,6 +7,9 @@
     android:layout_height="match_parent"
     tools:context="com.letsgo.appletsgo.app.ui.activity.MainActivity">
 
+
+
+
     <include
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/include"
@@ -71,6 +74,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <RelativeLayout
+
             android:id="@+id/rlaHeadToolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,6 +125,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:visibility="visible"
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"

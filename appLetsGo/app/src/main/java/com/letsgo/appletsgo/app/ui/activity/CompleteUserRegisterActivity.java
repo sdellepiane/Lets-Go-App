@@ -115,7 +115,7 @@ public class CompleteUserRegisterActivity extends BaseAppCompat implements Login
             CompleteUserRaw raw = new CompleteUserRaw();
             raw.setId_users(SessionUser.getSessionUser(this).getIdUser());
             raw.setId_ubigeos(idUbigeo);
-            raw.setBirthdate(fechaNacimiento);
+            raw.setBirthdate(fechaNacimiento.replace(" ", "-"));
             loginPresenter.setCompleteUserRegister(raw);
         }else{
             snackBarError("Por favor, complete campos", rviDistritos);

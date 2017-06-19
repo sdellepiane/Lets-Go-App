@@ -53,6 +53,7 @@ public class DetalleActividadesEntity implements Serializable {
     private String web_organizer;
     private String business_name;
     private String face_organizer;
+    private String url_event;
     private List<PlacesEntity> places ;
     private List<AdvertisementsEntity> advertisements;
     /* TODO
@@ -131,6 +132,14 @@ public class DetalleActividadesEntity implements Serializable {
 
     public void setFace_organizer(String face_organizer) {
         this.face_organizer = face_organizer;
+    }
+
+    public String getUrl_event() {
+        return url_event;
+    }
+
+    public void setUrl_event(String url_event) {
+        this.url_event = url_event;
     }
 
     public List<PlacesEntity> getPlaces() {

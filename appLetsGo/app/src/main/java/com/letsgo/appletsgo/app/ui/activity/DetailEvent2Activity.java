@@ -60,6 +60,7 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
     @BindView(R.id.iviMenu) ImageView iviMenu;
     @BindView(R.id.iviImagen) ImageView iviImagen;
     @BindView(R.id.iviFavorite) ImageView iviFavorite;
+    @BindView(R.id.iviFavorite2) ImageView iviFavorite2;
     @BindView(R.id.iviShared) ImageView iviShared;
     @BindView(R.id.iviSharedInImagen) ImageView iviSharedInImagen;
     @BindView(R.id.tviCategory) TextView tviCategory;
@@ -81,9 +82,13 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
 
     CallbackManager callbackManager;
     ShareDialog shareDialog;
-
+    Actividades actividades = new Actividades();
+    DetalleActividades detalleActividades = new DetalleActividades();
+    private Actividades favorite;
     String longitude;
     String latitude;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,7 +134,7 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
             }
         });
 
-        initOnclickListenerViews(tviVerMas, iviFavorite);
+        initOnclickListenerViews(tviVerMas, iviFavorite, iviFavorite2);
         initPresenter();
 
         setSupportActionBar(toolbar);
@@ -141,6 +146,7 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
     public void initPresenter(){
         Bundle extras = getIntent().getExtras();
         String id_actividad = extras.getString("ID_ACTIVIDAD");
+        actividades = (Actividades) extras.getSerializable("ÄCTIVIDAD");
         actividadesPresenter = new ActividadesPresenter();
         actividadesPresenter.attachedView(this);
 
@@ -163,8 +169,9 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentTitle("Hello Facebook")
                     .setContentDescription(
-                            "Lets Go, sample  showcases simple Facebook integration")
-                    .setContentUrl(Uri.parse("https://www.facebook.com/CINESCAPE.PERU/?fref=ts"))
+                            "Lets Go")
+                    .setContentUrl(Uri.parse(detalleActividades.getUrl_event()))
+//                    .setContentUrl(Uri.parse("https://www.facebook.com/CINESCAPE.PERU/?fref=ts"))
                     .build();
 
             shareDialog.show(linkContent);
@@ -184,7 +191,17 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
                 }
                 break;
             case R.id.iviFavorite:
+            case R.id.iviFavorite2:
                 LogUtils.v(TAG, "CLICK FAVORITE");
+                if (actividades.isFavorite()) {
+                    iviFavorite.setImageResource(R.drawable.ic_favorite_24dp);
+                    iviFavorite2.setImageResource(R.drawable.ic_favorite_24dp);
+                    deleteFavorite(actividades, Integer.parseInt(actividades.getId_activities()));
+                } else {
+                    iviFavorite.setImageResource(R.drawable.ic_favorite_red);
+                    iviFavorite2.setImageResource(R.drawable.ic_favorite_red);
+                    saveFavorite(actividades);
+                }
                 break;
         }
     }
@@ -252,6 +269,7 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
 
     @Override
     public void detalleActividad(DetalleActividades detalleActividades) {
+        this.detalleActividades = detalleActividades;
         latitude = detalleActividades.getPlaces().get(0).getLatitude();
         longitude = detalleActividades.getPlaces().get(0).getLongitude();
         LogUtils.v(TAG, detalleActividades.toString());
@@ -334,12 +352,14 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
 
     @Override
     public void saveFavorite(Actividades actividades) {
-
+        this.favorite = actividades;
+        actividadesPresenter.saveFavorite(actividades);
     }
 
     @Override
     public void deleteFavorite(Actividades actividades, int actividadId) {
-
+        this.favorite = actividades;
+        actividadesPresenter.deleteFavorite(actividadId);
     }
 
     @Override
@@ -349,12 +369,14 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
 
     @Override
     public void saveFavoriteSuccess() {
-
+        this.favorite.setFavorite(true);
+        //eventAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void deleteFavoriteSuccess() {
-
+        this.favorite.setFavorite(false);
+        //eventAdapter.notifyDataSetChanged();
     }
 
     @Override

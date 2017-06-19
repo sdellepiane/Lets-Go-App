@@ -66,6 +66,7 @@ public class ActividadesDataMapper {
                 detalleActividades.setSubtypes(response.getData().getSubtypes());
                 detalleActividades.setLong_description(response.getData().getLong_description());
                 detalleActividades.setImg(transFormImagenesWalkingService(response.getData().getImg()));
+                detalleActividades.setUrl_event(response.getData().getUrl_event());
                 detalleActividades.setPlaces(transFormPlacesWalkingService(response.getData().getPlaces()));
                 detalleActividades.setAdvertisements(transFormAdvertisementsWalkingService(response.getData().getAdvertisements()));
 

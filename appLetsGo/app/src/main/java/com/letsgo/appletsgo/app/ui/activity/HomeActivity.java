@@ -1,5 +1,6 @@
 package com.letsgo.appletsgo.app.ui.activity;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -7,12 +8,14 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -84,44 +88,81 @@ import butterknife.OnClick;
  */
 
 public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ActividadesView,
-        NearlyView, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
-    private static String TAG = "HomeActivity" ;
+        NearlyView, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+    private static String TAG = "HomeActivity";
 
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
     private static final int REQUEST_CHECK_SETTINGS = 0x1;
     private static final int REQUEST_CODE_SELECT_DATES = 2;
+    private boolean VALIDATE_CHANGES = false;
 
-    @BindView(R.id.famCalendar) FloatingActionMenu famCalendar;
-    @BindView(R.id.rviEvents) RecyclerView rviEvents;
-    @BindView(R.id.tviNoData) TextView tviNoData;
-    @BindView(R.id.drawer_layout)   DrawerLayout drawer;
-    @BindView(R.id.nav_view) NavigationView navigationView;
-    @BindView(R.id.iviLogo) ImageView iviLogo;
-    @BindView(R.id.iviMenu) ImageView iviMenu;
+    @BindView(R.id.famCalendar)
+    FloatingActionMenu famCalendar;
+    @BindView(R.id.rviEvents)
+    RecyclerView rviEvents;
+    @BindView(R.id.tviNoData)
+    TextView tviNoData;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+    @BindView(R.id.iviLogo)
+    ImageView iviLogo;
+    @BindView(R.id.iviMenu)
+    ImageView iviMenu;
 
-    @BindView(R.id.rlaDistrito) RelativeLayout rlaDistrito;
-    @BindView(R.id.rlaAllDistrito) RelativeLayout rlaAllDistrito;
-    @BindView(R.id.rlaNearly) RelativeLayout rlaNearly;
-    @BindView(R.id.tviFiltros) TextView tviFiltros;
-    @BindView(R.id.tviAceptarFilterDistrito) TextView tviAceptarFilterDistrito;
-    @BindView(R.id.tviFree) TextView tviFree;
-    @BindView(R.id.tviDistrito) TextView tviDistrito;
-    @BindView(R.id.tviCancelarDialogDistrito) TextView tviCancelarDialogDistrito;
-    @BindView(R.id.rlaBtnDistrito) RelativeLayout rlaBtnDistrito;
-    @BindView(R.id.rlaFilterAll) RelativeLayout rlaFilterAll;
-    @BindView(R.id.viewLoading) ProgressBar viewLoading;
+    @BindView(R.id.rlaDistrito)
+    RelativeLayout rlaDistrito;
+    @BindView(R.id.rlaAllDistrito)
+    RelativeLayout rlaAllDistrito;
+    @BindView(R.id.rlaNearly)
+    RelativeLayout rlaNearly;
+    @BindView(R.id.tviFiltros)
+    TextView tviFiltros;
+    @BindView(R.id.tviAceptarFilterDistrito)
+    TextView tviAceptarFilterDistrito;
+    @BindView(R.id.tviFree)
+    TextView tviFree;
+    @BindView(R.id.tviDistrito)
+    TextView tviDistrito;
+    @BindView(R.id.tviCancelarDialogDistrito)
+    TextView tviCancelarDialogDistrito;
+    @BindView(R.id.rlaBtnDistrito)
+    RelativeLayout rlaBtnDistrito;
+    @BindView(R.id.rlaFilterAll)
+    RelativeLayout rlaFilterAll;
+    @BindView(R.id.viewLoading)
+    ProgressBar viewLoading;
 
-    @BindView(R.id.rlaFree) RelativeLayout rlaFree;
+    @BindView(R.id.rlaFree)
+    RelativeLayout rlaFree;
 
-    @BindView(R.id.llaLinearFree) LinearLayout llaLinearFree;
-    @BindView(R.id.llaLinearFilter) LinearLayout llaLinearFilter;
-    @BindView(R.id.llaDistritoComponent) DistritoComponent llaDistritoComponent;
-    @BindView(R.id.tviAllDistrito) TextView tviAllDistrito;
-    @BindView(R.id.iviCheckAllDistrito) ImageView iviCheckAllDistrito;
-    @BindView(R.id.iviCheckNearly) ImageView iviCheckNearly;
-    @BindView(R.id.tviQuantityFilter) TextView tviQuantityFilter;
-    @BindView(R.id.iviLike) ImageView iviLike;
+    @BindView(R.id.llaLinearFree)
+    LinearLayout llaLinearFree;
+    @BindView(R.id.llaLinearFilter)
+    LinearLayout llaLinearFilter;
+    @BindView(R.id.llaDistritoComponent)
+    DistritoComponent llaDistritoComponent;
+    @BindView(R.id.tviAllDistrito)
+    TextView tviAllDistrito;
+    @BindView(R.id.iviCheckAllDistrito)
+    ImageView iviCheckAllDistrito;
+    @BindView(R.id.iviCheckNearly)
+    ImageView iviCheckNearly;
+    @BindView(R.id.tviQuantityFilter)
+    TextView tviQuantityFilter;
+    @BindView(R.id.iviLike)
+    ImageView iviLike;
+
+
+    //TODO  BUSCARDOR
+    @BindView(R.id.eteSearch)
+    EditText eteSearch;
+    @BindView(R.id.rlaBack)
+    RelativeLayout rlaBack;
+    @BindView(R.id.rlaSearch)
+    RelativeLayout rlaSearch;
 
 
     private ImageView iviPerfil;
@@ -163,7 +204,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-    public void initUI(){
+    public void initUI() {
         nearlyView = this;
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
@@ -179,12 +220,12 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         navigationView.setCheckedItem(R.id.nav_MeEvents);
         user = SessionUser.getSessionUser(this);
 
-        Point deviceSize= ScreenUtils.getDeviceDimention(this);
-        int deviceW= deviceSize.x;
-        String url = "https://graph.facebook.com/" + user.getIdFacebook()+ "/picture?type=large&width="+deviceW;
+        Point deviceSize = ScreenUtils.getDeviceDimention(this);
+        int deviceW = deviceSize.x;
+        String url = "https://graph.facebook.com/" + user.getIdFacebook() + "/picture?type=large&width=" + deviceW;
         Picasso.with(getApplicationContext())
                 .load(url)
-                .resize(500,500)
+                .resize(500, 500)
                 .placeholder(R.drawable.place_holder)
                 .transform(new CircleTransform())
                 .into(iviPerfil);
@@ -208,7 +249,10 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     @Override
     protected void onPause() {
         super.onPause();
+        LogUtils.v(TAG, "PAUSE");
+        VALIDATE_CHANGES = true;
         stopLocationUpdates();
+
     }
 
     private void createCustomAnimation() {
@@ -241,12 +285,12 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         famCalendar.setIconToggleAnimatorSet(set);
     }
 
-    public void llenarDisteito(){
+    public void llenarDisteito() {
       /*  this.distritoList = distritoList;
         llaDistritoComponent.init();*/
     }
 
-    public void validateFiltroDistrito(){
+    public void validateFiltroDistrito() {
         List<Distrito> distritoList = null;
         List<PlacesRaw> placesRawList = new ArrayList<>();
         distritoList = sessionUser.getDistrosUser(this).getDistritoList();
@@ -268,27 +312,27 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
             } else
                 tviDistrito.setText("Distrito");
             actividadesRaw.setFilterPlaces(placesRawList);
-        } else{
+        } else {
             PlacesRaw placesRaw = new PlacesRaw();
             placesRawList.add(placesRaw);
             actividadesRaw.setFilterPlaces(placesRawList);
         }
-        if(nearlySelected){
+        if (nearlySelected) {
             actividadesRaw.setLatitude(String.valueOf(mCurrentLocation.getLatitude()));
             actividadesRaw.setLongitude(String.valueOf(mCurrentLocation.getLongitude()));
-        } else{
+        } else {
             actividadesRaw.setLatitude(String.valueOf(""));
             actividadesRaw.setLongitude(String.valueOf(""));
         }
     }
 
-    public void initPresenter(){
+    public void initPresenter() {
         actividadesPresenter = new ActividadesPresenter();
         actividadesPresenter.attachedView(this);
         actividadesPresenter.getCategoriesFromPreferences();
     }
 
-    public void initViewEvents(){
+    public void initViewEvents() {
         rviEvents.setHasFixedSize(true);
         rviEvents.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rviEvents.addOnItemTouchListener(new RecyclerTouchListener(this, rviEvents, new RecyclerClickListener() {
@@ -304,12 +348,11 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         }));
 
 
-
     }
 
-    public List<PlacesRaw> filterDistritos(List<filterPlacesRaw> distritos){
+    public List<PlacesRaw> filterDistritos(List<filterPlacesRaw> distritos) {
         List<PlacesRaw> placesRawList = new ArrayList<>();
-        for(filterPlacesRaw filterPlacesRaw : distritos){
+        for (filterPlacesRaw filterPlacesRaw : distritos) {
             PlacesRaw placesRaw = new PlacesRaw();
             placesRaw.setId(Integer.parseInt(filterPlacesRaw.getId()));
             placesRawList.add(placesRaw);
@@ -338,7 +381,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
 
                 break;
             case R.id.rlaFilterAll:
-                if (llaLinearFilter.getVisibility()==View.VISIBLE){
+                if (llaLinearFilter.getVisibility() == View.VISIBLE) {
                     nextActivity(FilterOptionActivity.class, true);
                 } else {
                     rviEvents.removeAllViews();
@@ -387,16 +430,21 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     }
 
 
-
-    private void changeTextHeader(TextView textView, int type){
+    private void changeTextHeader(TextView textView, int type) {
         String font = "";
         try {
-            switch (type){
-                case 1: font = "fonts/Roboto-Light.ttf";break;
-                case 2: font = "fonts/Roboto-Medium.ttf";break;
-                case 3: font = "fonts/Roboto-Bold.ttf";break;
+            switch (type) {
+                case 1:
+                    font = "fonts/Roboto-Light.ttf";
+                    break;
+                case 2:
+                    font = "fonts/Roboto-Medium.ttf";
+                    break;
+                case 3:
+                    font = "fonts/Roboto-Bold.ttf";
+                    break;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             font = "fonts/Roboto-Regular.ttf";
         }
 
@@ -406,17 +454,19 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     }
 
     @OnClick(R.id.iviSearch)
-    public void onClickIviSearch(){
-        nextActivity(CompleteUserRegisterActivity.class, true);
+    public void onClickIviSearch() {
+        nextActivity(SearchActivity.class, true);
+//        vSearch.setVisibility(View.VISIBLE);
+//        tabLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }else if(rlaDistrito.getVisibility() == View.VISIBLE){
+        } else if (rlaDistrito.getVisibility() == View.VISIBLE) {
             rlaDistrito.setVisibility(View.GONE);
-        }else{
+        } else {
             super.onBackPressed();
         }
     }
@@ -429,16 +479,16 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
 
 
         if (id == R.id.nav_MeEvents) {
-            LogUtils.v(TAG, " click menu activiades" );
+            LogUtils.v(TAG, " click menu activiades");
             // Handle the camera action
         } else if (id == R.id.nav_perfil) {
-            LogUtils.v(TAG, " click menu perfil" );
+            LogUtils.v(TAG, " click menu perfil");
             nextActivity(MyPerfilActivity.class, true);
         } else if (id == R.id.nav_email) {
             nextActivity(ContactActivity.class, true);
 
         } else if (id == R.id.nav_logout) {
-            LogUtils.v(TAG, " click Cerrar Sesion" );
+            LogUtils.v(TAG, " click Cerrar Sesion");
             User user = new User();
             user.setIdFacebook("");
             SessionUser.saveSessionUser(getApplicationContext(), user);
@@ -453,7 +503,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
 
     @Override
     public void getActividades(List<Actividades> tiendaList) {
-        LogUtils.v(TAG, " Lista actividades" + tiendaList.toString() );
+        LogUtils.v(TAG, " Lista actividades" + tiendaList.toString());
         actividadesList = tiendaList;
         actividadesPresenter.assignFavorites(this.actividadesList);
     }
@@ -498,7 +548,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     @Override
     public void getCategoriesFromPreferences(CategoriesToPreferences categoriesToPreferences) {
         this.categoriesToPreferences = categoriesToPreferences;
-        actividadesRaw = generateActividadesRaw("", "", "", "", "", "");
+        actividadesRaw = generateActividadesRaw("", "", "", "", "100", "");
         validateFiltroDistrito();
         actividadesRaw.setFilterPrices("3");
         actividadesRaw.setFilterPublics(actividadesRaw.getFilterPublics());
@@ -552,29 +602,29 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     private ActividadesRaw generateActividadesRaw(String free,
                                                   String dateDays,
                                                   String latitude, String longitude, String quantity,
-                                                  String from){
+                                                  String from) {
         ActividadesRaw actividadesRaw = new ActividadesRaw();
         actividadesRaw.setFilterPublics(String.valueOf(categoriesToPreferences.getPublicType()));
         List<Categories> categoriesList = categoriesToPreferences.getCategoriesList();
         tviQuantityFilter.setText(String.valueOf(categoriesList.size()));
         List<CategoriesRaw> categoriesRawList = new ArrayList<>();
-        for(Categories categories : categoriesList){
+        for (Categories categories : categoriesList) {
             CategoriesRaw categoriesRaw = new CategoriesRaw();
             categoriesRaw.setId(categories.getId_activities_types());
             List<Subcategories> subcategoriesList = categories.getSubcategoriesList();
             List<SubcategoriesRaw> subcategoriesRawList = new ArrayList<>();
-            if(subcategoriesList != null){
-                for(Subcategories subcategories : subcategoriesList){
-                    if(subcategories.getId_activities_subtypes() == 0){
+            if (subcategoriesList != null) {
+                for (Subcategories subcategories : subcategoriesList) {
+                    if (subcategories.getId_activities_subtypes() == 0) {
                         subcategoriesList.add(new Subcategories());
                         categoriesRaw.setFilterSubtypes(subcategoriesRawList);
-                    } else{
+                    } else {
                         SubcategoriesRaw subcategoriesRaw = new SubcategoriesRaw();
                         subcategoriesRaw.setId(subcategories.getId_activities_subtypes());
                         subcategoriesRawList.add(subcategoriesRaw);
                     }
                 }
-            } else{
+            } else {
                 subcategoriesList = new ArrayList<>();
                 subcategoriesList.add(new Subcategories());
                 categoriesRaw.setFilterSubtypes(subcategoriesRawList);
@@ -617,6 +667,16 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
     }
 
     protected void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, mLocationRequest, this);
     }
 
@@ -736,4 +796,36 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         startActivityForResult(intent, REQUEST_CODE_SELECT_DATES);
         famCalendar.close(true);
     }
+
+
+//    ///METODOS DEL BUSCADOR
+//    @BindView(R.id.tabLayout) LinearLayout tabLayout;
+//    @BindView(R.id.vSearch) View vSearch;
+//
+//    @OnClick(R.id.rlaBack)
+//    public void onClickBack(){
+//        tabLayout.setVisibility(View.VISIBLE);
+//        vSearch.setVisibility(View.GONE);
+//        initPresenter();
+//    }
+//
+//    @OnClick(R.id.rlaSearch)
+//    public void onClickSearchEvents(){
+//        rviEvents.removeAllViews();
+//        actividadesList = new ArrayList<>();
+//        actividadesRaw.setQ(eteSearch.getText().toString());
+//        actividadesPresenter.listCatalog(actividadesRaw);
+//    }
+//
+//
+//
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtils.v(TAG, "RESUME");
+        if (VALIDATE_CHANGES == true){
+            initPresenter();
+        }
+    }
+
 }

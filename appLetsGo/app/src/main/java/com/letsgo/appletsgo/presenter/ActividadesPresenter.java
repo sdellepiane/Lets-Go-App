@@ -53,6 +53,8 @@ public class ActividadesPresenter implements Presenter<ActividadesView>, Request
         actividadesInteractor.getCategoriesFromPreferences(this);
     }
 
+
+
     public void saveFavorite(Actividades actividades){
         actividadesView.showLoading();
         actividadesInteractor.saveFavoriteInteractor(actividades, this);
