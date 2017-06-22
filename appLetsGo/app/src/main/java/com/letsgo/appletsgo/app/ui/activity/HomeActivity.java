@@ -20,6 +20,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -29,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.common.ConnectionResult;
@@ -575,7 +577,9 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
 
     @Override
     public void assignFavorites(List<Actividades> actividadesList) {
-        this.actividadesList = actividadesList;
+        Toast toast= Toast.makeText(HomeActivity.this, "Se encontraron " + actividadesList.size() + " eventos", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP, 0, 0);
+        toast.show();
         eventAdapter = new EventAdapter(this, this.actividadesList, this);
         rviEvents.setAdapter(eventAdapter);
         tviNoData.setVisibility(View.GONE);

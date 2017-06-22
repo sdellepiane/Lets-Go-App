@@ -312,7 +312,7 @@ public class FilterOptionActivity extends BaseAppCompat implements CategoriesVie
                             initSubcontentLinearLayout();
                             for (int j = 0; j < subcategoriesList.size(); j++) {
                                 final Subcategories subcategories = subcategoriesList.get(j);
-                                if (j > 0 && j % 4 == 0) {
+                                if (j > 0 && j % 3 == 0) {
                                     subLinearLayout.addView(subcontentLinearLayout);
                                     initSubcontentLinearLayout();
                                 }
