@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -494,6 +495,7 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
             User user = new User();
             user.setIdFacebook("");
             SessionUser.saveSessionUser(getApplicationContext(), user);
+            LoginManager.getInstance().logOut();
             nextActivity(LoginActivity.class, false);
         }
 
@@ -508,6 +510,8 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         LogUtils.v(TAG, " Lista actividades" + tiendaList.toString());
         actividadesList = tiendaList;
         actividadesPresenter.assignFavorites(this.actividadesList);
+        navigationView.bringToFront();
+        navigationView.requestLayout();
     }
 
     @Override
@@ -828,6 +832,8 @@ public class HomeActivity extends BaseAppCompat implements NavigationView.OnNavi
         super.onResume();
         LogUtils.v(TAG, "RESUME");
         if (VALIDATE_CHANGES == true){
+            llaLinearFilter.setVisibility(View.VISIBLE);
+            llaLinearFree.setVisibility(View.GONE);
             initPresenter();
         }
     }

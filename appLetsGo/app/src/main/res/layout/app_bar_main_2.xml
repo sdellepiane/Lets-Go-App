@@ -96,12 +96,13 @@
 
                 <ImageView
                     android:id="@+id/iviLogo"
-                    android:layout_width="59dp"
-                    android:layout_height="20dp"
+                    android:layout_width="79dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/iviMenu"
                     android:layout_marginLeft="16dp"
+                    android:adjustViewBounds="true"
                     android:layout_toEndOf="@+id/iviMenu"
-                    android:src="@drawable/lets_go" />
+                    android:src="@drawable/hackuchik" />
 
                 <ImageView
                     android:id="@+id/iviLike"

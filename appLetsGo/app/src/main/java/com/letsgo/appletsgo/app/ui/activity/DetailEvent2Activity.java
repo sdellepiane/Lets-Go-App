@@ -278,7 +278,7 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
                 .placeholder(R.drawable.place_holder)
                 .into(iviImagen);
 
-        Picasso.with(this)
+        /*Picasso.with(this)
                 .load(detalleActividades.getAdvertisements().get(0).getPath())
                 .placeholder(R.drawable.place_holder)
                 .into(iviAdvertisements_1);
@@ -286,7 +286,7 @@ public class DetailEvent2Activity extends BaseAppCompat implements ActividadesVi
         Picasso.with(this)
                 .load(detalleActividades.getAdvertisements().get(1).getPath())
                 .placeholder(R.drawable.place_holder)
-                .into(iviAdvertisements_2);
+                .into(iviAdvertisements_2);*/
 
 
         collapsingToolbarLayout.setTitle(detalleActividades.getActivity());

@@ -141,7 +141,7 @@ public class LoginActivity extends BaseAppCompat implements LoginView{
 
             @Override
             public void onCancel() {
-
+                String r = "hola";
             }
 
             @Override

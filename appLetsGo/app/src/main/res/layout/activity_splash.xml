@@ -15,7 +15,7 @@
         android:layout_alignParentStart="true" />
 
     <ImageView
-        android:src="@drawable/lets_go"
+        android:src="@drawable/hackuchik"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_centerVertical="true"
